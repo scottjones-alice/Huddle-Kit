@@ -1,0 +1,42 @@
+{
+  "name": "@huddlekit/backend",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "start": "tsx --env-file-if-exists=../../.env src/index.ts"
+  },
+  "dependencies": {
+    "@alice/authentication": "workspace:*",
+    "@alice/authorization": "workspace:*",
+    "@alice/database": "workspace:*",
+    "@alice/emails": "workspace:*",
+    "@alice/environment": "workspace:*",
+    "@alice/notifications": "workspace:*",
+    "@alice/payments": "workspace:*",
+    "@alice/storage": "workspace:*",
+    "@asteasolutions/zod-to-openapi": "catalog:",
+    "@hono/node-server": "catalog:",
+    "@hono/zod-openapi": "catalog:",
+    "@scalar/hono-api-reference": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "drizzle-orm": "catalog:",
+    "hono": "catalog:",
+    "hono-pino": "catalog:",
+    "openapi3-ts": "catalog:",
+    "pino": "catalog:",
+    "pino-pretty": "catalog:",
+    "resend": "catalog:",
+    "stoker": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
