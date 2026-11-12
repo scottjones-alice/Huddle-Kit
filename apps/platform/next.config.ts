@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
     rules: {
       "*.css": {
         as: "*.css",
+        // Preserve CSS Module exports instead of treating them as global CSS.
+        condition: { not: { path: "*.module.css" } },
         loaders: ["@tailwindcss/turbopack"],
       },
     },

@@ -181,7 +181,7 @@ export default function LoadingPreview() {
           Mobile splash
         </Text>
         <View style={styles.splashPreview}>
-          <FootballSplash key={splashKey} ready={ready}>
+          <FootballSplash key={splashKey} paused={paused} ready={ready}>
             <View style={styles.readyScreen}>
               <Text style={styles.readyMark}>✓</Text>
               <Text style={styles.title}>Ready for kick-off.</Text>

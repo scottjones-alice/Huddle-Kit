@@ -20,18 +20,23 @@
 }
 
 .illustration {
+  aspect-ratio: 480 / 326;
+  flex: 0 1 auto;
+  min-height: 0;
   width: min(100%, 27rem);
 }
 .match {
   --match-duration: 8s;
+  aspect-ratio: 480 / 326;
 }
 .scene {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: visible;
 }
 .copy {
+  flex-shrink: 0;
   width: min(100%, 20rem);
 }
 .eyebrow {
@@ -120,7 +125,8 @@
   font-variant-numeric: tabular-nums;
 }
 .wordmark {
-  margin: 0 0 2rem;
+  flex-shrink: 0;
+  margin: 0 0 0.5rem;
   color: #f6f7ed;
   font-size: 2rem;
   font-weight: 750;
@@ -130,7 +136,8 @@
   color: #d4ff00;
 }
 .tagline {
-  margin: 3.5rem 0 0;
+  flex-shrink: 0;
+  margin: 1rem 0 0;
   color: #87988d;
   font-size: 0.65rem;
   letter-spacing: 0.06em;
@@ -221,7 +228,7 @@
 .playerBody {
   animation: football-run 0.55s ease-in-out infinite alternate;
 }
-.player:nth-child(even) .playerBody {
+.player[data-team="away"] .playerBody {
   animation-delay: -0.25s;
 }
 .player {

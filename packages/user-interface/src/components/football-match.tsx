@@ -33,7 +33,6 @@ function MiniPlayer({ player }: { player: (typeof PLAYERS)[number] }) {
         <ellipse cy="8" fill="#092c20" opacity="0.25" rx="12" ry="4" />
         <g className={styles.playerBody}>
           <path
-            className={styles.leg}
             d="M-4 0v8m8-8v8"
             stroke="#f5f4e9"
             strokeLinecap="round"

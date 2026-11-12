@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
     rules: {
       "*.css": {
         as: "*.css",
+        // Shared components use CSS Modules as well as global Tailwind styles.
+        condition: { not: { path: "*.module.css" } },
         loaders: ["@tailwindcss/turbopack"],
       },
     },

@@ -21,10 +21,15 @@ interface FootballSplashProps {
   children: ReactNode;
   /** Set this from real boot readiness: fonts, session restoration, or initial data. */
   ready: boolean;
+  paused?: boolean;
 }
 
 /** Mount the app underneath the loader so it can finish preparing without a timer. */
-export function FootballSplash({ children, ready }: FootballSplashProps) {
+export function FootballSplash({
+  children,
+  ready,
+  paused = false,
+}: FootballSplashProps) {
   const [dismissed, setDismissed] = useState(ready);
   const opacity = useAnimatedValue(1);
   const reducedMotion = useReducedMotion();
@@ -50,18 +55,24 @@ export function FootballSplash({ children, ready }: FootballSplashProps) {
   return (
     <View style={styles.container}>
       <View
-        accessibilityElementsHidden={!dismissed}
-        importantForAccessibility={dismissed ? "auto" : "no-hide-descendants"}
-        pointerEvents={dismissed ? "auto" : "none"}
+        accessibilityElementsHidden={!ready}
+        importantForAccessibility={ready ? "auto" : "no-hide-descendants"}
+        pointerEvents={ready ? "auto" : "none"}
         style={styles.container}
       >
         {children}
       </View>
       {!dismissed && (
-        <Animated.View style={[styles.overlay, { opacity }]}>
+        <Animated.View
+          accessibilityElementsHidden={ready}
+          importantForAccessibility={ready ? "no-hide-descendants" : "auto"}
+          pointerEvents={ready ? "none" : "auto"}
+          style={[styles.overlay, { opacity }]}
+        >
           <FootballLoader
             description="Your club, coming together."
             label="Getting the team ready"
+            paused={paused || ready}
             variant="splash"
           />
         </Animated.View>

@@ -19,6 +19,8 @@ const SCENE_WIDTH = 320;
 const SCENE_HEIGHT = 220;
 const MATCH_DURATION = 8400;
 const MATCH_TIMES = [0, 0.2, 0.4, 0.6, 0.68, 0.8, 0.9, 1];
+// Reset the ball only after it has faded out at the goal.
+const BALL_TIMES = [0, 0.2, 0.4, 0.6, 0.68, 0.86, 0.9, 1];
 const STRIPES = [0, 1, 2, 3, 4, 5, 6, 7];
 const PLAYERS = [
   {
@@ -321,7 +323,7 @@ const styles = StyleSheet.create({
     color: "#a3b1a6",
     fontSize: 9,
     letterSpacing: 2,
-    marginTop: 64,
+    marginTop: 32,
     textAlign: "center",
   },
   touchline: {
@@ -339,7 +341,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "800",
     letterSpacing: -1.5,
-    marginBottom: 56,
+    marginBottom: 24,
   },
   wordmarkDot: { color: LIME },
 });
@@ -456,13 +458,13 @@ function FootballPitch({
               transform: [
                 {
                   translateX: clock.interpolate({
-                    inputRange: MATCH_TIMES,
+                    inputRange: BALL_TIMES,
                     outputRange: [125, 155, 224, 283, 296, 296, 125, 125],
                   }),
                 },
                 {
                   translateY: clock.interpolate({
-                    inputRange: MATCH_TIMES,
+                    inputRange: BALL_TIMES,
                     outputRange: [124, 74, 121, 105, 105, 105, 124, 124],
                   }),
                 },
@@ -510,10 +512,12 @@ export function FootballLoader({
   );
   const reducedMotion = useReducedMotion();
   const { width } = useWindowDimensions();
+  const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const compact = variant === "inline";
+  const availableWidth = containerWidth ?? width;
   const scale = compact
-    ? 0.44
-    : Math.min(1, Math.max(0.3, (width - 48) / SCENE_WIDTH));
+    ? Math.min(0.44, (availableWidth * 0.38) / SCENE_WIDTH)
+    : Math.min(1, Math.max(0.1, (availableWidth - 48) / SCENE_WIDTH));
   const actualProgress =
     progress !== undefined && Number.isFinite(progress)
       ? Math.round(Math.min(100, Math.max(0, progress)))
@@ -557,6 +561,9 @@ export function FootballLoader({
 
   return (
     <View
+      onLayout={(event) => {
+        setContainerWidth(event.nativeEvent.layout.width);
+      }}
       style={[
         styles.container,
         compact && styles.compact,
