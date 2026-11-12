@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 
 import { addExamples } from "./openapi-examples";
 
@@ -68,5 +69,21 @@ describe(addExamples, () => {
       example: "mine",
       type: "string",
     });
+  });
+
+  it("writes a sample that matches a hash pattern, and cleans the pattern", () => {
+    const document = documentWith({
+      pattern: "^[0-9a-f]{64}$/u",
+      type: "string",
+    });
+    addExamples(document);
+    const schema = z
+      .object({ examples: z.array(z.string()), pattern: z.string() })
+      .parse(examplesOf(document));
+
+    expect(schema.pattern).toBe("^[0-9a-f]{64}$");
+    expect(
+      new RegExp(schema.pattern, "u").test(schema.examples[0] ?? "")
+    ).toBeTruthy();
   });
 });

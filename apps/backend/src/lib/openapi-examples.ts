@@ -49,7 +49,29 @@ const typeOf = (schema: JsonObject): string | undefined => {
   return typeof type === "string" ? type : undefined;
 };
 
+/** zod writes a regex flag into the pattern text (`...$/u`), which no string can match. */
+const TRAILING_FLAGS = /\/[a-z]+$/u;
+const HEX_PATTERN = /^\^\[0-9a-f\]\{(?<length>\d+)\}\$$/u;
+const HEX_DIGITS = "0123456789abcdef";
+
+/** A sample for the few patterns we know how to satisfy, such as a SHA-256 hash. */
+const patternSample = (pattern: string): string | undefined => {
+  const length = HEX_PATTERN.exec(pattern)?.groups?.length;
+  return length === undefined
+    ? undefined
+    : HEX_DIGITS.repeat(Math.ceil(Number(length) / HEX_DIGITS.length)).slice(
+        0,
+        Number(length)
+      );
+};
+
 const stringSample = (schema: JsonObject): string => {
+  if (typeof schema.pattern === "string") {
+    const fromPattern = patternSample(schema.pattern);
+    if (fromPattern !== undefined) {
+      return fromPattern;
+    }
+  }
   const { format } = schema;
   const sample =
     typeof format === "string"
@@ -146,6 +168,9 @@ const exampleOf = (schema: unknown): Json => {
 const fillSchema = (schema: unknown): void => {
   if (!isObject(schema) || typeof schema.$ref === "string") {
     return;
+  }
+  if (typeof schema.pattern === "string") {
+    schema.pattern = schema.pattern.replace(TRAILING_FLAGS, "");
   }
   if (!("examples" in schema) && !("example" in schema)) {
     schema.examples = [exampleOf(schema)];
