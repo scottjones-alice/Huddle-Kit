@@ -1,3 +1,4 @@
+/* oxlint-disable vitest/max-expects -- each test walks one whole scenario and checks every step of it */
 import { feeCharges, payments, people } from "@alice/database";
 import { eq } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -29,6 +30,25 @@ const chargesBody = z.object({
     })
   ),
 });
+
+interface Requester {
+  request: (
+    method: string,
+    path: string,
+    body?: unknown
+  ) => Promise<{ body: unknown; status: number }>;
+}
+
+const chargesOf = async (member: Requester, path: string) => {
+  const response = await member.request("GET", path);
+  return chargesBody.parse(response.body);
+};
+
+const consentsBody = z.object({ consents: z.array(idBody) });
+const consentsOf = async (member: Requester, personId: string) => {
+  const response = await member.request("GET", `/people/${personId}/consents`);
+  return consentsBody.parse(response.body);
+};
 
 const setup = async () =>
   await createTestClub(router, {
@@ -155,12 +175,8 @@ describe("fees, registrations and consents (real Postgres)", () => {
 
   it("shows a parent only their own child's charge", async () => {
     const { parent, treasurer } = club.people;
-    const mine = chargesBody.parse(
-      (await parent.request("GET", "/charges")).body
-    );
-    const all = chargesBody.parse(
-      (await treasurer.request("GET", "/charges")).body
-    );
+    const mine = await chargesOf(parent, "/charges");
+    const all = await chargesOf(treasurer, "/charges");
 
     expect(mine.charges).toHaveLength(1);
     expect(all.charges).toHaveLength(2);
@@ -179,9 +195,7 @@ describe("fees, registrations and consents (real Postgres)", () => {
 
   it("marks a charge paid when payments cover it and refuses overpaying", async () => {
     const { parent, treasurer } = club.people;
-    const listed = chargesBody.parse(
-      (await parent.request("GET", "/charges")).body
-    );
+    const listed = await chargesOf(parent, "/charges");
     const chargeId = listed.charges[0]?.charge.id ?? "";
     const path = `/charges/${chargeId}/payments`;
     const byParent = await parent.request("POST", path, {
@@ -201,9 +215,7 @@ describe("fees, registrations and consents (real Postgres)", () => {
       method: "bank_transfer",
       reference: "BACS-1",
     });
-    const after = chargesBody.parse(
-      (await parent.request("GET", "/charges")).body
-    );
+    const after = await chargesOf(parent, "/charges");
     const rows = await testDb
       .select()
       .from(payments)
@@ -231,9 +243,7 @@ describe("fees, registrations and consents (real Postgres)", () => {
 
   it("waives a charge only with a reason and keeps it on record", async () => {
     const { treasurer } = club.people;
-    const all = chargesBody.parse(
-      (await treasurer.request("GET", "/charges?status=due")).body
-    );
+    const all = await chargesOf(treasurer, "/charges?status=due");
     const chargeId = all.charges[0]?.charge.id ?? "";
     const noReason = await treasurer.request(
       "POST",
@@ -334,9 +344,7 @@ describe("fees, registrations and consents (real Postgres)", () => {
 
   it("withdraws consent but keeps the record, and then allows a new grant", async () => {
     const { parent } = club.people;
-    const listed = z
-      .object({ consents: z.array(idBody) })
-      .parse((await parent.request("GET", `/people/${childId}/consents`)).body);
+    const listed = await consentsOf(parent, childId);
     const consentId = listed.consents[0]?.id ?? "";
     const out = await parent.request(
       "POST",
@@ -355,9 +363,7 @@ describe("fees, registrations and consents (real Postgres)", () => {
         type: "photo_video",
       }
     );
-    const history = z
-      .object({ consents: z.array(z.unknown()) })
-      .parse((await parent.request("GET", `/people/${childId}/consents`)).body);
+    const history = await consentsOf(parent, childId);
 
     expect(out.status).toBe(200);
     expect(again.status).toBe(409);
