@@ -11,7 +11,7 @@ import type {
   RoleAssignmentRole,
   RoleAssignmentScope,
 } from "@alice/database";
-import { and, asc, desc, eq, inArray, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 
 import { conflict, invalid, notFound } from "@/lib/app-error";
 import { isUniqueViolation } from "@/lib/sql-errors";
@@ -169,7 +169,8 @@ export const endRole = async (
 ) => {
   const [row] = await db
     .update(roleAssignments)
-    .set({ endsAt: new Date() })
+    // The database's clock, never earlier than the start: a job ended the moment it began is valid.
+    .set({ endsAt: sql`greatest(now(), ${roleAssignments.startsAt})` })
     .where(
       and(
         eq(roleAssignments.organizationId, organizationId),

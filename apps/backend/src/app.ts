@@ -17,8 +17,10 @@ import internal from "@/routes/internal/internal.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
 import opponents from "@/routes/opponents/opponents.index";
 import payments from "@/routes/payments/payments.index";
+import people from "@/routes/people/people.index";
 import roles from "@/routes/roles/roles.index";
 import root from "@/routes/root/root.index";
+import teams from "@/routes/teams/teams.index";
 import venues from "@/routes/venues/venues.index";
 import connectWebhook from "@/routes/webhooks/connect-webhook";
 import { auth } from "@/services/auth";
@@ -85,7 +87,9 @@ const routes = [
   onboarding,
   opponents,
   payments,
+  people,
   roles,
+  teams,
   venues,
 ] as const;
 
@@ -96,7 +100,9 @@ app.route(API_PREFIX, files);
 app.route(API_PREFIX, onboarding);
 app.route(API_PREFIX, opponents);
 app.route(API_PREFIX, payments);
+app.route(API_PREFIX, people);
 app.route(API_PREFIX, roles);
+app.route(API_PREFIX, teams);
 app.route(API_PREFIX, venues);
 app.route(API_PREFIX, connectWebhook);
 app.route(API_PREFIX, internal);

@@ -62,6 +62,15 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Venues",
       },
       {
+        description:
+          "Members, children and guardians. Everyone sees their own family; admins see all.",
+        name: "People",
+      },
+      {
+        description: "Seasons, teams and who plays for them.",
+        name: "Teams",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },

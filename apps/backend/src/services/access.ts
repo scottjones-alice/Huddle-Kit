@@ -1,11 +1,13 @@
-import { members, roleAssignments } from "@alice/database";
+import { members, roleAssignmentTeams, roleAssignments } from "@alice/database";
 import type { Database, RoleAssignmentRole } from "@alice/database";
-import { and, eq, gt, isNull, or } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, or } from "drizzle-orm";
 
 import { forbidden } from "@/lib/app-error";
 
 /** Who is calling, and what that lets them do in the active club. */
 export interface Caller {
+  /** A coaching job that covers every team. */
+  clubWideCoaching: boolean;
   /** True for the club's owners and admins, and people holding the admin or secretary job. */
   isManager: boolean;
   /** Jobs they hold right now (coach, welfare officer, and so on). */
@@ -13,6 +15,8 @@ export interface Caller {
   /** Better Auth roles in this club (owner, admin, member). */
   memberRoles: ReadonlySet<string>;
   organizationId: string;
+  /** Teams a team-limited coaching job covers. Empty when none are limited. */
+  scopedTeamIds: ReadonlySet<string>;
   userId: string;
 }
 
@@ -56,7 +60,11 @@ export const loadCaller = async (
         )
       ),
     db
-      .select({ role: roleAssignments.role })
+      .select({
+        id: roleAssignments.id,
+        role: roleAssignments.role,
+        scope: roleAssignments.scope,
+      })
       .from(roleAssignments)
       .where(
         and(
@@ -76,12 +84,29 @@ export const loadCaller = async (
     memberRows.flatMap((row) => row.role.split(",").map((r) => r.trim()))
   );
   const jobs = new Set(jobRows.map((row) => row.role));
+  const limitedIds: string[] = [];
+  for (const row of jobRows) {
+    if (row.scope === "teams" && COACHING_JOBS.has(row.role)) {
+      limitedIds.push(row.id);
+    }
+  }
+  const links =
+    limitedIds.length === 0
+      ? []
+      : await db
+          .select({ teamId: roleAssignmentTeams.teamId })
+          .from(roleAssignmentTeams)
+          .where(inArray(roleAssignmentTeams.roleAssignmentId, limitedIds));
   return {
+    clubWideCoaching: jobRows.some(
+      (row) => row.scope === "organization" && COACHING_JOBS.has(row.role)
+    ),
     isManager:
       hasAny(memberRoles, MANAGER_MEMBER_ROLES) || hasAny(jobs, MANAGER_JOBS),
     jobs,
     memberRoles,
     organizationId,
+    scopedTeamIds: new Set(links.map((link) => link.teamId)),
     userId,
   };
 };
@@ -115,3 +140,12 @@ export const requireSafeguardingAccess = (caller: Caller): void => {
 /** Managers and anyone holding a coaching job. */
 export const isCoachOrManager = (caller: Caller): boolean =>
   caller.isManager || hasAny(caller.jobs, COACHING_JOBS);
+
+/**
+ * Managers, anyone with a club-wide coaching job, and coaches whose job names
+ * this team. A coach limited to other teams cannot change this one.
+ */
+export const canCoachTeam = (caller: Caller, teamId: string): boolean =>
+  caller.isManager ||
+  caller.clubWideCoaching ||
+  caller.scopedTeamIds.has(teamId);

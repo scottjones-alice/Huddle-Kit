@@ -5,8 +5,10 @@ import * as files from "./files/files.route";
 import * as onboarding from "./onboarding/onboarding.route";
 import * as opponents from "./opponents/opponents.route";
 import * as payments from "./payments/payments.route";
+import * as people from "./people/people.route";
 import * as roles from "./roles/roles.route";
 import { rootRoute } from "./root/root.route";
+import * as teams from "./teams/teams.route";
 import * as venues from "./venues/venues.route";
 
 /**
@@ -20,7 +22,9 @@ const modules: Record<string, unknown>[] = [
   onboarding,
   opponents,
   payments,
+  people,
   roles,
+  teams,
   venues,
   { rootRoute },
 ];
