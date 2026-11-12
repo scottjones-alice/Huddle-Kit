@@ -1,0 +1,39 @@
+{
+  "name": "@alice/database",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Database client, schema and queries.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./keys": "./src/keys.ts",
+    "./validation": "./src/validation.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:diagram": "tsx scripts/generate-dbml.ts",
+    "db:push": "drizzle-kit push",
+    "dev": "drizzle-kit studio",
+    "test": "vitest run --exclude \"tests/integration/**\" --exclude \"node_modules/**\"",
+    "test:integration": "vitest run tests/integration"
+  },
+  "dependencies": {
+    "@alice/environment": "workspace:*",
+    "@t3-oss/env-core": "catalog:",
+    "dotenv": "catalog:",
+    "drizzle-orm": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
+    "drizzle-kit": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

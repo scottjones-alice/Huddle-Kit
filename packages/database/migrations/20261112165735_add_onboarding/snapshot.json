@@ -1,0 +1,629 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "804e22bd-8dc9-44f4-ad39-1579121975ae",
+  "prevIds": ["e9d59c36-794f-46c5-931b-09138a97f0c0"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "onboarding_drafts"],
+      "writes": [
+        "s|tbl|public.onboarding_drafts",
+        "n|tbl|public.onboarding_drafts",
+        "e|tbl|public.onboarding_drafts",
+        "n|rel|public.onboarding_drafts",
+        "n|type|public.onboarding_drafts",
+        "n|rel|public.onboarding_drafts_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|tbl|public.onboarding_steps",
+        "n|tbl|public.onboarding_steps",
+        "e|tbl|public.onboarding_steps",
+        "n|rel|public.onboarding_steps",
+        "n|type|public.onboarding_steps",
+        "n|rel|public.onboarding_steps_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_drafts",
+        "onboarding_drafts_userId_flow_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_drafts_userId_flow_uidx",
+        "n|idx|public.onboarding_drafts_userId_flow_uidx",
+        "e|idx|public.onboarding_drafts_userId_flow_uidx",
+        "n|rel|public.onboarding_drafts_userId_flow_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_drafts",
+        "n|sch|public",
+        "n|col|public.onboarding_drafts.user_id",
+        "n|col|public.onboarding_drafts.flow"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_userId_step_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_userId_step_uidx",
+        "n|idx|public.onboarding_steps_userId_step_uidx",
+        "e|idx|public.onboarding_steps_userId_step_uidx",
+        "n|rel|public.onboarding_steps_userId_step_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.user_id",
+        "n|col|public.onboarding_steps.step"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_organizationId_step_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_organizationId_step_uidx",
+        "n|idx|public.onboarding_steps_organizationId_step_uidx",
+        "e|idx|public.onboarding_steps_organizationId_step_uidx",
+        "n|rel|public.onboarding_steps_organizationId_step_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.organization_id",
+        "n|col|public.onboarding_steps.step"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_completedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_completedBy_idx",
+        "n|idx|public.onboarding_steps_completedBy_idx",
+        "e|idx|public.onboarding_steps_completedBy_idx",
+        "n|rel|public.onboarding_steps_completedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.completed_by"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_drafts"],
+      "writes": [
+        "s|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "n|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "e|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "n|con|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_drafts",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_drafts.user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.completed_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "onboarding_drafts",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "onboarding_steps",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "data",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "flow",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "step_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "completed_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "completed_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "step",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_userId_flow_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "flow",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_userId_step_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "step",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"user_id\" is not null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_organizationId_step_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "step",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"organization_id\" is not null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_completedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "completed_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_completed_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["completed_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_flow_chk",
+        "value": "\"flow\" in ('club', 'people')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_subject_chk",
+        "value": "(\"user_id\" is not null and \"organization_id\" is null and \"step\" in ('you', 'emergency', 'safeguarding', 'role', 'details', 'address', 'safety', 'dbs', 'availability', 'children', 'permissions', 'billing', 'social'))\n        or (\"organization_id\" is not null and \"user_id\" is null and \"step\" in ('club', 'location', 'governance', 'schedule', 'fees', 'payouts', 'team', 'billing', 'social'))",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1554 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "ab8f7070-006a-4928-bb44-951f9b07f489",
+  "prevIds": ["d1751f24-9880-4ade-a4b1-24a65225fd16"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "team_memberships"],
+      "writes": [
+        "s|tbl|public.team_memberships",
+        "n|tbl|public.team_memberships",
+        "e|tbl|public.team_memberships",
+        "n|rel|public.team_memberships",
+        "n|type|public.team_memberships",
+        "n|rel|public.team_memberships_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|tbl|public.teams",
+        "n|tbl|public.teams",
+        "e|tbl|public.teams",
+        "n|rel|public.teams",
+        "n|type|public.teams",
+        "n|rel|public.teams_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_relationships"],
+      "writes": [
+        "s|tbl|public.person_relationships",
+        "n|tbl|public.person_relationships",
+        "e|tbl|public.person_relationships",
+        "n|rel|public.person_relationships",
+        "n|type|public.person_relationships",
+        "n|rel|public.person_relationships_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "team_memberships",
+        "team_memberships_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.team_memberships_organizationId_idx",
+        "n|idx|public.team_memberships_organizationId_idx",
+        "e|idx|public.team_memberships_organizationId_idx",
+        "n|rel|public.team_memberships_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "team_memberships",
+        "team_memberships_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.team_memberships_personId_idx",
+        "n|idx|public.team_memberships_personId_idx",
+        "e|idx|public.team_memberships_personId_idx",
+        "n|rel|public.team_memberships_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "team_memberships",
+        "team_memberships_teamId_idx"
+      ],
+      "writes": [
+        "s|idx|public.team_memberships_teamId_idx",
+        "n|idx|public.team_memberships_teamId_idx",
+        "e|idx|public.team_memberships_teamId_idx",
+        "n|rel|public.team_memberships_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "team_memberships",
+        "team_memberships_team_person_role_start_uidx"
+      ],
+      "writes": [
+        "s|idx|public.team_memberships_team_person_role_start_uidx",
+        "n|idx|public.team_memberships_team_person_role_start_uidx",
+        "e|idx|public.team_memberships_team_person_role_start_uidx",
+        "n|rel|public.team_memberships_team_person_role_start_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.team_id",
+        "n|col|public.team_memberships.person_id",
+        "n|col|public.team_memberships.role",
+        "n|col|public.team_memberships.starts_on"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "teams", "teams_clubId_idx"],
+      "writes": [
+        "s|idx|public.teams_clubId_idx",
+        "n|idx|public.teams_clubId_idx",
+        "e|idx|public.teams_clubId_idx",
+        "n|rel|public.teams_clubId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.club_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "teams",
+        "teams_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.teams_organizationId_idx",
+        "n|idx|public.teams_organizationId_idx",
+        "e|idx|public.teams_organizationId_idx",
+        "n|rel|public.teams_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "teams", "teams_seasonId_idx"],
+      "writes": [
+        "s|idx|public.teams_seasonId_idx",
+        "n|idx|public.teams_seasonId_idx",
+        "e|idx|public.teams_seasonId_idx",
+        "n|rel|public.teams_seasonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.season_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "teams",
+        "teams_trainingVenueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.teams_trainingVenueId_idx",
+        "n|idx|public.teams_trainingVenueId_idx",
+        "e|idx|public.teams_trainingVenueId_idx",
+        "n|rel|public.teams_trainingVenueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.training_venue_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "teams",
+        "teams_clubId_seasonId_name_uidx"
+      ],
+      "writes": [
+        "s|idx|public.teams_clubId_seasonId_name_uidx",
+        "n|idx|public.teams_clubId_seasonId_name_uidx",
+        "e|idx|public.teams_clubId_seasonId_name_uidx",
+        "n|rel|public.teams_clubId_seasonId_name_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.club_id",
+        "n|col|public.teams.season_id",
+        "n|col|public.teams.name"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_relationships",
+        "person_relationships_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_relationships_organizationId_idx",
+        "n|idx|public.person_relationships_organizationId_idx",
+        "e|idx|public.person_relationships_organizationId_idx",
+        "n|rel|public.person_relationships_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_relationships",
+        "person_relationships_relatedPersonId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_relationships_relatedPersonId_idx",
+        "n|idx|public.person_relationships_relatedPersonId_idx",
+        "e|idx|public.person_relationships_relatedPersonId_idx",
+        "n|rel|public.person_relationships_relatedPersonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.related_person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_relationships",
+        "person_relationships_person_related_kind_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_relationships_person_related_kind_uidx",
+        "n|idx|public.person_relationships_person_related_kind_uidx",
+        "e|idx|public.person_relationships_person_related_kind_uidx",
+        "n|rel|public.person_relationships_person_related_kind_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.person_id",
+        "n|col|public.person_relationships.related_person_id",
+        "n|col|public.person_relationships.relationship"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "team_memberships"],
+      "writes": [
+        "s|fk|public.team_memberships.team_memberships_organization_id_organizations_id_fkey",
+        "n|fk|public.team_memberships.team_memberships_organization_id_organizations_id_fkey",
+        "e|fk|public.team_memberships.team_memberships_organization_id_organizations_id_fkey",
+        "n|con|public.team_memberships.team_memberships_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.team_memberships.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "team_memberships"],
+      "writes": [
+        "s|fk|public.team_memberships.team_memberships_person_id_people_id_fkey",
+        "n|fk|public.team_memberships.team_memberships_person_id_people_id_fkey",
+        "e|fk|public.team_memberships.team_memberships_person_id_people_id_fkey",
+        "n|con|public.team_memberships.team_memberships_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.team_memberships.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "team_memberships"],
+      "writes": [
+        "s|fk|public.team_memberships.team_memberships_team_id_teams_id_fkey",
+        "n|fk|public.team_memberships.team_memberships_team_id_teams_id_fkey",
+        "e|fk|public.team_memberships.team_memberships_team_id_teams_id_fkey",
+        "n|con|public.team_memberships.team_memberships_team_id_teams_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.team_memberships.team_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "n|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "e|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "n|con|public.teams.teams_club_id_clubs_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|tbl|public.clubs",
+        "n|sch|public",
+        "n|col|public.teams.club_id",
+        "n|col|public.clubs.id",
+        "e|uniqueness|public.clubs.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|fk|public.teams.teams_organization_id_organizations_id_fkey",
+        "n|fk|public.teams.teams_organization_id_organizations_id_fkey",
+        "e|fk|public.teams.teams_organization_id_organizations_id_fkey",
+        "n|con|public.teams.teams_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.teams.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|fk|public.teams.teams_season_id_seasons_id_fkey",
+        "n|fk|public.teams.teams_season_id_seasons_id_fkey",
+        "e|fk|public.teams.teams_season_id_seasons_id_fkey",
+        "n|con|public.teams.teams_season_id_seasons_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|tbl|public.seasons",
+        "n|sch|public",
+        "n|col|public.teams.season_id",
+        "n|col|public.seasons.id",
+        "e|uniqueness|public.seasons.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|fk|public.teams.teams_training_venue_id_venues_id_fkey",
+        "n|fk|public.teams.teams_training_venue_id_venues_id_fkey",
+        "e|fk|public.teams.teams_training_venue_id_venues_id_fkey",
+        "n|con|public.teams.teams_training_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.teams.training_venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_relationships"],
+      "writes": [
+        "s|fk|public.person_relationships.person_relationships_organization_id_organizations_id_fkey",
+        "n|fk|public.person_relationships.person_relationships_organization_id_organizations_id_fkey",
+        "e|fk|public.person_relationships.person_relationships_organization_id_organizations_id_fkey",
+        "n|con|public.person_relationships.person_relationships_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_relationships.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_relationships"],
+      "writes": [
+        "s|fk|public.person_relationships.person_relationships_person_id_people_id_fkey",
+        "n|fk|public.person_relationships.person_relationships_person_id_people_id_fkey",
+        "e|fk|public.person_relationships.person_relationships_person_id_people_id_fkey",
+        "n|con|public.person_relationships.person_relationships_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_relationships.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_relationships"],
+      "writes": [
+        "s|fk|public.person_relationships.person_relationships_related_person_id_people_id_fkey",
+        "n|fk|public.person_relationships.person_relationships_related_person_id_people_id_fkey",
+        "e|fk|public.person_relationships.person_relationships_related_person_id_people_id_fkey",
+        "n|con|public.person_relationships.person_relationships_related_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_relationships.related_person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "team_memberships",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "teams",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_relationships",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "ends_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "shirt_number",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "starts_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "age_group",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "club_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "season_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "training_venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "can_collect",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "has_parental_responsibility",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "is_emergency_contact",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "related_person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "relationship",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_team_person_role_start_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "role",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "starts_on",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_clubId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "club_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_seasonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_trainingVenueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "training_venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_clubId_seasonId_name_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "club_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "name",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_relatedPersonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "related_person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_person_related_kind_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "related_person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "relationship",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_team_id_teams_id_fkey",
+        "nameExplicit": false,
+        "columns": ["team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_club_id_clubs_id_fkey",
+        "nameExplicit": false,
+        "columns": ["club_id"],
+        "schemaTo": "public",
+        "tableTo": "clubs",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_season_id_seasons_id_fkey",
+        "nameExplicit": false,
+        "columns": ["season_id"],
+        "schemaTo": "public",
+        "tableTo": "seasons",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_training_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["training_venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_related_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["related_person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "team_memberships_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "person_relationships_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "teamMemberships_dates_chk",
+        "value": "\"ends_on\" is null or \"ends_on\" >= \"starts_on\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "teamMemberships_shirtNumber_chk",
+        "value": "\"shirt_number\" is null or \"shirt_number\" between 0 and 999",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_ageGroup_chk",
+        "value": "\"age_group\" is null or \"age_group\" between 4 and 99",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "personRelationships_notSelf_chk",
+        "value": "\"person_id\" <> \"related_person_id\"",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

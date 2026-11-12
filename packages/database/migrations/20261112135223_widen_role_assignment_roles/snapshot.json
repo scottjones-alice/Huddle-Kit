@@ -1,0 +1,51 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "bc59df2a-7ff9-482b-a748-0ce5d77d9b31",
+  "prevIds": ["554cd935-211f-441c-818b-95bef129aa8f"],
+  "footprints": [
+    {
+      "statementType": "alter_check",
+      "statementTarget": ["table", "public", "role_assignments"],
+      "writes": ["s|ck|public.role_assignments.roleAssignments_teamScope_chk"],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.scope",
+        "n|col|public.role_assignments.role",
+        "e|col|public.role_assignments.scope",
+        "e|col|public.role_assignments.role"
+      ],
+      "sqlHash": "1f9e79010bed3208"
+    },
+    {
+      "statementType": "alter_check",
+      "statementTarget": ["table", "public", "role_assignments"],
+      "writes": ["s|ck|public.role_assignments.roleAssignments_role_chk"],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.role",
+        "e|col|public.role_assignments.role"
+      ],
+      "sqlHash": "4e12c6b2481dafb4"
+    }
+  ],
+  "deltas": [
+    {
+      "op": "alter",
+      "key": "checks\u0000[\"public\",\"role_assignments\",\"roleAssignments_teamScope_chk\"]",
+      "set": {
+        "value": "\"scope\" = 'organization' or \"role\" in ('head_coach', 'coach', 'assistant_coach', 'team_manager', 'first_aider', 'volunteer')"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "checks\u0000[\"public\",\"role_assignments\",\"roleAssignments_role_chk\"]",
+      "set": {
+        "value": "\"role\" in ('admin', 'secretary', 'treasurer', 'head_coach', 'coach', 'assistant_coach', 'team_manager', 'first_aider', 'volunteer', 'welfare_officer', 'safeguarding_lead', 'safeguarding_deputy')"
+      }
+    }
+  ]
+}

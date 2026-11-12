@@ -1,0 +1,56 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "eacf4ffd-fe7e-4802-a8c7-565c22bc3412",
+  "prevIds": ["0b3863d1-07db-45bf-8494-89239294d815"],
+  "footprints": [
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": [
+        "s|ck|public.files.files_sensitiveChecksum_chk",
+        "n|ck|public.files.files_sensitiveChecksum_chk",
+        "e|ck|public.files.files_sensitiveChecksum_chk",
+        "n|con|public.files.files_sensitiveChecksum_chk"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.kind",
+        "n|col|public.files.checksum_sha256"
+      ]
+    },
+    {
+      "statementType": "alter_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": ["s|ck|public.files.files_kind_chk"],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.kind",
+        "e|col|public.files.kind"
+      ],
+      "sqlHash": "94b382f394aac6e2"
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "files_sensitiveChecksum_chk",
+        "value": "\"kind\" <> 'sensitive' or \"checksum_sha256\" is not null",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "checks\u0000[\"public\",\"files\",\"files_kind_chk\"]",
+      "set": {
+        "value": "\"kind\" in ('photo', 'report', 'sensitive', 'other')"
+      }
+    }
+  ]
+}

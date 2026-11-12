@@ -1,0 +1,5100 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "ebef7454-98bf-428a-9f38-158fffdfba00",
+  "prevIds": ["a6763753-7e30-424d-b0db-95ffb762b1ef"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "pitches"],
+      "writes": [
+        "s|tbl|public.pitches",
+        "n|tbl|public.pitches",
+        "e|tbl|public.pitches",
+        "n|rel|public.pitches",
+        "n|type|public.pitches",
+        "n|rel|public.pitches_pkey",
+        "n|rel|public.pitches_organization_id_id_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "registrations"],
+      "writes": [
+        "s|tbl|public.registrations",
+        "n|tbl|public.registrations",
+        "e|tbl|public.registrations",
+        "n|rel|public.registrations",
+        "n|type|public.registrations",
+        "n|rel|public.registrations_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "announcements"],
+      "writes": [
+        "s|tbl|public.announcements",
+        "n|tbl|public.announcements",
+        "e|tbl|public.announcements",
+        "n|rel|public.announcements",
+        "n|type|public.announcements",
+        "n|rel|public.announcements_pkey",
+        "n|rel|public.announcements_organization_id_id_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "notifications"],
+      "writes": [
+        "s|tbl|public.notifications",
+        "n|tbl|public.notifications",
+        "e|tbl|public.notifications",
+        "n|rel|public.notifications",
+        "n|type|public.notifications",
+        "n|rel|public.notifications_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "fee_charges"],
+      "writes": [
+        "s|tbl|public.fee_charges",
+        "n|tbl|public.fee_charges",
+        "e|tbl|public.fee_charges",
+        "n|rel|public.fee_charges",
+        "n|type|public.fee_charges",
+        "n|rel|public.fee_charges_pkey",
+        "n|rel|public.fee_charges_organization_id_id_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "fees"],
+      "writes": [
+        "s|tbl|public.fees",
+        "n|tbl|public.fees",
+        "e|tbl|public.fees",
+        "n|rel|public.fees",
+        "n|type|public.fees",
+        "n|rel|public.fees_pkey",
+        "n|rel|public.fees_organization_id_id_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "payments"],
+      "writes": [
+        "s|tbl|public.payments",
+        "n|tbl|public.payments",
+        "e|tbl|public.payments",
+        "n|rel|public.payments",
+        "n|type|public.payments",
+        "n|rel|public.payments_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "consent_documents"],
+      "writes": [
+        "s|tbl|public.consent_documents",
+        "n|tbl|public.consent_documents",
+        "e|tbl|public.consent_documents",
+        "n|rel|public.consent_documents",
+        "n|type|public.consent_documents",
+        "n|rel|public.consent_documents_pkey",
+        "n|rel|public.consent_documents_organization_id_id_uniq",
+        "n|rel|public.consent_documents_org_id_type_uniq",
+        "n|rel|public.consent_documents_org_type_version_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_identifiers"],
+      "writes": [
+        "s|tbl|public.person_identifiers",
+        "n|tbl|public.person_identifiers",
+        "e|tbl|public.person_identifiers",
+        "n|rel|public.person_identifiers",
+        "n|type|public.person_identifiers",
+        "n|rel|public.person_identifiers_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "player_profiles"],
+      "writes": [
+        "s|tbl|public.player_profiles",
+        "n|tbl|public.player_profiles",
+        "e|tbl|public.player_profiles",
+        "n|rel|public.player_profiles",
+        "n|type|public.player_profiles",
+        "n|rel|public.player_profiles_pk"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "qualifications"],
+      "writes": [
+        "s|tbl|public.qualifications",
+        "n|tbl|public.qualifications",
+        "e|tbl|public.qualifications",
+        "n|rel|public.qualifications",
+        "n|type|public.qualifications",
+        "n|rel|public.qualifications_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "consents", "document_id"],
+      "writes": [
+        "s|col|public.consents.document_id",
+        "n|col|public.consents.document_id",
+        "e|col|public.consents.document_id"
+      ],
+      "reads": ["n|tbl|public.consents", "n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_checks",
+        "dbs_level"
+      ],
+      "writes": [
+        "s|col|public.safeguarding_checks.dbs_level",
+        "n|col|public.safeguarding_checks.dbs_level",
+        "e|col|public.safeguarding_checks.dbs_level"
+      ],
+      "reads": ["n|tbl|public.safeguarding_checks", "n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_checks",
+        "dbs_update_service"
+      ],
+      "writes": [
+        "s|col|public.safeguarding_checks.dbs_update_service",
+        "n|col|public.safeguarding_checks.dbs_update_service",
+        "e|col|public.safeguarding_checks.dbs_update_service"
+      ],
+      "reads": ["n|tbl|public.safeguarding_checks", "n|sch|public"]
+    },
+    {
+      "statementType": "add_unique",
+      "statementTarget": ["table", "public", "venues"],
+      "writes": [
+        "s|uq|public.venues.venues_organization_id_id_uniq",
+        "n|uq|public.venues.venues_organization_id_id_uniq",
+        "e|uq|public.venues.venues_organization_id_id_uniq",
+        "n|con|public.venues.venues_organization_id_id_uniq",
+        "n|rel|public.venues_organization_id_id_uniq"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.organization_id",
+        "n|col|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "pitches",
+        "pitches_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.pitches_organizationId_idx",
+        "n|idx|public.pitches_organizationId_idx",
+        "e|idx|public.pitches_organizationId_idx",
+        "n|rel|public.pitches_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.pitches",
+        "n|sch|public",
+        "n|col|public.pitches.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "pitches",
+        "pitches_venueId_name_uidx"
+      ],
+      "writes": [
+        "s|idx|public.pitches_venueId_name_uidx",
+        "n|idx|public.pitches_venueId_name_uidx",
+        "e|idx|public.pitches_venueId_name_uidx",
+        "n|rel|public.pitches_venueId_name_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.pitches",
+        "n|sch|public",
+        "n|col|public.pitches.venue_id",
+        "n|col|public.pitches.name"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "registrations",
+        "registrations_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.registrations_organizationId_idx",
+        "n|idx|public.registrations_organizationId_idx",
+        "e|idx|public.registrations_organizationId_idx",
+        "n|rel|public.registrations_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|col|public.registrations.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "registrations",
+        "registrations_seasonId_idx"
+      ],
+      "writes": [
+        "s|idx|public.registrations_seasonId_idx",
+        "n|idx|public.registrations_seasonId_idx",
+        "e|idx|public.registrations_seasonId_idx",
+        "n|rel|public.registrations_seasonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|col|public.registrations.season_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "registrations",
+        "registrations_teamId_idx"
+      ],
+      "writes": [
+        "s|idx|public.registrations_teamId_idx",
+        "n|idx|public.registrations_teamId_idx",
+        "e|idx|public.registrations_teamId_idx",
+        "n|rel|public.registrations_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|col|public.registrations.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "registrations",
+        "registrations_person_season_uidx"
+      ],
+      "writes": [
+        "s|idx|public.registrations_person_season_uidx",
+        "n|idx|public.registrations_person_season_uidx",
+        "e|idx|public.registrations_person_season_uidx",
+        "n|rel|public.registrations_person_season_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|col|public.registrations.person_id",
+        "n|col|public.registrations.season_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "announcements",
+        "announcements_authorUserId_idx"
+      ],
+      "writes": [
+        "s|idx|public.announcements_authorUserId_idx",
+        "n|idx|public.announcements_authorUserId_idx",
+        "e|idx|public.announcements_authorUserId_idx",
+        "n|rel|public.announcements_authorUserId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|col|public.announcements.author_user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "announcements",
+        "announcements_organizationId_publishedAt_idx"
+      ],
+      "writes": [
+        "s|idx|public.announcements_organizationId_publishedAt_idx",
+        "n|idx|public.announcements_organizationId_publishedAt_idx",
+        "e|idx|public.announcements_organizationId_publishedAt_idx",
+        "n|rel|public.announcements_organizationId_publishedAt_idx"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|col|public.announcements.organization_id",
+        "n|col|public.announcements.published_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "announcements",
+        "announcements_teamId_idx"
+      ],
+      "writes": [
+        "s|idx|public.announcements_teamId_idx",
+        "n|idx|public.announcements_teamId_idx",
+        "e|idx|public.announcements_teamId_idx",
+        "n|rel|public.announcements_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|col|public.announcements.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "notifications",
+        "notifications_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.notifications_organizationId_idx",
+        "n|idx|public.notifications_organizationId_idx",
+        "e|idx|public.notifications_organizationId_idx",
+        "n|rel|public.notifications_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.notifications",
+        "n|sch|public",
+        "n|col|public.notifications.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "notifications",
+        "notifications_userId_readAt_idx"
+      ],
+      "writes": [
+        "s|idx|public.notifications_userId_readAt_idx",
+        "n|idx|public.notifications_userId_readAt_idx",
+        "e|idx|public.notifications_userId_readAt_idx",
+        "n|rel|public.notifications_userId_readAt_idx"
+      ],
+      "reads": [
+        "n|tbl|public.notifications",
+        "n|sch|public",
+        "n|col|public.notifications.user_id",
+        "n|col|public.notifications.read_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "fee_charges",
+        "fee_charges_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.fee_charges_organizationId_idx",
+        "n|idx|public.fee_charges_organizationId_idx",
+        "e|idx|public.fee_charges_organizationId_idx",
+        "n|rel|public.fee_charges_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|col|public.fee_charges.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "fee_charges",
+        "fee_charges_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.fee_charges_personId_idx",
+        "n|idx|public.fee_charges_personId_idx",
+        "e|idx|public.fee_charges_personId_idx",
+        "n|rel|public.fee_charges_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|col|public.fee_charges.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "fee_charges",
+        "fee_charges_fee_person_uidx"
+      ],
+      "writes": [
+        "s|idx|public.fee_charges_fee_person_uidx",
+        "n|idx|public.fee_charges_fee_person_uidx",
+        "e|idx|public.fee_charges_fee_person_uidx",
+        "n|rel|public.fee_charges_fee_person_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|col|public.fee_charges.fee_id",
+        "n|col|public.fee_charges.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "fees", "fees_organizationId_idx"],
+      "writes": [
+        "s|idx|public.fees_organizationId_idx",
+        "n|idx|public.fees_organizationId_idx",
+        "e|idx|public.fees_organizationId_idx",
+        "n|rel|public.fees_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|col|public.fees.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "fees", "fees_seasonId_idx"],
+      "writes": [
+        "s|idx|public.fees_seasonId_idx",
+        "n|idx|public.fees_seasonId_idx",
+        "e|idx|public.fees_seasonId_idx",
+        "n|rel|public.fees_seasonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|col|public.fees.season_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "fees", "fees_teamId_idx"],
+      "writes": [
+        "s|idx|public.fees_teamId_idx",
+        "n|idx|public.fees_teamId_idx",
+        "e|idx|public.fees_teamId_idx",
+        "n|rel|public.fees_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|col|public.fees.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payments",
+        "payments_chargeId_idx"
+      ],
+      "writes": [
+        "s|idx|public.payments_chargeId_idx",
+        "n|idx|public.payments_chargeId_idx",
+        "e|idx|public.payments_chargeId_idx",
+        "n|rel|public.payments_chargeId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|col|public.payments.charge_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payments",
+        "payments_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.payments_organizationId_idx",
+        "n|idx|public.payments_organizationId_idx",
+        "e|idx|public.payments_organizationId_idx",
+        "n|rel|public.payments_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|col|public.payments.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payments",
+        "payments_recordedByUserId_idx"
+      ],
+      "writes": [
+        "s|idx|public.payments_recordedByUserId_idx",
+        "n|idx|public.payments_recordedByUserId_idx",
+        "e|idx|public.payments_recordedByUserId_idx",
+        "n|rel|public.payments_recordedByUserId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|col|public.payments.recorded_by_user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "consents",
+        "consents_documentId_idx"
+      ],
+      "writes": [
+        "s|idx|public.consents_documentId_idx",
+        "n|idx|public.consents_documentId_idx",
+        "e|idx|public.consents_documentId_idx",
+        "n|rel|public.consents_documentId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.document_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "consent_documents",
+        "consent_documents_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.consent_documents_organizationId_idx",
+        "n|idx|public.consent_documents_organizationId_idx",
+        "e|idx|public.consent_documents_organizationId_idx",
+        "n|rel|public.consent_documents_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.consent_documents",
+        "n|sch|public",
+        "n|col|public.consent_documents.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_identifiers",
+        "person_identifiers_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_identifiers_organizationId_idx",
+        "n|idx|public.person_identifiers_organizationId_idx",
+        "e|idx|public.person_identifiers_organizationId_idx",
+        "n|rel|public.person_identifiers_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_identifiers",
+        "n|sch|public",
+        "n|col|public.person_identifiers.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_identifiers",
+        "person_identifiers_person_type_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_identifiers_person_type_uidx",
+        "n|idx|public.person_identifiers_person_type_uidx",
+        "e|idx|public.person_identifiers_person_type_uidx",
+        "n|rel|public.person_identifiers_person_type_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_identifiers",
+        "n|sch|public",
+        "n|col|public.person_identifiers.person_id",
+        "n|col|public.person_identifiers.type"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_identifiers",
+        "person_identifiers_org_type_value_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_identifiers_org_type_value_uidx",
+        "n|idx|public.person_identifiers_org_type_value_uidx",
+        "e|idx|public.person_identifiers_org_type_value_uidx",
+        "n|rel|public.person_identifiers_org_type_value_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_identifiers",
+        "n|sch|public",
+        "n|col|public.person_identifiers.organization_id",
+        "n|col|public.person_identifiers.type",
+        "n|col|public.person_identifiers.value"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "player_profiles",
+        "player_profiles_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.player_profiles_organizationId_idx",
+        "n|idx|public.player_profiles_organizationId_idx",
+        "e|idx|public.player_profiles_organizationId_idx",
+        "n|rel|public.player_profiles_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.player_profiles",
+        "n|sch|public",
+        "n|col|public.player_profiles.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "qualifications",
+        "qualifications_fileId_idx"
+      ],
+      "writes": [
+        "s|idx|public.qualifications_fileId_idx",
+        "n|idx|public.qualifications_fileId_idx",
+        "e|idx|public.qualifications_fileId_idx",
+        "n|rel|public.qualifications_fileId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|col|public.qualifications.file_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "qualifications",
+        "qualifications_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.qualifications_organizationId_idx",
+        "n|idx|public.qualifications_organizationId_idx",
+        "e|idx|public.qualifications_organizationId_idx",
+        "n|rel|public.qualifications_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|col|public.qualifications.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "qualifications",
+        "qualifications_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.qualifications_personId_idx",
+        "n|idx|public.qualifications_personId_idx",
+        "e|idx|public.qualifications_personId_idx",
+        "n|rel|public.qualifications_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|col|public.qualifications.person_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "pitches"],
+      "writes": [
+        "s|fk|public.pitches.pitches_organization_id_organizations_id_fkey",
+        "n|fk|public.pitches.pitches_organization_id_organizations_id_fkey",
+        "e|fk|public.pitches.pitches_organization_id_organizations_id_fkey",
+        "n|con|public.pitches.pitches_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.pitches",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.pitches.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "pitches"],
+      "writes": [
+        "s|fk|public.pitches.pitches_venue_same_org_fkey",
+        "n|fk|public.pitches.pitches_venue_same_org_fkey",
+        "e|fk|public.pitches.pitches_venue_same_org_fkey",
+        "n|con|public.pitches.pitches_venue_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.pitches",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.pitches.organization_id",
+        "n|col|public.pitches.venue_id",
+        "n|col|public.venues.organization_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "registrations"],
+      "writes": [
+        "s|fk|public.registrations.registrations_organization_id_organizations_id_fkey",
+        "n|fk|public.registrations.registrations_organization_id_organizations_id_fkey",
+        "e|fk|public.registrations.registrations_organization_id_organizations_id_fkey",
+        "n|con|public.registrations.registrations_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.registrations.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "registrations"],
+      "writes": [
+        "s|fk|public.registrations.registrations_person_same_org_fkey",
+        "n|fk|public.registrations.registrations_person_same_org_fkey",
+        "e|fk|public.registrations.registrations_person_same_org_fkey",
+        "n|con|public.registrations.registrations_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.registrations.organization_id",
+        "n|col|public.registrations.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "registrations"],
+      "writes": [
+        "s|fk|public.registrations.registrations_season_same_org_fkey",
+        "n|fk|public.registrations.registrations_season_same_org_fkey",
+        "e|fk|public.registrations.registrations_season_same_org_fkey",
+        "n|con|public.registrations.registrations_season_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|tbl|public.seasons",
+        "n|sch|public",
+        "n|col|public.registrations.organization_id",
+        "n|col|public.registrations.season_id",
+        "n|col|public.seasons.organization_id",
+        "n|col|public.seasons.id",
+        "e|uniqueness|public.seasons.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "registrations"],
+      "writes": [
+        "s|fk|public.registrations.registrations_team_same_org_fkey",
+        "n|fk|public.registrations.registrations_team_same_org_fkey",
+        "e|fk|public.registrations.registrations_team_same_org_fkey",
+        "n|con|public.registrations.registrations_team_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.registrations",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.registrations.organization_id",
+        "n|col|public.registrations.team_id",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "announcements"],
+      "writes": [
+        "s|fk|public.announcements.announcements_author_user_id_users_id_fkey",
+        "n|fk|public.announcements.announcements_author_user_id_users_id_fkey",
+        "e|fk|public.announcements.announcements_author_user_id_users_id_fkey",
+        "n|con|public.announcements.announcements_author_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.announcements.author_user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "announcements"],
+      "writes": [
+        "s|fk|public.announcements.announcements_organization_id_organizations_id_fkey",
+        "n|fk|public.announcements.announcements_organization_id_organizations_id_fkey",
+        "e|fk|public.announcements.announcements_organization_id_organizations_id_fkey",
+        "n|con|public.announcements.announcements_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.announcements.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "announcements"],
+      "writes": [
+        "s|fk|public.announcements.announcements_team_same_org_fkey",
+        "n|fk|public.announcements.announcements_team_same_org_fkey",
+        "e|fk|public.announcements.announcements_team_same_org_fkey",
+        "n|con|public.announcements.announcements_team_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.announcements",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.announcements.organization_id",
+        "n|col|public.announcements.team_id",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "notifications"],
+      "writes": [
+        "s|fk|public.notifications.notifications_organization_id_organizations_id_fkey",
+        "n|fk|public.notifications.notifications_organization_id_organizations_id_fkey",
+        "e|fk|public.notifications.notifications_organization_id_organizations_id_fkey",
+        "n|con|public.notifications.notifications_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.notifications",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.notifications.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "notifications"],
+      "writes": [
+        "s|fk|public.notifications.notifications_user_id_users_id_fkey",
+        "n|fk|public.notifications.notifications_user_id_users_id_fkey",
+        "e|fk|public.notifications.notifications_user_id_users_id_fkey",
+        "n|con|public.notifications.notifications_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.notifications",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.notifications.user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fee_charges"],
+      "writes": [
+        "s|fk|public.fee_charges.fee_charges_organization_id_organizations_id_fkey",
+        "n|fk|public.fee_charges.fee_charges_organization_id_organizations_id_fkey",
+        "e|fk|public.fee_charges.fee_charges_organization_id_organizations_id_fkey",
+        "n|con|public.fee_charges.fee_charges_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.fee_charges.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fee_charges"],
+      "writes": [
+        "s|fk|public.fee_charges.fee_charges_fee_same_org_fkey",
+        "n|fk|public.fee_charges.fee_charges_fee_same_org_fkey",
+        "e|fk|public.fee_charges.fee_charges_fee_same_org_fkey",
+        "n|con|public.fee_charges.fee_charges_fee_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|col|public.fee_charges.organization_id",
+        "n|col|public.fee_charges.fee_id",
+        "n|col|public.fees.organization_id",
+        "n|col|public.fees.id",
+        "e|uniqueness|public.fees.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fee_charges"],
+      "writes": [
+        "s|fk|public.fee_charges.fee_charges_person_same_org_fkey",
+        "n|fk|public.fee_charges.fee_charges_person_same_org_fkey",
+        "e|fk|public.fee_charges.fee_charges_person_same_org_fkey",
+        "n|con|public.fee_charges.fee_charges_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.fee_charges.organization_id",
+        "n|col|public.fee_charges.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fees"],
+      "writes": [
+        "s|fk|public.fees.fees_organization_id_organizations_id_fkey",
+        "n|fk|public.fees.fees_organization_id_organizations_id_fkey",
+        "e|fk|public.fees.fees_organization_id_organizations_id_fkey",
+        "n|con|public.fees.fees_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.fees.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fees"],
+      "writes": [
+        "s|fk|public.fees.fees_season_same_org_fkey",
+        "n|fk|public.fees.fees_season_same_org_fkey",
+        "e|fk|public.fees.fees_season_same_org_fkey",
+        "n|con|public.fees.fees_season_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|tbl|public.seasons",
+        "n|sch|public",
+        "n|col|public.fees.organization_id",
+        "n|col|public.fees.season_id",
+        "n|col|public.seasons.organization_id",
+        "n|col|public.seasons.id",
+        "e|uniqueness|public.seasons.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "fees"],
+      "writes": [
+        "s|fk|public.fees.fees_team_same_org_fkey",
+        "n|fk|public.fees.fees_team_same_org_fkey",
+        "e|fk|public.fees.fees_team_same_org_fkey",
+        "n|con|public.fees.fees_team_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.fees",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.fees.organization_id",
+        "n|col|public.fees.team_id",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "payments"],
+      "writes": [
+        "s|fk|public.payments.payments_organization_id_organizations_id_fkey",
+        "n|fk|public.payments.payments_organization_id_organizations_id_fkey",
+        "e|fk|public.payments.payments_organization_id_organizations_id_fkey",
+        "n|con|public.payments.payments_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.payments.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "payments"],
+      "writes": [
+        "s|fk|public.payments.payments_recorded_by_user_id_users_id_fkey",
+        "n|fk|public.payments.payments_recorded_by_user_id_users_id_fkey",
+        "e|fk|public.payments.payments_recorded_by_user_id_users_id_fkey",
+        "n|con|public.payments.payments_recorded_by_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.payments.recorded_by_user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "payments"],
+      "writes": [
+        "s|fk|public.payments.payments_charge_same_org_fkey",
+        "n|fk|public.payments.payments_charge_same_org_fkey",
+        "e|fk|public.payments.payments_charge_same_org_fkey",
+        "n|con|public.payments.payments_charge_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|tbl|public.fee_charges",
+        "n|sch|public",
+        "n|col|public.payments.organization_id",
+        "n|col|public.payments.charge_id",
+        "n|col|public.fee_charges.organization_id",
+        "n|col|public.fee_charges.id",
+        "e|uniqueness|public.fee_charges.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|fk|public.consents.consents_document_same_org_fkey",
+        "n|fk|public.consents.consents_document_same_org_fkey",
+        "e|fk|public.consents.consents_document_same_org_fkey",
+        "n|con|public.consents.consents_document_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|tbl|public.consent_documents",
+        "n|sch|public",
+        "n|col|public.consents.organization_id",
+        "n|col|public.consents.document_id",
+        "n|col|public.consents.type",
+        "n|col|public.consent_documents.organization_id",
+        "n|col|public.consent_documents.id",
+        "n|col|public.consent_documents.type",
+        "e|uniqueness|public.consent_documents.id.organization_id.type"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consent_documents"],
+      "writes": [
+        "s|fk|public.consent_documents.consent_documents_organization_id_organizations_id_fkey",
+        "n|fk|public.consent_documents.consent_documents_organization_id_organizations_id_fkey",
+        "e|fk|public.consent_documents.consent_documents_organization_id_organizations_id_fkey",
+        "n|con|public.consent_documents.consent_documents_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consent_documents",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.consent_documents.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_identifiers"],
+      "writes": [
+        "s|fk|public.person_identifiers.person_identifiers_organization_id_organizations_id_fkey",
+        "n|fk|public.person_identifiers.person_identifiers_organization_id_organizations_id_fkey",
+        "e|fk|public.person_identifiers.person_identifiers_organization_id_organizations_id_fkey",
+        "n|con|public.person_identifiers.person_identifiers_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_identifiers",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_identifiers.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_identifiers"],
+      "writes": [
+        "s|fk|public.person_identifiers.person_identifiers_person_same_org_fkey",
+        "n|fk|public.person_identifiers.person_identifiers_person_same_org_fkey",
+        "e|fk|public.person_identifiers.person_identifiers_person_same_org_fkey",
+        "n|con|public.person_identifiers.person_identifiers_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_identifiers",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_identifiers.organization_id",
+        "n|col|public.person_identifiers.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "player_profiles"],
+      "writes": [
+        "s|fk|public.player_profiles.player_profiles_organization_id_organizations_id_fkey",
+        "n|fk|public.player_profiles.player_profiles_organization_id_organizations_id_fkey",
+        "e|fk|public.player_profiles.player_profiles_organization_id_organizations_id_fkey",
+        "n|con|public.player_profiles.player_profiles_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.player_profiles",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.player_profiles.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "player_profiles"],
+      "writes": [
+        "s|fk|public.player_profiles.player_profiles_person_same_org_fkey",
+        "n|fk|public.player_profiles.player_profiles_person_same_org_fkey",
+        "e|fk|public.player_profiles.player_profiles_person_same_org_fkey",
+        "n|con|public.player_profiles.player_profiles_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.player_profiles",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.player_profiles.organization_id",
+        "n|col|public.player_profiles.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "qualifications"],
+      "writes": [
+        "s|fk|public.qualifications.qualifications_file_id_files_id_fkey",
+        "n|fk|public.qualifications.qualifications_file_id_files_id_fkey",
+        "e|fk|public.qualifications.qualifications_file_id_files_id_fkey",
+        "n|con|public.qualifications.qualifications_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.qualifications.file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "qualifications"],
+      "writes": [
+        "s|fk|public.qualifications.qualifications_organization_id_organizations_id_fkey",
+        "n|fk|public.qualifications.qualifications_organization_id_organizations_id_fkey",
+        "e|fk|public.qualifications.qualifications_organization_id_organizations_id_fkey",
+        "n|con|public.qualifications.qualifications_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.qualifications.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "qualifications"],
+      "writes": [
+        "s|fk|public.qualifications.qualifications_person_same_org_fkey",
+        "n|fk|public.qualifications.qualifications_person_same_org_fkey",
+        "e|fk|public.qualifications.qualifications_person_same_org_fkey",
+        "n|con|public.qualifications.qualifications_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.qualifications",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.qualifications.organization_id",
+        "n|col|public.qualifications.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|ck|public.safeguarding_checks.safeguardingChecks_dbsLevel_chk",
+        "n|ck|public.safeguarding_checks.safeguardingChecks_dbsLevel_chk",
+        "e|ck|public.safeguarding_checks.safeguardingChecks_dbsLevel_chk",
+        "n|con|public.safeguarding_checks.safeguardingChecks_dbsLevel_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.dbs_level"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|ck|public.safeguarding_checks.safeguardingChecks_dbsOnly_chk",
+        "n|ck|public.safeguarding_checks.safeguardingChecks_dbsOnly_chk",
+        "e|ck|public.safeguarding_checks.safeguardingChecks_dbsOnly_chk",
+        "n|con|public.safeguarding_checks.safeguardingChecks_dbsOnly_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.kind",
+        "n|col|public.safeguarding_checks.dbs_level",
+        "n|col|public.safeguarding_checks.dbs_update_service"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "pitches",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "registrations",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "announcements",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "notifications",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "fee_charges",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "fees",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "payments",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "consent_documents",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_identifiers",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "player_profiles",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "qualifications",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "format",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "surface",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "notes",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registered_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "season_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'pending'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "withdrawn_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "author_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "body",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "expires_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "published_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "title",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "body",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "entity_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "entity_type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "read_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "title",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "amount_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "currency",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "due_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'due'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "waived_reason",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "amount_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "currency",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'GBP'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "description",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "due_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "season_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "amount_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "charge_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "currency",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "method",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "received_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "recorded_by_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "reference",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "document_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "body",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "published_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "retired_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "title",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "version",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "value",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "height_cm",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "notes",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "preferred_foot",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "primary_position",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "secondary_position",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "awarded_by",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "expires_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "issued_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "reference",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "title",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "dbs_level",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "dbs_update_service",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_venueId_name_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "name",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_seasonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_person_season_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_authorUserId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "author_user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_organizationId_publishedAt_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "published_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_userId_readAt_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "read_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_fee_person_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "fee_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_seasonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_chargeId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "charge_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_recordedByUserId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "recorded_by_user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_documentId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "document_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_person_type_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "type",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_org_type_value_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "type",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "value",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "player_profiles_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_fileId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "file_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_venue_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_season_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "season_id"],
+        "schemaTo": "public",
+        "tableTo": "seasons",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_team_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_author_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["author_user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_team_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_fee_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "fee_id"],
+        "schemaTo": "public",
+        "tableTo": "fees",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_season_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "season_id"],
+        "schemaTo": "public",
+        "tableTo": "seasons",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_team_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_recorded_by_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["recorded_by_user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_charge_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "charge_id"],
+        "schemaTo": "public",
+        "tableTo": "fee_charges",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_document_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "document_id", "type"],
+        "schemaTo": "public",
+        "tableTo": "consent_documents",
+        "columnsTo": ["organization_id", "id", "type"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "player_profiles_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "player_profiles_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "player_profiles_pk",
+        "columns": ["person_id"],
+        "nameExplicit": true,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "person_identifiers_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "fee_charges_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_org_id_type_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id", "type"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consent_documents_org_type_version_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "type", "version"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_format_chk",
+        "value": "\"format\" in ('5v5', '7v7', '9v9', '11v11', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_surface_chk",
+        "value": "\"surface\" in ('grass', '3g', '4g', 'astroturf', 'indoor', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "pitches",
+        "name": "pitches_name_chk",
+        "value": "length(trim(\"name\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_status_chk",
+        "value": "\"status\" in ('pending', 'active', 'withdrawn', 'rejected')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "registrations",
+        "name": "registrations_withdrawn_chk",
+        "value": "(\"status\" = 'withdrawn') = (\"withdrawn_on\" is not null)",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_title_chk",
+        "value": "length(trim(\"title\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_body_chk",
+        "value": "length(trim(\"body\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "announcements",
+        "name": "announcements_expires_chk",
+        "value": "\"expires_at\" is null or \"published_at\" is null or \"expires_at\" > \"published_at\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_kind_chk",
+        "value": "\"kind\" in ('announcement', 'event_change', 'event_reminder', 'consent_request', 'payment_reminder', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_title_chk",
+        "value": "length(trim(\"title\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "notifications",
+        "name": "notifications_entity_chk",
+        "value": "(\"entity_type\" is null) = (\"entity_id\" is null)",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "feeCharges_amountMinor_chk",
+        "value": "\"amount_minor\" >= 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "feeCharges_currency_chk",
+        "value": "\"currency\" ~ '^[A-Z]{3}$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "feeCharges_status_chk",
+        "value": "\"status\" in ('due', 'paid', 'waived', 'cancelled')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fee_charges",
+        "name": "feeCharges_waived_chk",
+        "value": "\"status\" <> 'waived' or length(trim(coalesce(\"waived_reason\", ''))) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_amountMinor_chk",
+        "value": "\"amount_minor\" >= 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_currency_chk",
+        "value": "\"currency\" ~ '^[A-Z]{3}$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "fees",
+        "name": "fees_name_chk",
+        "value": "length(trim(\"name\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_amountMinor_chk",
+        "value": "\"amount_minor\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_currency_chk",
+        "value": "\"currency\" ~ '^[A-Z]{3}$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_method_chk",
+        "value": "\"method\" in ('cash', 'card', 'bank_transfer', 'cheque', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consentDocuments_type_chk",
+        "value": "\"type\" in ('photo_video', 'medical_treatment', 'travel', 'data_sharing', 'social_media')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consentDocuments_version_chk",
+        "value": "\"version\" >= 1",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consentDocuments_body_chk",
+        "value": "length(trim(\"body\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consent_documents",
+        "name": "consentDocuments_title_chk",
+        "value": "length(trim(\"title\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "personIdentifiers_type_chk",
+        "value": "\"type\" in ('fa_fan', 'league_registration', 'school', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_identifiers",
+        "name": "personIdentifiers_value_chk",
+        "value": "length(trim(\"value\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "playerProfiles_preferredFoot_chk",
+        "value": "\"preferred_foot\" is null or \"preferred_foot\" in ('left', 'right', 'both')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "player_profiles",
+        "name": "playerProfiles_heightCm_chk",
+        "value": "\"height_cm\" is null or \"height_cm\" between 50 and 250",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_kind_chk",
+        "value": "\"kind\" in ('coaching', 'refereeing', 'first_aid', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_dates_chk",
+        "value": "\"expires_on\" is null or \"issued_on\" is null or \"expires_on\" >= \"issued_on\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "qualifications",
+        "name": "qualifications_title_chk",
+        "value": "length(trim(\"title\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguardingChecks_dbsLevel_chk",
+        "value": "\"dbs_level\" is null or \"dbs_level\" in ('basic', 'standard', 'enhanced', 'enhanced_barred_list')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguardingChecks_dbsOnly_chk",
+        "value": "\"kind\" = 'dbs' or (\"dbs_level\" is null and \"dbs_update_service\" = false)",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

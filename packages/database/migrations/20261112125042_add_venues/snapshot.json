@@ -1,0 +1,396 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "7488e25f-70c1-4086-9a66-9f26d1c4b9e2",
+  "prevIds": ["e7362fcf-67cf-4d0e-9c97-84a0e0e30993"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "venues"],
+      "writes": [
+        "s|tbl|public.venues",
+        "n|tbl|public.venues",
+        "e|tbl|public.venues",
+        "n|rel|public.venues",
+        "n|type|public.venues",
+        "n|rel|public.venues_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "venues", "venues_addressId_idx"],
+      "writes": [
+        "s|idx|public.venues_addressId_idx",
+        "n|idx|public.venues_addressId_idx",
+        "e|idx|public.venues_addressId_idx",
+        "n|rel|public.venues_addressId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.address_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "venues",
+        "venues_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.venues_organizationId_idx",
+        "n|idx|public.venues_organizationId_idx",
+        "e|idx|public.venues_organizationId_idx",
+        "n|rel|public.venues_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "venues", "venues_kinds_idx"],
+      "writes": [
+        "s|idx|public.venues_kinds_idx",
+        "n|idx|public.venues_kinds_idx",
+        "e|idx|public.venues_kinds_idx",
+        "n|rel|public.venues_kinds_idx"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.kinds"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "venues"],
+      "writes": [
+        "s|fk|public.venues.venues_address_id_addresses_id_fkey",
+        "n|fk|public.venues.venues_address_id_addresses_id_fkey",
+        "e|fk|public.venues.venues_address_id_addresses_id_fkey",
+        "n|con|public.venues.venues_address_id_addresses_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.venues.address_id",
+        "n|col|public.addresses.id",
+        "e|uniqueness|public.addresses.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "venues"],
+      "writes": [
+        "s|fk|public.venues.venues_organization_id_organizations_id_fkey",
+        "n|fk|public.venues.venues_organization_id_organizations_id_fkey",
+        "e|fk|public.venues.venues_organization_id_organizations_id_fkey",
+        "n|con|public.venues.venues_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.venues.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "venues",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "address_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "directions",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "kinds",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 1,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "what3words",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_addressId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "address_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_kinds_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "kinds",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "gin",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_address_id_addresses_id_fkey",
+        "nameExplicit": false,
+        "columns": ["address_id"],
+        "schemaTo": "public",
+        "tableTo": "addresses",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    }
+  ]
+}

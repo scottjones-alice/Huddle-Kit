@@ -1,0 +1,275 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "e9d59c36-794f-46c5-931b-09138a97f0c0",
+  "prevIds": ["8233e4a2-ea3c-421b-842c-6a651c4a00c0"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_stripe_accounts"],
+      "writes": [
+        "s|tbl|public.club_stripe_accounts",
+        "n|tbl|public.club_stripe_accounts",
+        "e|tbl|public.club_stripe_accounts",
+        "n|rel|public.club_stripe_accounts",
+        "n|type|public.club_stripe_accounts",
+        "n|rel|public.club_stripe_accounts_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_stripe_accounts",
+        "club_stripe_accounts_stripeAccountId_uidx"
+      ],
+      "writes": [
+        "s|idx|public.club_stripe_accounts_stripeAccountId_uidx",
+        "n|idx|public.club_stripe_accounts_stripeAccountId_uidx",
+        "e|idx|public.club_stripe_accounts_stripeAccountId_uidx",
+        "n|rel|public.club_stripe_accounts_stripeAccountId_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.club_stripe_accounts",
+        "n|sch|public",
+        "n|col|public.club_stripe_accounts.stripe_account_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payments",
+        "payments_card_reference_uidx"
+      ],
+      "writes": [
+        "s|idx|public.payments_card_reference_uidx",
+        "n|idx|public.payments_card_reference_uidx",
+        "e|idx|public.payments_card_reference_uidx",
+        "n|rel|public.payments_card_reference_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.payments",
+        "n|sch|public",
+        "n|col|public.payments.organization_id",
+        "n|col|public.payments.reference"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_stripe_accounts"],
+      "writes": [
+        "s|fk|public.club_stripe_accounts.club_stripe_accounts_organization_id_organizations_id_fkey",
+        "n|fk|public.club_stripe_accounts.club_stripe_accounts_organization_id_organizations_id_fkey",
+        "e|fk|public.club_stripe_accounts.club_stripe_accounts_organization_id_organizations_id_fkey",
+        "n|con|public.club_stripe_accounts.club_stripe_accounts_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_stripe_accounts",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_stripe_accounts.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_stripe_accounts",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "card_payments_status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'pending'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "stripe_account_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "club_stripe_accounts_stripeAccountId_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "stripe_account_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "payments",
+        "name": "payments_card_reference_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "reference",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"method\" = 'card' and \"reference\" is not null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "club_stripe_accounts_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "club_stripe_accounts_pkey",
+        "columns": ["organization_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "clubStripeAccounts_cardPaymentsStatus_chk",
+        "value": "\"card_payments_status\" in ('active', 'pending', 'restricted', 'unsupported')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_stripe_accounts",
+        "name": "clubStripeAccounts_stripeAccountId_chk",
+        "value": "\"stripe_account_id\" like 'acct\\_%'",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3565 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "dfa65ffb-397c-4a80-95c3-6ea8453cfb2f",
+  "prevIds": ["8aa23166-8eca-469d-b8ee-72c39acfb7ff"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|tbl|public.consents",
+        "n|tbl|public.consents",
+        "e|tbl|public.consents",
+        "n|rel|public.consents",
+        "n|type|public.consents",
+        "n|rel|public.consents_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "allergies"],
+      "writes": [
+        "s|tbl|public.allergies",
+        "n|tbl|public.allergies",
+        "e|tbl|public.allergies",
+        "n|rel|public.allergies",
+        "n|type|public.allergies",
+        "n|rel|public.allergies_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "medical_records"],
+      "writes": [
+        "s|tbl|public.medical_records",
+        "n|tbl|public.medical_records",
+        "e|tbl|public.medical_records",
+        "n|rel|public.medical_records",
+        "n|type|public.medical_records",
+        "n|rel|public.medical_records_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|tbl|public.safeguarding_checks",
+        "n|tbl|public.safeguarding_checks",
+        "e|tbl|public.safeguarding_checks",
+        "n|rel|public.safeguarding_checks",
+        "n|type|public.safeguarding_checks",
+        "n|rel|public.safeguarding_checks_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|tbl|public.safeguarding_concerns",
+        "n|tbl|public.safeguarding_concerns",
+        "e|tbl|public.safeguarding_concerns",
+        "n|rel|public.safeguarding_concerns",
+        "n|type|public.safeguarding_concerns",
+        "n|rel|public.safeguarding_concerns_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "safeguarding_notes"],
+      "writes": [
+        "s|tbl|public.safeguarding_notes",
+        "n|tbl|public.safeguarding_notes",
+        "e|tbl|public.safeguarding_notes",
+        "n|rel|public.safeguarding_notes",
+        "n|type|public.safeguarding_notes",
+        "n|rel|public.safeguarding_notes_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|tbl|public.incident_reports",
+        "n|tbl|public.incident_reports",
+        "e|tbl|public.incident_reports",
+        "n|rel|public.incident_reports",
+        "n|type|public.incident_reports",
+        "n|rel|public.incident_reports_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "consents", "consents_fileId_idx"],
+      "writes": [
+        "s|idx|public.consents_fileId_idx",
+        "n|idx|public.consents_fileId_idx",
+        "e|idx|public.consents_fileId_idx",
+        "n|rel|public.consents_fileId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.file_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "consents",
+        "consents_grantedByPersonId_idx"
+      ],
+      "writes": [
+        "s|idx|public.consents_grantedByPersonId_idx",
+        "n|idx|public.consents_grantedByPersonId_idx",
+        "e|idx|public.consents_grantedByPersonId_idx",
+        "n|rel|public.consents_grantedByPersonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.granted_by_person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "consents",
+        "consents_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.consents_organizationId_idx",
+        "n|idx|public.consents_organizationId_idx",
+        "e|idx|public.consents_organizationId_idx",
+        "n|rel|public.consents_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "consents",
+        "consents_active_uidx"
+      ],
+      "writes": [
+        "s|idx|public.consents_active_uidx",
+        "n|idx|public.consents_active_uidx",
+        "e|idx|public.consents_active_uidx",
+        "n|rel|public.consents_active_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.person_id",
+        "n|col|public.consents.type"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "allergies",
+        "allergies_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.allergies_organizationId_idx",
+        "n|idx|public.allergies_organizationId_idx",
+        "e|idx|public.allergies_organizationId_idx",
+        "n|rel|public.allergies_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|col|public.allergies.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "allergies",
+        "allergies_personId_allergen_uidx"
+      ],
+      "writes": [
+        "s|idx|public.allergies_personId_allergen_uidx",
+        "n|idx|public.allergies_personId_allergen_uidx",
+        "e|idx|public.allergies_personId_allergen_uidx",
+        "n|rel|public.allergies_personId_allergen_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|col|public.allergies.person_id",
+        "n|col|public.allergies.allergen"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "medical_records",
+        "medical_records_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.medical_records_organizationId_idx",
+        "n|idx|public.medical_records_organizationId_idx",
+        "e|idx|public.medical_records_organizationId_idx",
+        "n|rel|public.medical_records_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|col|public.medical_records.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "medical_records",
+        "medical_records_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.medical_records_personId_idx",
+        "n|idx|public.medical_records_personId_idx",
+        "e|idx|public.medical_records_personId_idx",
+        "n|rel|public.medical_records_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|col|public.medical_records.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_checks",
+        "safeguarding_checks_fileId_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_checks_fileId_idx",
+        "n|idx|public.safeguarding_checks_fileId_idx",
+        "e|idx|public.safeguarding_checks_fileId_idx",
+        "n|rel|public.safeguarding_checks_fileId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.file_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_checks",
+        "safeguarding_checks_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_checks_organizationId_idx",
+        "n|idx|public.safeguarding_checks_organizationId_idx",
+        "e|idx|public.safeguarding_checks_organizationId_idx",
+        "n|rel|public.safeguarding_checks_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_checks",
+        "safeguarding_checks_personId_kind_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_checks_personId_kind_idx",
+        "n|idx|public.safeguarding_checks_personId_kind_idx",
+        "e|idx|public.safeguarding_checks_personId_kind_idx",
+        "n|rel|public.safeguarding_checks_personId_kind_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.person_id",
+        "n|col|public.safeguarding_checks.kind"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_checks",
+        "safeguarding_checks_verifiedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_checks_verifiedBy_idx",
+        "n|idx|public.safeguarding_checks_verifiedBy_idx",
+        "e|idx|public.safeguarding_checks_verifiedBy_idx",
+        "n|rel|public.safeguarding_checks_verifiedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.verified_by"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_concerns",
+        "safeguarding_concerns_assignedTo_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_concerns_assignedTo_idx",
+        "n|idx|public.safeguarding_concerns_assignedTo_idx",
+        "e|idx|public.safeguarding_concerns_assignedTo_idx",
+        "n|rel|public.safeguarding_concerns_assignedTo_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.assigned_to"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_concerns",
+        "safeguarding_concerns_organizationId_status_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_concerns_organizationId_status_idx",
+        "n|idx|public.safeguarding_concerns_organizationId_status_idx",
+        "e|idx|public.safeguarding_concerns_organizationId_status_idx",
+        "n|rel|public.safeguarding_concerns_organizationId_status_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.organization_id",
+        "n|col|public.safeguarding_concerns.status"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_concerns",
+        "safeguarding_concerns_raisedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_concerns_raisedBy_idx",
+        "n|idx|public.safeguarding_concerns_raisedBy_idx",
+        "e|idx|public.safeguarding_concerns_raisedBy_idx",
+        "n|rel|public.safeguarding_concerns_raisedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.raised_by"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_concerns",
+        "safeguarding_concerns_subjectPersonId_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_concerns_subjectPersonId_idx",
+        "n|idx|public.safeguarding_concerns_subjectPersonId_idx",
+        "e|idx|public.safeguarding_concerns_subjectPersonId_idx",
+        "n|rel|public.safeguarding_concerns_subjectPersonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.subject_person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_notes",
+        "safeguarding_notes_concernId_createdAt_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_notes_concernId_createdAt_idx",
+        "n|idx|public.safeguarding_notes_concernId_createdAt_idx",
+        "e|idx|public.safeguarding_notes_concernId_createdAt_idx",
+        "n|rel|public.safeguarding_notes_concernId_createdAt_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_notes",
+        "n|sch|public",
+        "n|col|public.safeguarding_notes.concern_id",
+        "n|col|public.safeguarding_notes.created_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "safeguarding_notes",
+        "safeguarding_notes_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.safeguarding_notes_organizationId_idx",
+        "n|idx|public.safeguarding_notes_organizationId_idx",
+        "e|idx|public.safeguarding_notes_organizationId_idx",
+        "n|rel|public.safeguarding_notes_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_notes",
+        "n|sch|public",
+        "n|col|public.safeguarding_notes.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_firstAiderPersonId_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_firstAiderPersonId_idx",
+        "n|idx|public.incident_reports_firstAiderPersonId_idx",
+        "e|idx|public.incident_reports_firstAiderPersonId_idx",
+        "n|rel|public.incident_reports_firstAiderPersonId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.first_aider_person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_organizationId_occurredAt_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_organizationId_occurredAt_idx",
+        "n|idx|public.incident_reports_organizationId_occurredAt_idx",
+        "e|idx|public.incident_reports_organizationId_occurredAt_idx",
+        "n|rel|public.incident_reports_organizationId_occurredAt_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.organization_id",
+        "n|col|public.incident_reports.occurred_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_personId_idx",
+        "n|idx|public.incident_reports_personId_idx",
+        "e|idx|public.incident_reports_personId_idx",
+        "n|rel|public.incident_reports_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_reportedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_reportedBy_idx",
+        "n|idx|public.incident_reports_reportedBy_idx",
+        "e|idx|public.incident_reports_reportedBy_idx",
+        "n|rel|public.incident_reports_reportedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.reported_by"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_teamId_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_teamId_idx",
+        "n|idx|public.incident_reports_teamId_idx",
+        "e|idx|public.incident_reports_teamId_idx",
+        "n|rel|public.incident_reports_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_reports",
+        "incident_reports_venueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.incident_reports_venueId_idx",
+        "n|idx|public.incident_reports_venueId_idx",
+        "e|idx|public.incident_reports_venueId_idx",
+        "n|rel|public.incident_reports_venueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.venue_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|fk|public.consents.consents_file_id_files_id_fkey",
+        "n|fk|public.consents.consents_file_id_files_id_fkey",
+        "e|fk|public.consents.consents_file_id_files_id_fkey",
+        "n|con|public.consents.consents_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.consents.file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|fk|public.consents.consents_granted_by_person_id_people_id_fkey",
+        "n|fk|public.consents.consents_granted_by_person_id_people_id_fkey",
+        "e|fk|public.consents.consents_granted_by_person_id_people_id_fkey",
+        "n|con|public.consents.consents_granted_by_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.consents.granted_by_person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|fk|public.consents.consents_organization_id_organizations_id_fkey",
+        "n|fk|public.consents.consents_organization_id_organizations_id_fkey",
+        "e|fk|public.consents.consents_organization_id_organizations_id_fkey",
+        "n|con|public.consents.consents_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.consents.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|fk|public.consents.consents_person_id_people_id_fkey",
+        "n|fk|public.consents.consents_person_id_people_id_fkey",
+        "e|fk|public.consents.consents_person_id_people_id_fkey",
+        "n|con|public.consents.consents_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.consents.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "allergies"],
+      "writes": [
+        "s|fk|public.allergies.allergies_organization_id_organizations_id_fkey",
+        "n|fk|public.allergies.allergies_organization_id_organizations_id_fkey",
+        "e|fk|public.allergies.allergies_organization_id_organizations_id_fkey",
+        "n|con|public.allergies.allergies_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.allergies.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "allergies"],
+      "writes": [
+        "s|fk|public.allergies.allergies_person_id_people_id_fkey",
+        "n|fk|public.allergies.allergies_person_id_people_id_fkey",
+        "e|fk|public.allergies.allergies_person_id_people_id_fkey",
+        "n|con|public.allergies.allergies_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.allergies.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "medical_records"],
+      "writes": [
+        "s|fk|public.medical_records.medical_records_organization_id_organizations_id_fkey",
+        "n|fk|public.medical_records.medical_records_organization_id_organizations_id_fkey",
+        "e|fk|public.medical_records.medical_records_organization_id_organizations_id_fkey",
+        "n|con|public.medical_records.medical_records_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.medical_records.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "medical_records"],
+      "writes": [
+        "s|fk|public.medical_records.medical_records_person_id_people_id_fkey",
+        "n|fk|public.medical_records.medical_records_person_id_people_id_fkey",
+        "e|fk|public.medical_records.medical_records_person_id_people_id_fkey",
+        "n|con|public.medical_records.medical_records_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.medical_records.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|fk|public.safeguarding_checks.safeguarding_checks_file_id_files_id_fkey",
+        "n|fk|public.safeguarding_checks.safeguarding_checks_file_id_files_id_fkey",
+        "e|fk|public.safeguarding_checks.safeguarding_checks_file_id_files_id_fkey",
+        "n|con|public.safeguarding_checks.safeguarding_checks_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|fk|public.safeguarding_checks.safeguarding_checks_organization_id_organizations_id_fkey",
+        "n|fk|public.safeguarding_checks.safeguarding_checks_organization_id_organizations_id_fkey",
+        "e|fk|public.safeguarding_checks.safeguarding_checks_organization_id_organizations_id_fkey",
+        "n|con|public.safeguarding_checks.safeguarding_checks_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|fk|public.safeguarding_checks.safeguarding_checks_person_id_people_id_fkey",
+        "n|fk|public.safeguarding_checks.safeguarding_checks_person_id_people_id_fkey",
+        "e|fk|public.safeguarding_checks.safeguarding_checks_person_id_people_id_fkey",
+        "n|con|public.safeguarding_checks.safeguarding_checks_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|fk|public.safeguarding_checks.safeguarding_checks_verified_by_users_id_fkey",
+        "n|fk|public.safeguarding_checks.safeguarding_checks_verified_by_users_id_fkey",
+        "e|fk|public.safeguarding_checks.safeguarding_checks_verified_by_users_id_fkey",
+        "n|con|public.safeguarding_checks.safeguarding_checks_verified_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.verified_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|fk|public.safeguarding_concerns.safeguarding_concerns_assigned_to_users_id_fkey",
+        "n|fk|public.safeguarding_concerns.safeguarding_concerns_assigned_to_users_id_fkey",
+        "e|fk|public.safeguarding_concerns.safeguarding_concerns_assigned_to_users_id_fkey",
+        "n|con|public.safeguarding_concerns.safeguarding_concerns_assigned_to_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.assigned_to",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|fk|public.safeguarding_concerns.safeguarding_concerns_organization_id_organizations_id_fkey",
+        "n|fk|public.safeguarding_concerns.safeguarding_concerns_organization_id_organizations_id_fkey",
+        "e|fk|public.safeguarding_concerns.safeguarding_concerns_organization_id_organizations_id_fkey",
+        "n|con|public.safeguarding_concerns.safeguarding_concerns_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|fk|public.safeguarding_concerns.safeguarding_concerns_raised_by_users_id_fkey",
+        "n|fk|public.safeguarding_concerns.safeguarding_concerns_raised_by_users_id_fkey",
+        "e|fk|public.safeguarding_concerns.safeguarding_concerns_raised_by_users_id_fkey",
+        "n|con|public.safeguarding_concerns.safeguarding_concerns_raised_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.raised_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|fk|public.safeguarding_concerns.safeguarding_concerns_subject_person_id_people_id_fkey",
+        "n|fk|public.safeguarding_concerns.safeguarding_concerns_subject_person_id_people_id_fkey",
+        "e|fk|public.safeguarding_concerns.safeguarding_concerns_subject_person_id_people_id_fkey",
+        "n|con|public.safeguarding_concerns.safeguarding_concerns_subject_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.subject_person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_notes"],
+      "writes": [
+        "s|fk|public.safeguarding_notes.safeguarding_notes_concern_id_safeguarding_concerns_id_fkey",
+        "n|fk|public.safeguarding_notes.safeguarding_notes_concern_id_safeguarding_concerns_id_fkey",
+        "e|fk|public.safeguarding_notes.safeguarding_notes_concern_id_safeguarding_concerns_id_fkey",
+        "n|con|public.safeguarding_notes.safeguarding_notes_concern_id_safeguarding_concerns_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_notes",
+        "n|sch|public",
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_notes.concern_id",
+        "n|col|public.safeguarding_concerns.id",
+        "e|uniqueness|public.safeguarding_concerns.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "safeguarding_notes"],
+      "writes": [
+        "s|fk|public.safeguarding_notes.safeguarding_notes_organization_id_organizations_id_fkey",
+        "n|fk|public.safeguarding_notes.safeguarding_notes_organization_id_organizations_id_fkey",
+        "e|fk|public.safeguarding_notes.safeguarding_notes_organization_id_organizations_id_fkey",
+        "n|con|public.safeguarding_notes.safeguarding_notes_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_notes",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.safeguarding_notes.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_first_aider_person_id_people_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_first_aider_person_id_people_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_first_aider_person_id_people_id_fkey",
+        "n|con|public.incident_reports.incident_reports_first_aider_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.incident_reports.first_aider_person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_organization_id_organizations_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_organization_id_organizations_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_organization_id_organizations_id_fkey",
+        "n|con|public.incident_reports.incident_reports_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.incident_reports.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_person_id_people_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_person_id_people_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_person_id_people_id_fkey",
+        "n|con|public.incident_reports.incident_reports_person_id_people_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.incident_reports.person_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_reported_by_users_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_reported_by_users_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_reported_by_users_id_fkey",
+        "n|con|public.incident_reports.incident_reports_reported_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.incident_reports.reported_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_team_id_teams_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_team_id_teams_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_team_id_teams_id_fkey",
+        "n|con|public.incident_reports.incident_reports_team_id_teams_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.incident_reports.team_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|fk|public.incident_reports.incident_reports_venue_id_venues_id_fkey",
+        "n|fk|public.incident_reports.incident_reports_venue_id_venues_id_fkey",
+        "e|fk|public.incident_reports.incident_reports_venue_id_venues_id_fkey",
+        "n|con|public.incident_reports.incident_reports_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.incident_reports.venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "consents",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "allergies",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "medical_records",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "safeguarding_checks",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "safeguarding_concerns",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "safeguarding_notes",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "incident_reports",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "expires_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "granted_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "granted_by_person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "notes",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "withdrawn_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergen",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "reaction",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "severity",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "treatment",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "details",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "emergency_notes",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "ended_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "is_emergency_relevant",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "started_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "expires_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "issued_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "reference",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'pending'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "verified_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "verified_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "assigned_to",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "closed_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "closed_reason",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "details",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "opened_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "raised_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "referred_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "referred_to",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "severity",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'open'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "subject_person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "summary",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "author_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "body",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "concern_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "action_taken",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "description",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "first_aider_person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "follow_up_required",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "occurred_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "parents_notified_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "reported_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "severity",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_fileId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "file_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_grantedByPersonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "granted_by_person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_active_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "type",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"withdrawn_at\" is null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_personId_allergen_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "allergen",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medical_records_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medical_records_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_fileId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "file_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_personId_kind_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "kind",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_verifiedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "verified_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_assignedTo_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "assigned_to",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_organizationId_status_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "status",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_raisedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "raised_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_subjectPersonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "subject_person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "safeguarding_notes_concernId_createdAt_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "concern_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "created_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "safeguarding_notes_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_firstAiderPersonId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "first_aider_person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_organizationId_occurredAt_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "occurred_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_reportedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "reported_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_venueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_granted_by_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["granted_by_person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medical_records_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medical_records_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_verified_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["verified_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_assigned_to_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["assigned_to"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_raised_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["raised_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_subject_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["subject_person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "safeguarding_notes_concern_id_safeguarding_concerns_id_fkey",
+        "nameExplicit": false,
+        "columns": ["concern_id"],
+        "schemaTo": "public",
+        "tableTo": "safeguarding_concerns",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "safeguarding_notes_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_first_aider_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["first_aider_person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_person_id_people_id_fkey",
+        "nameExplicit": false,
+        "columns": ["person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_reported_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["reported_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_team_id_teams_id_fkey",
+        "nameExplicit": false,
+        "columns": ["team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medical_records_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguarding_checks_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguarding_concerns_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_notes",
+        "name": "safeguarding_notes_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incident_reports_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_dates_chk",
+        "value": "(\"withdrawn_at\" is null or \"withdrawn_at\" >= \"granted_at\") and (\"expires_at\" is null or \"expires_at\" > \"granted_at\")",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medicalRecords_dates_chk",
+        "value": "\"ended_on\" is null or \"started_on\" is null or \"ended_on\" >= \"started_on\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguardingChecks_dates_chk",
+        "value": "\"expires_on\" is null or \"issued_on\" is null or \"expires_on\" >= \"issued_on\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguardingConcerns_closed_chk",
+        "value": "(\"status\" = 'closed') = (\"closed_at\" is not null)",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

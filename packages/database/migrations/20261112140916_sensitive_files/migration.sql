@@ -1,0 +1,2 @@
+ALTER TABLE "files" ADD CONSTRAINT "files_sensitiveChecksum_chk" CHECK ("kind" <> 'sensitive' or "checksum_sha256" is not null);--> statement-breakpoint
+ALTER TABLE "files" DROP CONSTRAINT "files_kind_chk", ADD CONSTRAINT "files_kind_chk" CHECK ("kind" in ('photo', 'report', 'sensitive', 'other'));

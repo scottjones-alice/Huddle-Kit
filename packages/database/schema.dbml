@@ -1,0 +1,780 @@
+Table "accounts" {
+  "id" uuid [pk]
+  "account_id" text [not null]
+  "provider_id" text [not null]
+  "user_id" uuid [not null]
+  "access_token" text
+  "refresh_token" text
+  "id_token" text
+  "access_token_expires_at" timestamp
+  "refresh_token_expires_at" timestamp
+  "scope" text
+  "password" text
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}
+Ref: "accounts".("user_id") > "users".("id")
+
+Table "addresses" {
+  "city" text [not null]
+  "country_code" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "latitude" double_precision
+  "line_1" text [not null]
+  "line_2" text
+  "longitude" double_precision
+  "organization_id" uuid [not null]
+  "postal_code" text
+  "region" text
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "addresses".("organization_id") > "organizations".("id")
+
+Table "allergies" {
+  "allergen" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "reaction" text
+  "severity" text [not null]
+  "treatment" text
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "allergies".("organization_id") > "organizations".("id")
+Ref: "allergies".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "announcements" {
+  "author_user_id" uuid
+  "body" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "expires_at" timestamp_with_time_zone
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "published_at" timestamp_with_time_zone
+  "team_id" uuid
+  "title" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "announcements".("author_user_id") > "users".("id")
+Ref: "announcements".("organization_id") > "organizations".("id")
+Ref: "announcements".("organization_id", "team_id") > "teams".("organization_id", "id")
+
+Table "audit_events" {
+  "action" text [not null]
+  "actor_user_id" uuid
+  "entity_id" uuid
+  "entity_type" text [not null]
+  "id" uuid [pk]
+  "ip_address" text
+  "metadata" jsonb
+  "occurred_at" timestamp_with_time_zone [not null]
+  "organization_id" uuid [not null]
+  "user_agent" text
+}
+
+Table "club_settings" {
+  "address_id" uuid
+  "contact_email" text
+  "contact_phone" text
+  "created_at" timestamp_with_time_zone [not null]
+  "home_venue_id" uuid
+  "organization_id" uuid [pk]
+  "short_name" text
+  "updated_at" timestamp_with_time_zone [not null]
+  "website" text
+}
+Ref: "club_settings".("home_venue_id") > "venues".("id")
+Ref: "club_settings".("organization_id") > "organizations".("id")
+Ref: "club_settings".("organization_id", "address_id") > "addresses".("organization_id", "id")
+
+Table "club_stripe_accounts" {
+  "card_payments_status" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "organization_id" uuid [pk]
+  "stripe_account_id" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "club_stripe_accounts".("organization_id") > "organizations".("id")
+
+Table "consent_documents" {
+  "body" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "published_at" timestamp_with_time_zone [not null]
+  "retired_at" timestamp_with_time_zone
+  "title" text [not null]
+  "type" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "version" integer [not null]
+}
+Ref: "consent_documents".("organization_id") > "organizations".("id")
+
+Table "consents" {
+  "created_at" timestamp_with_time_zone [not null]
+  "document_id" uuid
+  "expires_at" timestamp_with_time_zone
+  "file_id" uuid
+  "granted_at" timestamp_with_time_zone [not null]
+  "granted_by_person_id" uuid
+  "id" uuid [pk]
+  "notes" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "type" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "withdrawn_at" timestamp_with_time_zone
+}
+Ref: "consents".("file_id") > "files".("id")
+Ref: "consents".("granted_by_person_id") > "people".("id")
+Ref: "consents".("organization_id") > "organizations".("id")
+Ref: "consents".("organization_id", "person_id") > "people".("organization_id", "id")
+Ref: "consents".("organization_id", "document_id", "type") > "consent_documents".("organization_id", "id", "type")
+
+Table "event_attendance" {
+  "created_at" timestamp_with_time_zone [not null]
+  "event_id" uuid [not null]
+  "id" uuid [pk]
+  "note" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "recorded_by_user_id" uuid
+  "status" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "event_attendance".("organization_id") > "organizations".("id")
+Ref: "event_attendance".("recorded_by_user_id") > "users".("id")
+Ref: "event_attendance".("organization_id", "event_id") > "events".("organization_id", "id")
+Ref: "event_attendance".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "event_availability" {
+  "created_at" timestamp_with_time_zone [not null]
+  "event_id" uuid [not null]
+  "id" uuid [pk]
+  "note" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "responded_at" timestamp_with_time_zone [not null]
+  "status" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "event_availability".("organization_id") > "organizations".("id")
+Ref: "event_availability".("organization_id", "event_id") > "events".("organization_id", "id")
+Ref: "event_availability".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "event_series" {
+  "created_at" timestamp_with_time_zone [not null]
+  "created_by_user_id" uuid
+  "description" text
+  "duration_minutes" integer [not null]
+  "ends_on" date
+  "generated_until" date
+  "id" uuid [pk]
+  "interval_weeks" integer [not null]
+  "is_active" boolean [not null]
+  "kind" text [not null]
+  "meet_minutes_before" integer
+  "organization_id" uuid [not null]
+  "start_time" time [not null]
+  "starts_on" date [not null]
+  "team_id" uuid
+  "time_zone" text [not null]
+  "title" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "venue_id" uuid
+  "weekday" integer [not null]
+}
+Ref: "event_series".("created_by_user_id") > "users".("id")
+Ref: "event_series".("organization_id") > "organizations".("id")
+Ref: "event_series".("venue_id") > "venues".("id")
+Ref: "event_series".("organization_id", "team_id") > "teams".("organization_id", "id")
+
+Table "events" {
+  "cancellation_reason" text
+  "created_at" timestamp_with_time_zone [not null]
+  "created_by_user_id" uuid
+  "description" text
+  "ends_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "kind" text [not null]
+  "meet_at" timestamp_with_time_zone
+  "organization_id" uuid [not null]
+  "series_id" uuid
+  "series_occurrence_starts_at" timestamp_with_time_zone
+  "starts_at" timestamp_with_time_zone [not null]
+  "status" text [not null]
+  "team_id" uuid
+  "title" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "venue_id" uuid
+}
+Ref: "events".("created_by_user_id") > "users".("id")
+Ref: "events".("organization_id") > "organizations".("id")
+Ref: "events".("venue_id") > "venues".("id")
+Ref: "events".("organization_id", "team_id") > "teams".("organization_id", "id")
+Ref: "events".("organization_id", "series_id") > "event_series".("organization_id", "id")
+
+Table "fee_charges" {
+  "amount_minor" integer [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "currency" text [not null]
+  "due_on" date
+  "fee_id" uuid [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "status" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "waived_reason" text
+}
+Ref: "fee_charges".("organization_id") > "organizations".("id")
+Ref: "fee_charges".("organization_id", "fee_id") > "fees".("organization_id", "id")
+Ref: "fee_charges".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "fees" {
+  "amount_minor" integer [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "currency" text [not null]
+  "description" text
+  "due_on" date
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "season_id" uuid [not null]
+  "team_id" uuid
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "fees".("organization_id") > "organizations".("id")
+Ref: "fees".("organization_id", "season_id") > "seasons".("organization_id", "id")
+Ref: "fees".("organization_id", "team_id") > "teams".("organization_id", "id")
+
+Table "file_views" {
+  "file_id" uuid [not null]
+  "id" uuid [pk]
+  "viewed_at" timestamp_with_time_zone [not null]
+  "viewed_by" uuid
+}
+Ref: "file_views".("file_id") > "files".("id")
+Ref: "file_views".("viewed_by") > "users".("id")
+
+Table "files" {
+  "bucket" text [not null]
+  "checksum_sha256" text
+  "content_type" text [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "etag" text
+  "file_name" text [not null]
+  "id" uuid [pk]
+  "key" text [not null]
+  "kind" text [not null]
+  "organization_id" uuid [not null]
+  "size_bytes" bigint [not null]
+  "status" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "uploaded_at" timestamp_with_time_zone
+  "uploaded_by" uuid
+}
+Ref: "files".("organization_id") > "organizations".("id")
+Ref: "files".("uploaded_by") > "users".("id")
+
+Table "incident_reports" {
+  "action_taken" text
+  "created_at" timestamp_with_time_zone [not null]
+  "description" text [not null]
+  "first_aider_person_id" uuid
+  "follow_up_required" boolean [not null]
+  "id" uuid [pk]
+  "kind" text [not null]
+  "occurred_at" timestamp_with_time_zone [not null]
+  "organization_id" uuid [not null]
+  "parents_notified_at" timestamp_with_time_zone
+  "person_id" uuid [not null]
+  "reported_by" uuid
+  "severity" text [not null]
+  "team_id" uuid
+  "updated_at" timestamp_with_time_zone [not null]
+  "venue_id" uuid
+}
+Ref: "incident_reports".("first_aider_person_id") > "people".("id")
+Ref: "incident_reports".("organization_id") > "organizations".("id")
+Ref: "incident_reports".("reported_by") > "users".("id")
+Ref: "incident_reports".("team_id") > "teams".("id")
+Ref: "incident_reports".("venue_id") > "venues".("id")
+Ref: "incident_reports".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "invitations" {
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "email" text [not null]
+  "role" text
+  "status" text [not null]
+  "expires_at" timestamp [not null]
+  "created_at" timestamp [not null]
+  "inviter_id" uuid [not null]
+}
+Ref: "invitations".("organization_id") > "organizations".("id")
+Ref: "invitations".("inviter_id") > "users".("id")
+
+Table "match_details" {
+  "competition" text
+  "created_at" timestamp_with_time_zone [not null]
+  "event_id" uuid [not null]
+  "goals_against" integer
+  "goals_for" integer
+  "home_away" text [not null]
+  "opponent_id" uuid [not null]
+  "organization_id" uuid [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "match_details".("organization_id") > "organizations".("id")
+Ref: "match_details".("organization_id", "event_id") > "events".("organization_id", "id")
+Ref: "match_details".("organization_id", "opponent_id") > "opponents".("organization_id", "id")
+
+Table "match_squad" {
+  "created_at" timestamp_with_time_zone [not null]
+  "event_id" uuid [not null]
+  "goals" integer [not null]
+  "id" uuid [pk]
+  "minutes_played" integer
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "position" text
+  "role" text [not null]
+  "shirt_number" integer
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "match_squad".("organization_id") > "organizations".("id")
+Ref: "match_squad".("organization_id", "event_id") > "events".("organization_id", "id")
+Ref: "match_squad".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "medical_records" {
+  "created_at" timestamp_with_time_zone [not null]
+  "details" text
+  "emergency_notes" text
+  "ended_on" date
+  "id" uuid [pk]
+  "is_emergency_relevant" boolean [not null]
+  "kind" text [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "started_on" date
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "medical_records".("organization_id") > "organizations".("id")
+Ref: "medical_records".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "members" {
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "user_id" uuid [not null]
+  "role" text [not null]
+  "created_at" timestamp [not null]
+}
+Ref: "members".("organization_id") > "organizations".("id")
+Ref: "members".("user_id") > "users".("id")
+
+Table "notifications" {
+  "body" text
+  "created_at" timestamp_with_time_zone [not null]
+  "entity_id" uuid
+  "entity_type" text
+  "id" uuid [pk]
+  "kind" text [not null]
+  "organization_id" uuid [not null]
+  "read_at" timestamp_with_time_zone
+  "title" text [not null]
+  "user_id" uuid [not null]
+}
+Ref: "notifications".("organization_id") > "organizations".("id")
+Ref: "notifications".("user_id") > "users".("id")
+
+Table "onboarding_drafts" {
+  "data" text [not null]
+  "flow" text [not null]
+  "id" uuid [pk]
+  "step_id" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "user_id" uuid [not null]
+}
+Ref: "onboarding_drafts".("user_id") > "users".("id")
+
+Table "onboarding_steps" {
+  "completed_at" timestamp_with_time_zone [not null]
+  "completed_by" uuid
+  "id" uuid [pk]
+  "organization_id" uuid
+  "step" text [not null]
+  "user_id" uuid
+}
+Ref: "onboarding_steps".("completed_by") > "users".("id")
+Ref: "onboarding_steps".("organization_id") > "organizations".("id")
+Ref: "onboarding_steps".("user_id") > "users".("id")
+
+Table "opponents" {
+  "address_id" uuid
+  "contact_email" text
+  "contact_phone" text
+  "created_at" timestamp_with_time_zone [not null]
+  "home_venue_id" uuid
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "linked_organization_id" uuid
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "short_name" text
+  "updated_at" timestamp_with_time_zone [not null]
+  "website" text
+}
+Ref: "opponents".("home_venue_id") > "venues".("id")
+Ref: "opponents".("linked_organization_id") > "organizations".("id")
+Ref: "opponents".("organization_id") > "organizations".("id")
+Ref: "opponents".("organization_id", "address_id") > "addresses".("organization_id", "id")
+
+Table "organizations" {
+  "id" uuid [pk]
+  "name" text [not null]
+  "slug" text [not null, unique]
+  "logo" text
+  "created_at" timestamp [not null]
+  "metadata" text
+  "stripe_customer_id" text
+}
+
+Table "passkeys" {
+  "id" uuid [pk]
+  "name" text
+  "public_key" text [not null]
+  "user_id" uuid [not null]
+  "credential_id" text [not null]
+  "counter" integer [not null]
+  "device_type" text [not null]
+  "backed_up" boolean [not null]
+  "transports" text
+  "created_at" timestamp
+  "aaguid" text
+}
+Ref: "passkeys".("user_id") > "users".("id")
+
+Table "payments" {
+  "amount_minor" integer [not null]
+  "charge_id" uuid [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "currency" text [not null]
+  "id" uuid [pk]
+  "method" text [not null]
+  "organization_id" uuid [not null]
+  "received_at" timestamp_with_time_zone [not null]
+  "recorded_by_user_id" uuid
+  "reference" text
+}
+Ref: "payments".("organization_id") > "organizations".("id")
+Ref: "payments".("recorded_by_user_id") > "users".("id")
+Ref: "payments".("organization_id", "charge_id") > "fee_charges".("organization_id", "id")
+
+Table "people" {
+  "address_id" uuid
+  "created_at" timestamp_with_time_zone [not null]
+  "date_of_birth" date
+  "email" text
+  "first_name" text [not null]
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "last_name" text [not null]
+  "organization_id" uuid [not null]
+  "phone" text
+  "preferred_name" text
+  "updated_at" timestamp_with_time_zone [not null]
+  "user_id" uuid
+}
+Ref: "people".("organization_id") > "organizations".("id")
+Ref: "people".("user_id") > "users".("id")
+Ref: "people".("organization_id", "address_id") > "addresses".("organization_id", "id")
+
+Table "person_identifiers" {
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "type" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "value" text [not null]
+}
+Ref: "person_identifiers".("organization_id") > "organizations".("id")
+Ref: "person_identifiers".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "person_relationships" {
+  "can_collect" boolean [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "has_parental_responsibility" boolean [not null]
+  "id" uuid [pk]
+  "is_emergency_contact" boolean [not null]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "related_person_id" uuid [not null]
+  "relationship" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "person_relationships".("organization_id") > "organizations".("id")
+Ref: "person_relationships".("organization_id", "person_id") > "people".("organization_id", "id")
+Ref: "person_relationships".("organization_id", "related_person_id") > "people".("organization_id", "id")
+
+Table "pitches" {
+  "created_at" timestamp_with_time_zone [not null]
+  "format" text [not null]
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "surface" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "venue_id" uuid [not null]
+}
+Ref: "pitches".("organization_id") > "organizations".("id")
+Ref: "pitches".("organization_id", "venue_id") > "venues".("organization_id", "id")
+
+Table "player_profiles" {
+  "created_at" timestamp_with_time_zone [not null]
+  "height_cm" integer
+  "notes" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "preferred_foot" text
+  "primary_position" text
+  "secondary_position" text
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "player_profiles".("organization_id") > "organizations".("id")
+Ref: "player_profiles".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "qualifications" {
+  "awarded_by" text
+  "created_at" timestamp_with_time_zone [not null]
+  "expires_on" date
+  "file_id" uuid
+  "id" uuid [pk]
+  "issued_on" date
+  "kind" text [not null]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "reference" text
+  "title" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "qualifications".("file_id") > "files".("id")
+Ref: "qualifications".("organization_id") > "organizations".("id")
+Ref: "qualifications".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "registrations" {
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "notes" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "registered_on" date [not null]
+  "season_id" uuid [not null]
+  "status" text [not null]
+  "team_id" uuid
+  "updated_at" timestamp_with_time_zone [not null]
+  "withdrawn_on" date
+}
+Ref: "registrations".("organization_id") > "organizations".("id")
+Ref: "registrations".("organization_id", "person_id") > "people".("organization_id", "id")
+Ref: "registrations".("organization_id", "season_id") > "seasons".("organization_id", "id")
+Ref: "registrations".("organization_id", "team_id") > "teams".("organization_id", "id")
+
+Table "role_assignment_teams" {
+  "created_at" timestamp_with_time_zone [not null]
+  "organization_id" uuid [not null]
+  "role_assignment_id" uuid [not null]
+  "team_id" uuid [not null]
+}
+Ref: "role_assignment_teams".("organization_id") > "organizations".("id")
+Ref: "role_assignment_teams".("organization_id", "role_assignment_id") > "role_assignments".("organization_id", "id")
+Ref: "role_assignment_teams".("organization_id", "team_id") > "teams".("organization_id", "id")
+
+Table "role_assignments" {
+  "created_at" timestamp_with_time_zone [not null]
+  "ends_at" timestamp_with_time_zone
+  "granted_by" uuid
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "role" text [not null]
+  "scope" text [not null]
+  "starts_at" timestamp_with_time_zone [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "user_id" uuid [not null]
+}
+Ref: "role_assignments".("granted_by") > "users".("id")
+Ref: "role_assignments".("organization_id") > "organizations".("id")
+Ref: "role_assignments".("user_id") > "users".("id")
+
+Table "safeguarding_checks" {
+  "created_at" timestamp_with_time_zone [not null]
+  "dbs_level" text
+  "dbs_update_service" boolean [not null]
+  "expires_on" date
+  "file_id" uuid
+  "id" uuid [pk]
+  "issued_on" date
+  "kind" text [not null]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "reference" text
+  "status" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "verified_at" timestamp_with_time_zone
+  "verified_by" uuid
+}
+Ref: "safeguarding_checks".("file_id") > "files".("id")
+Ref: "safeguarding_checks".("organization_id") > "organizations".("id")
+Ref: "safeguarding_checks".("verified_by") > "users".("id")
+Ref: "safeguarding_checks".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "safeguarding_concerns" {
+  "assigned_to" uuid
+  "closed_at" timestamp_with_time_zone
+  "closed_reason" text
+  "created_at" timestamp_with_time_zone [not null]
+  "details" text
+  "id" uuid [pk]
+  "opened_at" timestamp_with_time_zone [not null]
+  "organization_id" uuid [not null]
+  "raised_by" uuid
+  "referred_at" timestamp_with_time_zone
+  "referred_to" text
+  "severity" text [not null]
+  "status" text [not null]
+  "subject_person_id" uuid [not null]
+  "summary" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "safeguarding_concerns".("assigned_to") > "users".("id")
+Ref: "safeguarding_concerns".("organization_id") > "organizations".("id")
+Ref: "safeguarding_concerns".("raised_by") > "users".("id")
+Ref: "safeguarding_concerns".("organization_id", "subject_person_id") > "people".("organization_id", "id")
+
+Table "safeguarding_notes" {
+  "author_user_id" uuid
+  "body" text [not null]
+  "concern_id" uuid [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+}
+Ref: "safeguarding_notes".("organization_id") > "organizations".("id")
+Ref: "safeguarding_notes".("organization_id", "concern_id") > "safeguarding_concerns".("organization_id", "id")
+
+Table "seasons" {
+  "created_at" timestamp_with_time_zone [not null]
+  "ends_on" date [not null]
+  "id" uuid [pk]
+  "is_current" boolean [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "starts_on" date [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "seasons".("organization_id") > "organizations".("id")
+
+Table "sessions" {
+  "id" uuid [pk]
+  "expires_at" timestamp [not null]
+  "token" text [not null, unique]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "ip_address" text
+  "user_agent" text
+  "user_id" uuid [not null]
+  "active_organization_id" text
+}
+Ref: "sessions".("user_id") > "users".("id")
+
+Table "subscriptions" {
+  "id" uuid [pk]
+  "plan" text [not null]
+  "reference_id" uuid [not null]
+  "stripe_customer_id" text
+  "stripe_subscription_id" text
+  "status" text
+  "period_start" timestamp
+  "period_end" timestamp
+  "trial_start" timestamp
+  "trial_end" timestamp
+  "cancel_at_period_end" boolean
+  "cancel_at" timestamp
+  "canceled_at" timestamp
+  "ended_at" timestamp
+  "seats" integer
+  "billing_interval" text
+  "stripe_schedule_id" text
+}
+
+Table "team_memberships" {
+  "created_at" timestamp_with_time_zone [not null]
+  "ends_on" date
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "role" text [not null]
+  "shirt_number" integer
+  "starts_on" date [not null]
+  "team_id" uuid [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "team_memberships".("organization_id") > "organizations".("id")
+Ref: "team_memberships".("organization_id", "team_id") > "teams".("organization_id", "id")
+Ref: "team_memberships".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "teams" {
+  "age_group" integer
+  "created_at" timestamp_with_time_zone [not null]
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "season_id" uuid [not null]
+  "training_venue_id" uuid
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "teams".("organization_id") > "organizations".("id")
+Ref: "teams".("training_venue_id") > "venues".("id")
+Ref: "teams".("organization_id", "season_id") > "seasons".("organization_id", "id")
+
+Table "users" {
+  "id" uuid [pk]
+  "name" text [not null]
+  "email" text [not null, unique]
+  "email_verified" boolean [not null]
+  "image" text
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+  "stripe_customer_id" text
+}
+
+Table "venues" {
+  "address_id" uuid [not null]
+  "created_at" timestamp_with_time_zone [not null]
+  "directions" text
+  "id" uuid [pk]
+  "is_active" boolean [not null]
+  "kinds" text [not null]
+  "name" text [not null]
+  "organization_id" uuid [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "what3words" text
+}
+Ref: "venues".("organization_id") > "organizations".("id")
+Ref: "venues".("organization_id", "address_id") > "addresses".("organization_id", "id")
+
+Table "verifications" {
+  "id" uuid [pk]
+  "identifier" text [not null]
+  "value" text [not null]
+  "expires_at" timestamp [not null]
+  "created_at" timestamp [not null]
+  "updated_at" timestamp [not null]
+}

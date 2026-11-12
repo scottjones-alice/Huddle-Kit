@@ -1,0 +1,300 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "7dc94171-536e-4872-a3f2-47e13428d7d7",
+  "prevIds": ["2a480cf4-7798-45e2-8706-1838b099f0bf"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "file_views"],
+      "writes": [
+        "s|tbl|public.file_views",
+        "n|tbl|public.file_views",
+        "e|tbl|public.file_views",
+        "n|rel|public.file_views",
+        "n|type|public.file_views",
+        "n|rel|public.file_views_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "files", "uploaded_at"],
+      "writes": [
+        "s|col|public.files.uploaded_at",
+        "n|col|public.files.uploaded_at",
+        "e|col|public.files.uploaded_at"
+      ],
+      "reads": ["n|tbl|public.files", "n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "file_views",
+        "file_views_fileId_viewedAt_idx"
+      ],
+      "writes": [
+        "s|idx|public.file_views_fileId_viewedAt_idx",
+        "n|idx|public.file_views_fileId_viewedAt_idx",
+        "e|idx|public.file_views_fileId_viewedAt_idx",
+        "n|rel|public.file_views_fileId_viewedAt_idx"
+      ],
+      "reads": [
+        "n|tbl|public.file_views",
+        "n|sch|public",
+        "n|col|public.file_views.file_id",
+        "n|col|public.file_views.viewed_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "file_views",
+        "file_views_viewedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.file_views_viewedBy_idx",
+        "n|idx|public.file_views_viewedBy_idx",
+        "e|idx|public.file_views_viewedBy_idx",
+        "n|rel|public.file_views_viewedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.file_views",
+        "n|sch|public",
+        "n|col|public.file_views.viewed_by"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "file_views"],
+      "writes": [
+        "s|fk|public.file_views.file_views_file_id_files_id_fkey",
+        "n|fk|public.file_views.file_views_file_id_files_id_fkey",
+        "e|fk|public.file_views.file_views_file_id_files_id_fkey",
+        "n|con|public.file_views.file_views_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.file_views",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.file_views.file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "file_views"],
+      "writes": [
+        "s|fk|public.file_views.file_views_viewed_by_users_id_fkey",
+        "n|fk|public.file_views.file_views_viewed_by_users_id_fkey",
+        "e|fk|public.file_views.file_views_viewed_by_users_id_fkey",
+        "n|con|public.file_views.file_views_viewed_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.file_views",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.file_views.viewed_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "file_views",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "viewed_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "viewed_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "uploaded_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_views_fileId_viewedAt_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "file_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "viewed_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_views_viewedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "viewed_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_views_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_views_viewed_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["viewed_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "file_views",
+        "name": "file_views_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    }
+  ]
+}

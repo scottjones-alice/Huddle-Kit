@@ -1,0 +1,1704 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "b07b7abb-e27b-4d00-b847-967327f1f2f4",
+  "prevIds": ["c7de63c3-dc04-42d2-9684-2abe67edea19"],
+  "footprints": [
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "files", "checksum_sha256"],
+      "writes": [
+        "s|col|public.files.checksum_sha256",
+        "n|col|public.files.checksum_sha256",
+        "e|col|public.files.checksum_sha256"
+      ],
+      "reads": ["n|tbl|public.files", "n|sch|public"]
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "files", "created_at"],
+      "writes": [
+        "s|colprop|public.files.created_at.type",
+        "s|colprop|public.files.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.created_at"
+      ],
+      "sqlHash": "8f0b8f66f786ed29"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "files", "updated_at"],
+      "writes": [
+        "s|colprop|public.files.updated_at.type",
+        "s|colprop|public.files.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.updated_at"
+      ],
+      "sqlHash": "652c6b04e0075241"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "file_views", "viewed_at"],
+      "writes": [
+        "s|colprop|public.file_views.viewed_at.type",
+        "s|colprop|public.file_views.viewed_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.file_views",
+        "n|sch|public",
+        "n|col|public.file_views.viewed_at"
+      ],
+      "sqlHash": "c0d24e5623c3909b"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "files", "uploaded_at"],
+      "writes": [
+        "s|colprop|public.files.uploaded_at.type",
+        "s|colprop|public.files.uploaded_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.uploaded_at"
+      ],
+      "sqlHash": "de620ea75b2f35d3"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "addresses", "created_at"],
+      "writes": [
+        "s|colprop|public.addresses.created_at.type",
+        "s|colprop|public.addresses.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.addresses.created_at"
+      ],
+      "sqlHash": "3212dad85d153eb2"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "addresses", "updated_at"],
+      "writes": [
+        "s|colprop|public.addresses.updated_at.type",
+        "s|colprop|public.addresses.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.addresses.updated_at"
+      ],
+      "sqlHash": "1ed6a67506d967c4"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "venues", "created_at"],
+      "writes": [
+        "s|colprop|public.venues.created_at.type",
+        "s|colprop|public.venues.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.created_at"
+      ],
+      "sqlHash": "113af3c2d3a1b9f6"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "venues", "updated_at"],
+      "writes": [
+        "s|colprop|public.venues.updated_at.type",
+        "s|colprop|public.venues.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.updated_at"
+      ],
+      "sqlHash": "c34544e7f1be13ff"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "people", "created_at"],
+      "writes": [
+        "s|colprop|public.people.created_at.type",
+        "s|colprop|public.people.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.people.created_at"
+      ],
+      "sqlHash": "3201f757daa7d857"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "people", "updated_at"],
+      "writes": [
+        "s|colprop|public.people.updated_at.type",
+        "s|colprop|public.people.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.people.updated_at"
+      ],
+      "sqlHash": "4ab55792d70ed2b7"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "seasons", "created_at"],
+      "writes": [
+        "s|colprop|public.seasons.created_at.type",
+        "s|colprop|public.seasons.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.seasons",
+        "n|sch|public",
+        "n|col|public.seasons.created_at"
+      ],
+      "sqlHash": "0e7a6c78b1261777"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "seasons", "updated_at"],
+      "writes": [
+        "s|colprop|public.seasons.updated_at.type",
+        "s|colprop|public.seasons.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.seasons",
+        "n|sch|public",
+        "n|col|public.seasons.updated_at"
+      ],
+      "sqlHash": "bddee307b62cf731"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "audit_events", "occurred_at"],
+      "writes": [
+        "s|colprop|public.audit_events.occurred_at.type",
+        "s|colprop|public.audit_events.occurred_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.audit_events",
+        "n|sch|public",
+        "n|col|public.audit_events.occurred_at"
+      ],
+      "sqlHash": "edecaecd3d29c894"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "team_memberships", "created_at"],
+      "writes": [
+        "s|colprop|public.team_memberships.created_at.type",
+        "s|colprop|public.team_memberships.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.created_at"
+      ],
+      "sqlHash": "64d7695f091c58cb"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "team_memberships", "updated_at"],
+      "writes": [
+        "s|colprop|public.team_memberships.updated_at.type",
+        "s|colprop|public.team_memberships.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.updated_at"
+      ],
+      "sqlHash": "2f5a993402d045cb"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "teams", "created_at"],
+      "writes": [
+        "s|colprop|public.teams.created_at.type",
+        "s|colprop|public.teams.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.created_at"
+      ],
+      "sqlHash": "0247e7f832bc3b9d"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "teams", "updated_at"],
+      "writes": [
+        "s|colprop|public.teams.updated_at.type",
+        "s|colprop|public.teams.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.updated_at"
+      ],
+      "sqlHash": "c4027a11b7d38f4b"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "person_relationships",
+        "created_at"
+      ],
+      "writes": [
+        "s|colprop|public.person_relationships.created_at.type",
+        "s|colprop|public.person_relationships.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.created_at"
+      ],
+      "sqlHash": "516e2dbbf97cbcb8"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "person_relationships",
+        "updated_at"
+      ],
+      "writes": [
+        "s|colprop|public.person_relationships.updated_at.type",
+        "s|colprop|public.person_relationships.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.updated_at"
+      ],
+      "sqlHash": "cb06d02fed9f98ff"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "role_assignment_teams",
+        "created_at"
+      ],
+      "writes": [
+        "s|colprop|public.role_assignment_teams.created_at.type",
+        "s|colprop|public.role_assignment_teams.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignment_teams",
+        "n|sch|public",
+        "n|col|public.role_assignment_teams.created_at"
+      ],
+      "sqlHash": "7a83bd09950366e2"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "role_assignments", "created_at"],
+      "writes": [
+        "s|colprop|public.role_assignments.created_at.type",
+        "s|colprop|public.role_assignments.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.created_at"
+      ],
+      "sqlHash": "b551804979585549"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "role_assignments", "ends_at"],
+      "writes": [
+        "s|colprop|public.role_assignments.ends_at.type",
+        "s|colprop|public.role_assignments.ends_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.ends_at"
+      ],
+      "sqlHash": "cd6a6c12dba6b306"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "role_assignments", "starts_at"],
+      "writes": [
+        "s|colprop|public.role_assignments.starts_at.type",
+        "s|colprop|public.role_assignments.starts_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.starts_at"
+      ],
+      "sqlHash": "fb18f92c517014ac"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "role_assignments", "updated_at"],
+      "writes": [
+        "s|colprop|public.role_assignments.updated_at.type",
+        "s|colprop|public.role_assignments.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.updated_at"
+      ],
+      "sqlHash": "94ce247952fdc7a4"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "consents", "created_at"],
+      "writes": [
+        "s|colprop|public.consents.created_at.type",
+        "s|colprop|public.consents.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.created_at"
+      ],
+      "sqlHash": "2cbd10ecfca20441"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "consents", "expires_at"],
+      "writes": [
+        "s|colprop|public.consents.expires_at.type",
+        "s|colprop|public.consents.expires_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.expires_at"
+      ],
+      "sqlHash": "86cb62d346ff3ee5"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "consents", "granted_at"],
+      "writes": [
+        "s|colprop|public.consents.granted_at.type",
+        "s|colprop|public.consents.granted_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.granted_at"
+      ],
+      "sqlHash": "c068b98f41715a43"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "consents", "updated_at"],
+      "writes": [
+        "s|colprop|public.consents.updated_at.type",
+        "s|colprop|public.consents.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.updated_at"
+      ],
+      "sqlHash": "41ab3b846f57b01e"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "consents", "withdrawn_at"],
+      "writes": [
+        "s|colprop|public.consents.withdrawn_at.type",
+        "s|colprop|public.consents.withdrawn_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.withdrawn_at"
+      ],
+      "sqlHash": "69d5fed0d011efec"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "allergies", "created_at"],
+      "writes": [
+        "s|colprop|public.allergies.created_at.type",
+        "s|colprop|public.allergies.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|col|public.allergies.created_at"
+      ],
+      "sqlHash": "74eb5d8c8dec97d7"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "allergies", "updated_at"],
+      "writes": [
+        "s|colprop|public.allergies.updated_at.type",
+        "s|colprop|public.allergies.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|col|public.allergies.updated_at"
+      ],
+      "sqlHash": "a8d792fdc23b6100"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "medical_records", "created_at"],
+      "writes": [
+        "s|colprop|public.medical_records.created_at.type",
+        "s|colprop|public.medical_records.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|col|public.medical_records.created_at"
+      ],
+      "sqlHash": "cb3051457296c43a"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "medical_records", "updated_at"],
+      "writes": [
+        "s|colprop|public.medical_records.updated_at.type",
+        "s|colprop|public.medical_records.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|col|public.medical_records.updated_at"
+      ],
+      "sqlHash": "7bc37c937b0a04e7"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_checks",
+        "created_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_checks.created_at.type",
+        "s|colprop|public.safeguarding_checks.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.created_at"
+      ],
+      "sqlHash": "7e2313aaef7197a0"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_checks",
+        "updated_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_checks.updated_at.type",
+        "s|colprop|public.safeguarding_checks.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.updated_at"
+      ],
+      "sqlHash": "4d657d780b91fb1a"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_checks",
+        "verified_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_checks.verified_at.type",
+        "s|colprop|public.safeguarding_checks.verified_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.verified_at"
+      ],
+      "sqlHash": "1bf270fb64dcf4f0"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_concerns",
+        "closed_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_concerns.closed_at.type",
+        "s|colprop|public.safeguarding_concerns.closed_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.closed_at"
+      ],
+      "sqlHash": "44cb1a2c357c36d9"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_concerns",
+        "created_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_concerns.created_at.type",
+        "s|colprop|public.safeguarding_concerns.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.created_at"
+      ],
+      "sqlHash": "6c2501ff9be37c76"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_concerns",
+        "opened_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_concerns.opened_at.type",
+        "s|colprop|public.safeguarding_concerns.opened_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.opened_at"
+      ],
+      "sqlHash": "18eebaec54da0fbd"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_concerns",
+        "referred_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_concerns.referred_at.type",
+        "s|colprop|public.safeguarding_concerns.referred_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.referred_at"
+      ],
+      "sqlHash": "52a2580d0500ed4c"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_concerns",
+        "updated_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_concerns.updated_at.type",
+        "s|colprop|public.safeguarding_concerns.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.updated_at"
+      ],
+      "sqlHash": "0b534dbd9f0354df"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "safeguarding_notes",
+        "created_at"
+      ],
+      "writes": [
+        "s|colprop|public.safeguarding_notes.created_at.type",
+        "s|colprop|public.safeguarding_notes.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_notes",
+        "n|sch|public",
+        "n|col|public.safeguarding_notes.created_at"
+      ],
+      "sqlHash": "ad62f7e945b8bc3d"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "incident_reports", "created_at"],
+      "writes": [
+        "s|colprop|public.incident_reports.created_at.type",
+        "s|colprop|public.incident_reports.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.created_at"
+      ],
+      "sqlHash": "b5bd148d9450cf7a"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "incident_reports",
+        "occurred_at"
+      ],
+      "writes": [
+        "s|colprop|public.incident_reports.occurred_at.type",
+        "s|colprop|public.incident_reports.occurred_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.occurred_at"
+      ],
+      "sqlHash": "556802fd851b2370"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "incident_reports",
+        "parents_notified_at"
+      ],
+      "writes": [
+        "s|colprop|public.incident_reports.parents_notified_at.type",
+        "s|colprop|public.incident_reports.parents_notified_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.parents_notified_at"
+      ],
+      "sqlHash": "43625cf5a1c15e73"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "incident_reports", "updated_at"],
+      "writes": [
+        "s|colprop|public.incident_reports.updated_at.type",
+        "s|colprop|public.incident_reports.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.updated_at"
+      ],
+      "sqlHash": "e0da9c2a092221e8"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "club_settings", "created_at"],
+      "writes": [
+        "s|colprop|public.club_settings.created_at.type",
+        "s|colprop|public.club_settings.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|col|public.club_settings.created_at"
+      ],
+      "sqlHash": "2969e729b197a772"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "club_settings", "updated_at"],
+      "writes": [
+        "s|colprop|public.club_settings.updated_at.type",
+        "s|colprop|public.club_settings.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|col|public.club_settings.updated_at"
+      ],
+      "sqlHash": "4bbb6d595380b884"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "opponents", "created_at"],
+      "writes": [
+        "s|colprop|public.opponents.created_at.type",
+        "s|colprop|public.opponents.created_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.created_at"
+      ],
+      "sqlHash": "4b47bc41eb4d3026"
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "opponents", "updated_at"],
+      "writes": [
+        "s|colprop|public.opponents.updated_at.type",
+        "s|colprop|public.opponents.updated_at.default"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.updated_at"
+      ],
+      "sqlHash": "cc98c2cd22a09626"
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "venues"],
+      "writes": [
+        "s|ck|public.venues.venues_kinds_chk",
+        "n|ck|public.venues.venues_kinds_chk",
+        "e|ck|public.venues.venues_kinds_chk",
+        "n|con|public.venues.venues_kinds_chk"
+      ],
+      "reads": [
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.venues.kinds"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": [
+        "s|ck|public.files.files_kind_chk",
+        "n|ck|public.files.files_kind_chk",
+        "e|ck|public.files.files_kind_chk",
+        "n|con|public.files.files_kind_chk"
+      ],
+      "reads": ["n|tbl|public.files", "n|sch|public", "n|col|public.files.kind"]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": [
+        "s|ck|public.files.files_status_chk",
+        "n|ck|public.files.files_status_chk",
+        "e|ck|public.files.files_status_chk",
+        "n|con|public.files.files_status_chk"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.status"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": [
+        "s|ck|public.files.files_sizeBytes_chk",
+        "n|ck|public.files.files_sizeBytes_chk",
+        "e|ck|public.files.files_sizeBytes_chk",
+        "n|con|public.files.files_sizeBytes_chk"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.size_bytes"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "files"],
+      "writes": [
+        "s|ck|public.files.files_checksumSha256_chk",
+        "n|ck|public.files.files_checksumSha256_chk",
+        "e|ck|public.files.files_checksumSha256_chk",
+        "n|con|public.files.files_checksumSha256_chk"
+      ],
+      "reads": [
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.files.checksum_sha256"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "team_memberships"],
+      "writes": [
+        "s|ck|public.team_memberships.teamMemberships_role_chk",
+        "n|ck|public.team_memberships.teamMemberships_role_chk",
+        "e|ck|public.team_memberships.teamMemberships_role_chk",
+        "n|con|public.team_memberships.teamMemberships_role_chk"
+      ],
+      "reads": [
+        "n|tbl|public.team_memberships",
+        "n|sch|public",
+        "n|col|public.team_memberships.role"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "audit_events"],
+      "writes": [
+        "s|ck|public.audit_events.auditEvents_action_chk",
+        "n|ck|public.audit_events.auditEvents_action_chk",
+        "e|ck|public.audit_events.auditEvents_action_chk",
+        "n|con|public.audit_events.auditEvents_action_chk"
+      ],
+      "reads": [
+        "n|tbl|public.audit_events",
+        "n|sch|public",
+        "n|col|public.audit_events.action"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "consents"],
+      "writes": [
+        "s|ck|public.consents.consents_type_chk",
+        "n|ck|public.consents.consents_type_chk",
+        "e|ck|public.consents.consents_type_chk",
+        "n|con|public.consents.consents_type_chk"
+      ],
+      "reads": [
+        "n|tbl|public.consents",
+        "n|sch|public",
+        "n|col|public.consents.type"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "role_assignments"],
+      "writes": [
+        "s|ck|public.role_assignments.roleAssignments_role_chk",
+        "n|ck|public.role_assignments.roleAssignments_role_chk",
+        "e|ck|public.role_assignments.roleAssignments_role_chk",
+        "n|con|public.role_assignments.roleAssignments_role_chk"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.role"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "role_assignments"],
+      "writes": [
+        "s|ck|public.role_assignments.roleAssignments_scope_chk",
+        "n|ck|public.role_assignments.roleAssignments_scope_chk",
+        "e|ck|public.role_assignments.roleAssignments_scope_chk",
+        "n|con|public.role_assignments.roleAssignments_scope_chk"
+      ],
+      "reads": [
+        "n|tbl|public.role_assignments",
+        "n|sch|public",
+        "n|col|public.role_assignments.scope"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "addresses"],
+      "writes": [
+        "s|ck|public.addresses.addresses_countryCode_chk",
+        "n|ck|public.addresses.addresses_countryCode_chk",
+        "e|ck|public.addresses.addresses_countryCode_chk",
+        "n|con|public.addresses.addresses_countryCode_chk"
+      ],
+      "reads": [
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.addresses.country_code"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "addresses"],
+      "writes": [
+        "s|ck|public.addresses.addresses_latitude_chk",
+        "n|ck|public.addresses.addresses_latitude_chk",
+        "e|ck|public.addresses.addresses_latitude_chk",
+        "n|con|public.addresses.addresses_latitude_chk"
+      ],
+      "reads": [
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.addresses.latitude"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "addresses"],
+      "writes": [
+        "s|ck|public.addresses.addresses_longitude_chk",
+        "n|ck|public.addresses.addresses_longitude_chk",
+        "e|ck|public.addresses.addresses_longitude_chk",
+        "n|con|public.addresses.addresses_longitude_chk"
+      ],
+      "reads": [
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.addresses.longitude"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "allergies"],
+      "writes": [
+        "s|ck|public.allergies.allergies_severity_chk",
+        "n|ck|public.allergies.allergies_severity_chk",
+        "e|ck|public.allergies.allergies_severity_chk",
+        "n|con|public.allergies.allergies_severity_chk"
+      ],
+      "reads": [
+        "n|tbl|public.allergies",
+        "n|sch|public",
+        "n|col|public.allergies.severity"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "medical_records"],
+      "writes": [
+        "s|ck|public.medical_records.medicalRecords_kind_chk",
+        "n|ck|public.medical_records.medicalRecords_kind_chk",
+        "e|ck|public.medical_records.medicalRecords_kind_chk",
+        "n|con|public.medical_records.medicalRecords_kind_chk"
+      ],
+      "reads": [
+        "n|tbl|public.medical_records",
+        "n|sch|public",
+        "n|col|public.medical_records.kind"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "person_relationships"],
+      "writes": [
+        "s|ck|public.person_relationships.personRelationships_relationship_chk",
+        "n|ck|public.person_relationships.personRelationships_relationship_chk",
+        "e|ck|public.person_relationships.personRelationships_relationship_chk",
+        "n|con|public.person_relationships.personRelationships_relationship_chk"
+      ],
+      "reads": [
+        "n|tbl|public.person_relationships",
+        "n|sch|public",
+        "n|col|public.person_relationships.relationship"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|ck|public.safeguarding_checks.safeguardingChecks_kind_chk",
+        "n|ck|public.safeguarding_checks.safeguardingChecks_kind_chk",
+        "e|ck|public.safeguarding_checks.safeguardingChecks_kind_chk",
+        "n|con|public.safeguarding_checks.safeguardingChecks_kind_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.kind",
+        "n|col|public.safeguarding_checks.reference"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_checks"],
+      "writes": [
+        "s|ck|public.safeguarding_checks.safeguardingChecks_status_chk",
+        "n|ck|public.safeguarding_checks.safeguardingChecks_status_chk",
+        "e|ck|public.safeguarding_checks.safeguardingChecks_status_chk",
+        "n|con|public.safeguarding_checks.safeguardingChecks_status_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_checks",
+        "n|sch|public",
+        "n|col|public.safeguarding_checks.status"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|ck|public.safeguarding_concerns.safeguardingConcerns_status_chk",
+        "n|ck|public.safeguarding_concerns.safeguardingConcerns_status_chk",
+        "e|ck|public.safeguarding_concerns.safeguardingConcerns_status_chk",
+        "n|con|public.safeguarding_concerns.safeguardingConcerns_status_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.status"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "safeguarding_concerns"],
+      "writes": [
+        "s|ck|public.safeguarding_concerns.safeguardingConcerns_severity_chk",
+        "n|ck|public.safeguarding_concerns.safeguardingConcerns_severity_chk",
+        "e|ck|public.safeguarding_concerns.safeguardingConcerns_severity_chk",
+        "n|con|public.safeguarding_concerns.safeguardingConcerns_severity_chk"
+      ],
+      "reads": [
+        "n|tbl|public.safeguarding_concerns",
+        "n|sch|public",
+        "n|col|public.safeguarding_concerns.severity"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|ck|public.incident_reports.incidentReports_kind_chk",
+        "n|ck|public.incident_reports.incidentReports_kind_chk",
+        "e|ck|public.incident_reports.incidentReports_kind_chk",
+        "n|con|public.incident_reports.incidentReports_kind_chk"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.kind"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "incident_reports"],
+      "writes": [
+        "s|ck|public.incident_reports.incidentReports_severity_chk",
+        "n|ck|public.incident_reports.incidentReports_severity_chk",
+        "e|ck|public.incident_reports.incidentReports_severity_chk",
+        "n|con|public.incident_reports.incidentReports_severity_chk"
+      ],
+      "reads": [
+        "n|tbl|public.incident_reports",
+        "n|sch|public",
+        "n|col|public.incident_reports.severity"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "checksum_sha256",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "venues",
+        "name": "venues_kinds_chk",
+        "value": "cardinality(\"kinds\") > 0 and \"kinds\" <@ array['training_ground', 'classroom', 'clubhouse', 'match_venue']::text[]",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "files_kind_chk",
+        "value": "\"kind\" in ('photo', 'report', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "files_status_chk",
+        "value": "\"status\" in ('pending', 'uploaded', 'failed')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "files_sizeBytes_chk",
+        "value": "\"size_bytes\" >= 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "files",
+        "name": "files_checksumSha256_chk",
+        "value": "\"checksum_sha256\" ~ '^[0-9a-f]{64}$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "team_memberships",
+        "name": "teamMemberships_role_chk",
+        "value": "\"role\" in ('player', 'coach', 'assistant_coach', 'manager', 'volunteer')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "audit_events",
+        "name": "auditEvents_action_chk",
+        "value": "\"action\" ~ '^[a-z][a-z_]*[.][a-z][a-z_]*$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "consents",
+        "name": "consents_type_chk",
+        "value": "\"type\" in ('photo_video', 'medical_treatment', 'travel', 'data_sharing', 'social_media')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "role_assignments",
+        "name": "roleAssignments_role_chk",
+        "value": "\"role\" in ('admin', 'coach', 'team_manager', 'welfare_officer', 'safeguarding_lead', 'safeguarding_deputy')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "role_assignments",
+        "name": "roleAssignments_scope_chk",
+        "value": "\"scope\" in ('organization', 'teams')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "addresses",
+        "name": "addresses_countryCode_chk",
+        "value": "\"country_code\" ~ '^[A-Z]{2}$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "addresses",
+        "name": "addresses_latitude_chk",
+        "value": "\"latitude\" between -90 and 90",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "addresses",
+        "name": "addresses_longitude_chk",
+        "value": "\"longitude\" between -180 and 180",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "allergies_severity_chk",
+        "value": "\"severity\" in ('mild', 'moderate', 'severe', 'life_threatening')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "medical_records",
+        "name": "medicalRecords_kind_chk",
+        "value": "\"kind\" in ('condition', 'medication', 'disability', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_relationships",
+        "name": "personRelationships_relationship_chk",
+        "value": "\"relationship\" in ('parent', 'guardian', 'carer', 'grandparent', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguardingChecks_kind_chk",
+        "value": "\"kind\" in ('dbs', 'safeguarding_training', 'first_aid', 'reference')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_checks",
+        "name": "safeguardingChecks_status_chk",
+        "value": "\"status\" in ('pending', 'valid', 'rejected', 'revoked')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguardingConcerns_status_chk",
+        "value": "\"status\" in ('open', 'under_review', 'referred', 'closed')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "safeguarding_concerns",
+        "name": "safeguardingConcerns_severity_chk",
+        "value": "\"severity\" in ('low', 'medium', 'high', 'immediate_risk')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incidentReports_kind_chk",
+        "value": "\"kind\" in ('injury', 'illness', 'accident', 'behaviour', 'near_miss', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "incident_reports",
+        "name": "incidentReports_severity_chk",
+        "value": "\"severity\" in ('minor', 'moderate', 'serious')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"files\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"files\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"file_views\",\"viewed_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"files\",\"uploaded_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"addresses\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"addresses\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"venues\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"venues\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"people\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"people\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"seasons\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"seasons\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"audit_events\",\"occurred_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"team_memberships\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"team_memberships\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"teams\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"teams\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"person_relationships\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"person_relationships\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"role_assignment_teams\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"role_assignments\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"role_assignments\",\"ends_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"role_assignments\",\"starts_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"role_assignments\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"consents\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"consents\",\"expires_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"consents\",\"granted_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"consents\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"consents\",\"withdrawn_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"allergies\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"allergies\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"medical_records\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"medical_records\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_checks\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_checks\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_checks\",\"verified_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_concerns\",\"closed_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_concerns\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_concerns\",\"opened_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_concerns\",\"referred_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_concerns\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"safeguarding_notes\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"incident_reports\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"incident_reports\",\"occurred_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"incident_reports\",\"parents_notified_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"incident_reports\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"club_settings\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"club_settings\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"opponents\",\"created_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"opponents\",\"updated_at\"]",
+      "set": {
+        "type": "timestamp with time zone"
+      }
+    }
+  ]
+}

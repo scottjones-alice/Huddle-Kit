@@ -1,0 +1,1226 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "c7de63c3-dc04-42d2-9684-2abe67edea19",
+  "prevIds": ["c47f98d4-9be0-4863-82d7-e6b453e11ab0"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_settings"],
+      "writes": [
+        "s|tbl|public.club_settings",
+        "n|tbl|public.club_settings",
+        "e|tbl|public.club_settings",
+        "n|rel|public.club_settings",
+        "n|type|public.club_settings",
+        "n|rel|public.club_settings_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "opponents"],
+      "writes": [
+        "s|tbl|public.opponents",
+        "n|tbl|public.opponents",
+        "e|tbl|public.opponents",
+        "n|rel|public.opponents",
+        "n|type|public.opponents",
+        "n|rel|public.opponents_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "drop_fk",
+      "statementTarget": ["table", "public", "teams"],
+      "writes": [
+        "s|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "n|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "e|fk|public.teams.teams_club_id_clubs_id_fkey",
+        "n|con|public.teams.teams_club_id_clubs_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "e|col|public.teams.club_id"
+      ]
+    },
+    {
+      "statementType": "drop_table",
+      "statementTarget": ["table", "public", "clubs"],
+      "writes": [
+        "s|tbl|public.clubs",
+        "n|tbl|public.clubs",
+        "e|tbl|public.clubs",
+        "n|rel|public.clubs",
+        "n|type|public.clubs"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "drop_index",
+      "statementTarget": ["index", "public", "teams", "teams_clubId_idx"],
+      "writes": [
+        "s|idx|public.teams_clubId_idx",
+        "n|idx|public.teams_clubId_idx",
+        "e|idx|public.teams_clubId_idx",
+        "n|rel|public.teams_clubId_idx"
+      ],
+      "reads": [
+        "e|tbl|public.teams",
+        "n|sch|public",
+        "e|col|public.teams.club_id"
+      ],
+      "sharedWrites": []
+    },
+    {
+      "statementType": "drop_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "teams",
+        "teams_clubId_seasonId_name_uidx"
+      ],
+      "writes": [
+        "s|idx|public.teams_clubId_seasonId_name_uidx",
+        "n|idx|public.teams_clubId_seasonId_name_uidx",
+        "e|idx|public.teams_clubId_seasonId_name_uidx",
+        "n|rel|public.teams_clubId_seasonId_name_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "e|col|public.teams.club_id",
+        "e|col|public.teams.season_id",
+        "e|col|public.teams.name"
+      ],
+      "sharedWrites": ["e|uniqueness|public.teams.club_id.name.season_id"]
+    },
+    {
+      "statementType": "drop_column",
+      "statementTarget": ["column", "public", "teams", "club_id"],
+      "writes": [
+        "s|col|public.teams.club_id",
+        "n|col|public.teams.club_id",
+        "e|col|public.teams.club_id"
+      ],
+      "reads": ["n|tbl|public.teams", "n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_settings",
+        "club_settings_addressId_idx"
+      ],
+      "writes": [
+        "s|idx|public.club_settings_addressId_idx",
+        "n|idx|public.club_settings_addressId_idx",
+        "e|idx|public.club_settings_addressId_idx",
+        "n|rel|public.club_settings_addressId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|col|public.club_settings.address_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_settings",
+        "club_settings_homeVenueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.club_settings_homeVenueId_idx",
+        "n|idx|public.club_settings_homeVenueId_idx",
+        "e|idx|public.club_settings_homeVenueId_idx",
+        "n|rel|public.club_settings_homeVenueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|col|public.club_settings.home_venue_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "opponents",
+        "opponents_addressId_idx"
+      ],
+      "writes": [
+        "s|idx|public.opponents_addressId_idx",
+        "n|idx|public.opponents_addressId_idx",
+        "e|idx|public.opponents_addressId_idx",
+        "n|rel|public.opponents_addressId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.address_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "opponents",
+        "opponents_homeVenueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.opponents_homeVenueId_idx",
+        "n|idx|public.opponents_homeVenueId_idx",
+        "e|idx|public.opponents_homeVenueId_idx",
+        "n|rel|public.opponents_homeVenueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.home_venue_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "opponents",
+        "opponents_linkedOrganizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.opponents_linkedOrganizationId_idx",
+        "n|idx|public.opponents_linkedOrganizationId_idx",
+        "e|idx|public.opponents_linkedOrganizationId_idx",
+        "n|rel|public.opponents_linkedOrganizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.linked_organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "opponents",
+        "opponents_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.opponents_organizationId_idx",
+        "n|idx|public.opponents_organizationId_idx",
+        "e|idx|public.opponents_organizationId_idx",
+        "n|rel|public.opponents_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "opponents",
+        "opponents_organizationId_name_uidx"
+      ],
+      "writes": [
+        "s|idx|public.opponents_organizationId_name_uidx",
+        "n|idx|public.opponents_organizationId_name_uidx",
+        "e|idx|public.opponents_organizationId_name_uidx",
+        "n|rel|public.opponents_organizationId_name_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|col|public.opponents.organization_id",
+        "n|col|public.opponents.name"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "teams",
+        "teams_organizationId_seasonId_name_uidx"
+      ],
+      "writes": [
+        "s|idx|public.teams_organizationId_seasonId_name_uidx",
+        "n|idx|public.teams_organizationId_seasonId_name_uidx",
+        "e|idx|public.teams_organizationId_seasonId_name_uidx",
+        "n|rel|public.teams_organizationId_seasonId_name_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.season_id",
+        "n|col|public.teams.name"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_settings"],
+      "writes": [
+        "s|fk|public.club_settings.club_settings_address_id_addresses_id_fkey",
+        "n|fk|public.club_settings.club_settings_address_id_addresses_id_fkey",
+        "e|fk|public.club_settings.club_settings_address_id_addresses_id_fkey",
+        "n|con|public.club_settings.club_settings_address_id_addresses_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.club_settings.address_id",
+        "n|col|public.addresses.id",
+        "e|uniqueness|public.addresses.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_settings"],
+      "writes": [
+        "s|fk|public.club_settings.club_settings_home_venue_id_venues_id_fkey",
+        "n|fk|public.club_settings.club_settings_home_venue_id_venues_id_fkey",
+        "e|fk|public.club_settings.club_settings_home_venue_id_venues_id_fkey",
+        "n|con|public.club_settings.club_settings_home_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.club_settings.home_venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_settings"],
+      "writes": [
+        "s|fk|public.club_settings.club_settings_organization_id_organizations_id_fkey",
+        "n|fk|public.club_settings.club_settings_organization_id_organizations_id_fkey",
+        "e|fk|public.club_settings.club_settings_organization_id_organizations_id_fkey",
+        "n|con|public.club_settings.club_settings_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_settings",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_settings.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "opponents"],
+      "writes": [
+        "s|fk|public.opponents.opponents_address_id_addresses_id_fkey",
+        "n|fk|public.opponents.opponents_address_id_addresses_id_fkey",
+        "e|fk|public.opponents.opponents_address_id_addresses_id_fkey",
+        "n|con|public.opponents.opponents_address_id_addresses_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|tbl|public.addresses",
+        "n|sch|public",
+        "n|col|public.opponents.address_id",
+        "n|col|public.addresses.id",
+        "e|uniqueness|public.addresses.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "opponents"],
+      "writes": [
+        "s|fk|public.opponents.opponents_home_venue_id_venues_id_fkey",
+        "n|fk|public.opponents.opponents_home_venue_id_venues_id_fkey",
+        "e|fk|public.opponents.opponents_home_venue_id_venues_id_fkey",
+        "n|con|public.opponents.opponents_home_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.opponents.home_venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "opponents"],
+      "writes": [
+        "s|fk|public.opponents.opponents_linked_organization_id_organizations_id_fkey",
+        "n|fk|public.opponents.opponents_linked_organization_id_organizations_id_fkey",
+        "e|fk|public.opponents.opponents_linked_organization_id_organizations_id_fkey",
+        "n|con|public.opponents.opponents_linked_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.opponents.linked_organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "opponents"],
+      "writes": [
+        "s|fk|public.opponents.opponents_organization_id_organizations_id_fkey",
+        "n|fk|public.opponents.opponents_organization_id_organizations_id_fkey",
+        "e|fk|public.opponents.opponents_organization_id_organizations_id_fkey",
+        "n|con|public.opponents.opponents_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.opponents",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.opponents.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_settings",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "opponents",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "address_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "contact_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "contact_phone",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "home_venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "short_name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "website",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "address_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "contact_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "contact_phone",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "created_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "home_venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "linked_organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "short_name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "updated_at",
+        "type": "timestamp",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "website",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_addressId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "address_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_homeVenueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "home_venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_addressId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "address_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_homeVenueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "home_venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_linkedOrganizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "linked_organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_organizationId_name_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "name",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "teams",
+        "name": "teams_organizationId_seasonId_name_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "season_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "name",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_address_id_addresses_id_fkey",
+        "nameExplicit": false,
+        "columns": ["address_id"],
+        "schemaTo": "public",
+        "tableTo": "addresses",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_home_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["home_venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_address_id_addresses_id_fkey",
+        "nameExplicit": false,
+        "columns": ["address_id"],
+        "schemaTo": "public",
+        "tableTo": "addresses",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_home_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["home_venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_linked_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["linked_organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_settings",
+        "name": "club_settings_pkey",
+        "columns": ["organization_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "opponents",
+        "name": "opponents_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "drop",
+      "key": "tables\u0000[\"public\",\"clubs\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"address_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"contact_email\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"contact_phone\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"created_at\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"home_venue_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"is_active\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"name\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"organization_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"short_name\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"updated_at\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"clubs\",\"website\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"teams\",\"club_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"clubs_addressId_idx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"clubs_homeVenueId_idx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"clubs_organizationId_idx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"clubs_organizationId_name_uidx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"teams_clubId_idx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"teams_clubId_seasonId_name_uidx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "fks\u0000[\"public\",\"clubs\",\"clubs_address_id_addresses_id_fkey\"]"
+    },
+    {
+      "op": "drop",
+      "key": "fks\u0000[\"public\",\"clubs\",\"clubs_home_venue_id_venues_id_fkey\"]"
+    },
+    {
+      "op": "drop",
+      "key": "fks\u0000[\"public\",\"clubs\",\"clubs_organization_id_organizations_id_fkey\"]"
+    },
+    {
+      "op": "drop",
+      "key": "fks\u0000[\"public\",\"teams\",\"teams_club_id_clubs_id_fkey\"]"
+    },
+    {
+      "op": "drop",
+      "key": "pks\u0000[\"public\",\"clubs\",\"clubs_pkey\"]"
+    }
+  ]
+}

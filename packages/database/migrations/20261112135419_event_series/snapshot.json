@@ -1,0 +1,937 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "a6763753-7e30-424d-b0db-95ffb762b1ef",
+  "prevIds": ["bc59df2a-7ff9-482b-a748-0ce5d77d9b31"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "event_series"],
+      "writes": [
+        "s|tbl|public.event_series",
+        "n|tbl|public.event_series",
+        "e|tbl|public.event_series",
+        "n|rel|public.event_series",
+        "n|type|public.event_series",
+        "n|rel|public.event_series_pkey",
+        "n|rel|public.event_series_organization_id_id_uniq"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "events", "series_id"],
+      "writes": [
+        "s|col|public.events.series_id",
+        "n|col|public.events.series_id",
+        "e|col|public.events.series_id"
+      ],
+      "reads": ["n|tbl|public.events", "n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "events",
+        "series_occurrence_starts_at"
+      ],
+      "writes": [
+        "s|col|public.events.series_occurrence_starts_at",
+        "n|col|public.events.series_occurrence_starts_at",
+        "e|col|public.events.series_occurrence_starts_at"
+      ],
+      "reads": ["n|tbl|public.events", "n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "event_series",
+        "event_series_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.event_series_organizationId_idx",
+        "n|idx|public.event_series_organizationId_idx",
+        "e|idx|public.event_series_organizationId_idx",
+        "n|rel|public.event_series_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|col|public.event_series.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "event_series",
+        "event_series_teamId_idx"
+      ],
+      "writes": [
+        "s|idx|public.event_series_teamId_idx",
+        "n|idx|public.event_series_teamId_idx",
+        "e|idx|public.event_series_teamId_idx",
+        "n|rel|public.event_series_teamId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|col|public.event_series.team_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "event_series",
+        "event_series_venueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.event_series_venueId_idx",
+        "n|idx|public.event_series_venueId_idx",
+        "e|idx|public.event_series_venueId_idx",
+        "n|rel|public.event_series_venueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|col|public.event_series.venue_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "event_series",
+        "event_series_createdByUserId_idx"
+      ],
+      "writes": [
+        "s|idx|public.event_series_createdByUserId_idx",
+        "n|idx|public.event_series_createdByUserId_idx",
+        "e|idx|public.event_series_createdByUserId_idx",
+        "n|rel|public.event_series_createdByUserId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|col|public.event_series.created_by_user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "events",
+        "events_series_occurrence_uidx"
+      ],
+      "writes": [
+        "s|idx|public.events_series_occurrence_uidx",
+        "n|idx|public.events_series_occurrence_uidx",
+        "e|idx|public.events_series_occurrence_uidx",
+        "n|rel|public.events_series_occurrence_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.events",
+        "n|sch|public",
+        "n|col|public.events.series_id",
+        "n|col|public.events.series_occurrence_starts_at"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "event_series"],
+      "writes": [
+        "s|fk|public.event_series.event_series_created_by_user_id_users_id_fkey",
+        "n|fk|public.event_series.event_series_created_by_user_id_users_id_fkey",
+        "e|fk|public.event_series.event_series_created_by_user_id_users_id_fkey",
+        "n|con|public.event_series.event_series_created_by_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.event_series.created_by_user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "event_series"],
+      "writes": [
+        "s|fk|public.event_series.event_series_organization_id_organizations_id_fkey",
+        "n|fk|public.event_series.event_series_organization_id_organizations_id_fkey",
+        "e|fk|public.event_series.event_series_organization_id_organizations_id_fkey",
+        "n|con|public.event_series.event_series_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.event_series.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "event_series"],
+      "writes": [
+        "s|fk|public.event_series.event_series_venue_id_venues_id_fkey",
+        "n|fk|public.event_series.event_series_venue_id_venues_id_fkey",
+        "e|fk|public.event_series.event_series_venue_id_venues_id_fkey",
+        "n|con|public.event_series.event_series_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.event_series.venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "event_series"],
+      "writes": [
+        "s|fk|public.event_series.event_series_team_same_org_fkey",
+        "n|fk|public.event_series.event_series_team_same_org_fkey",
+        "e|fk|public.event_series.event_series_team_same_org_fkey",
+        "n|con|public.event_series.event_series_team_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.event_series.organization_id",
+        "n|col|public.event_series.team_id",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "events"],
+      "writes": [
+        "s|fk|public.events.events_series_same_org_fkey",
+        "n|fk|public.events.events_series_same_org_fkey",
+        "e|fk|public.events.events_series_same_org_fkey",
+        "n|con|public.events.events_series_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.events",
+        "n|sch|public",
+        "n|tbl|public.event_series",
+        "n|sch|public",
+        "n|col|public.events.organization_id",
+        "n|col|public.events.series_id",
+        "n|col|public.event_series.organization_id",
+        "n|col|public.event_series.id",
+        "e|uniqueness|public.event_series.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "events"],
+      "writes": [
+        "s|ck|public.events.events_series_chk",
+        "n|ck|public.events.events_series_chk",
+        "e|ck|public.events.events_series_chk",
+        "n|con|public.events.events_series_chk"
+      ],
+      "reads": [
+        "n|tbl|public.events",
+        "n|sch|public",
+        "n|col|public.events.series_id",
+        "n|col|public.events.series_occurrence_starts_at"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "event_series",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "created_by_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "description",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "duration_minutes",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "ends_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "generated_until",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "interval_weeks",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "is_active",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "meet_minutes_before",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "start_time",
+        "type": "time",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "starts_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "time_zone",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "title",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "weekday",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "events",
+        "name": "series_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "events",
+        "name": "series_occurrence_starts_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_teamId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "team_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_venueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_createdByUserId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "created_by_user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "events",
+        "name": "events_series_occurrence_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "series_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "series_occurrence_starts_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_created_by_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["created_by_user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_team_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "events",
+        "name": "events_series_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "series_id"],
+        "schemaTo": "public",
+        "tableTo": "event_series",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "event_series_organization_id_id_uniq",
+        "nameExplicit": true,
+        "columns": ["organization_id", "id"],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_kind_chk",
+        "value": "\"kind\" in ('training', 'match', 'social', 'meeting', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_weekday_chk",
+        "value": "\"weekday\" between 1 and 7",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_intervalWeeks_chk",
+        "value": "\"interval_weeks\" between 1 and 52",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_durationMinutes_chk",
+        "value": "\"duration_minutes\" between 1 and 1440",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_meetMinutesBefore_chk",
+        "value": "\"meet_minutes_before\" is null or \"meet_minutes_before\" between 0 and 1440",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_dates_chk",
+        "value": "\"ends_on\" is null or \"ends_on\" >= \"starts_on\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "event_series",
+        "name": "eventSeries_timeZone_chk",
+        "value": "length(trim(\"time_zone\")) > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "events",
+        "name": "events_series_chk",
+        "value": "(\"series_id\" is null) = (\"series_occurrence_starts_at\" is null)",
+        "entityType": "checks"
+      }
+    }
+  ]
+}
