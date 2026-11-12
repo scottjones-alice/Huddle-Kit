@@ -12,6 +12,7 @@ import * as people from "./people/people.route";
 import * as registrations from "./registrations/registrations.route";
 import * as roles from "./roles/roles.route";
 import { rootRoute } from "./root/root.route";
+import * as safeguarding from "./safeguarding/safeguarding.route";
 import * as teams from "./teams/teams.route";
 import * as venues from "./venues/venues.route";
 
@@ -32,6 +33,7 @@ const modules: Record<string, unknown>[] = [
   people,
   registrations,
   roles,
+  safeguarding,
   teams,
   venues,
   { rootRoute },

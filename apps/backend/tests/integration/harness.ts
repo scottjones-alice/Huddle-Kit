@@ -6,6 +6,7 @@ import {
   organizations,
   roleAssignments,
   safeguardingChecks,
+  safeguardingConcerns,
   users,
 } from "@alice/database";
 import type { RoleAssignmentRole } from "@alice/database";
@@ -128,9 +129,18 @@ export const createTestClub = async <T extends Record<string, MemberSeed>>(
       await testDb
         .delete(safeguardingChecks)
         .where(eq(safeguardingChecks.organizationId, organizationId));
-      await testDb
-        .delete(organizations)
-        .where(eq(organizations.id, organizationId));
+      // Concerns and their notes can never be deleted (that is the point), so a
+      // club that raised one stays in the test database. Its name is unique, so it is harmless.
+      const kept = await testDb
+        .select({ id: safeguardingConcerns.id })
+        .from(safeguardingConcerns)
+        .where(eq(safeguardingConcerns.organizationId, organizationId))
+        .limit(1);
+      if (kept.length === 0) {
+        await testDb
+          .delete(organizations)
+          .where(eq(organizations.id, organizationId));
+      }
       await Promise.all(
         entries.map(([, person]) =>
           testDb.delete(users).where(eq(users.id, person.id))

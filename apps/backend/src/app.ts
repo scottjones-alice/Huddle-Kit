@@ -24,6 +24,7 @@ import people from "@/routes/people/people.index";
 import registrations from "@/routes/registrations/registrations.index";
 import roles from "@/routes/roles/roles.index";
 import root from "@/routes/root/root.index";
+import safeguarding from "@/routes/safeguarding/safeguarding.index";
 import teams from "@/routes/teams/teams.index";
 import venues from "@/routes/venues/venues.index";
 import connectWebhook from "@/routes/webhooks/connect-webhook";
@@ -97,6 +98,7 @@ const routes = [
   people,
   registrations,
   roles,
+  safeguarding,
   teams,
   venues,
 ] as const;
@@ -114,6 +116,7 @@ app.route(API_PREFIX, payments);
 app.route(API_PREFIX, people);
 app.route(API_PREFIX, registrations);
 app.route(API_PREFIX, roles);
+app.route(API_PREFIX, safeguarding);
 app.route(API_PREFIX, teams);
 app.route(API_PREFIX, venues);
 app.route(API_PREFIX, connectWebhook);

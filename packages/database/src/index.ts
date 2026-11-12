@@ -231,12 +231,14 @@ export {
 export type { MedicalRecordKind } from "./schema/people/medical-records";
 
 export {
+  DBS_LEVELS,
   SAFEGUARDING_CHECK_KINDS,
   SAFEGUARDING_CHECK_STATUSES,
   safeguardingChecks,
 } from "./schema/safeguarding/checks";
 
 export type {
+  DbsLevel,
   SafeguardingCheckKind,
   SafeguardingCheckStatus,
 } from "./schema/safeguarding/checks";

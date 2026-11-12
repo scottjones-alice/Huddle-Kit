@@ -91,6 +91,11 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Consents",
       },
       {
+        description:
+          "Checks on adults (DBS, training) and safeguarding concerns. Anyone can raise a concern; only safeguarding staff can read them. Every read and change is audited and nothing is deleted.",
+        name: "Safeguarding",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },

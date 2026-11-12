@@ -58,6 +58,12 @@ export const keys = () =>
       RATE_LIMIT_WINDOW_SECONDS: positiveInt(DEFAULT_RATE_LIMIT_WINDOW_SECONDS),
       REQUEST_TIMEOUT_MS: positiveInt(DEFAULT_REQUEST_TIMEOUT_MS),
       RESEND_API_KEY: z.string().min(1),
+      // 32 random bytes, base64. Encrypts safeguarding concern details and notes.
+      SAFEGUARDING_KEY: z
+        .string()
+        .refine((value) => Buffer.from(value, "base64").length === 32, {
+          message: "Must be 32 bytes, base64 encoded",
+        }),
       SHUTDOWN_TIMEOUT_MS: positiveInt(DEFAULT_SHUTDOWN_TIMEOUT_MS),
       SLOW_REQUEST_MS: positiveInt(DEFAULT_SLOW_REQUEST_MS),
       // Only true behind a proxy you control: it makes X-Forwarded-For trusted.

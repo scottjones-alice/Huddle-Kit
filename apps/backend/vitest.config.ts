@@ -17,6 +17,7 @@ export default defineConfig({
       NOVU_SECRET_KEY: "novu_test",
       ONBOARDING_DRAFT_KEY: "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=",
       RESEND_API_KEY: "re_test",
+      SAFEGUARDING_KEY: "ZmVkY2JhOTg3NjU0MzIxMGZlZGNiYTk4NzY1NDMyMTA=",
     },
   },
 });
