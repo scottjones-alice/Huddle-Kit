@@ -1,0 +1,36 @@
+{
+  "name": "huddlekit",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "db:generate": "turbo run db:generate --ui=stream",
+    "db:migrate": "turbo run db:migrate --ui=stream",
+    "db:push": "turbo run db:push --ui=stream",
+    "db:diagram": "pnpm --filter @alice/database db:diagram",
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "prepare": "husky",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "@shadcn/lint": "catalog:",
+    "@turbo/gen": "catalog:",
+    "@types/node": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-plugin-react-doctor": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "ultracite": "catalog:"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.25.0"
+}
