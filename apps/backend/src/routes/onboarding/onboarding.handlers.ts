@@ -8,13 +8,18 @@ import { z } from "@hono/zod-openapi";
 import { and, eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 
+import {
+  SlugTakenError,
+  clubStepInputSchema,
+  saveClubStep,
+} from "@/services/club-onboarding";
 import { db } from "@/services/database";
 import { draftEncryptor } from "@/services/draft-encryptor";
 import type { AuthedRouteHandler } from "@/types";
 
 import { MAX_DRAFT_JSON_BYTES } from "./onboarding.route";
 import type {
-  CompleteOrganizationRoute,
+  SaveClubStepRoute,
   CompleteUserRoute,
   GetDraftRoute,
   GetRoute,
@@ -37,25 +42,6 @@ export const completeUser: AuthedRouteHandler<CompleteUserRoute> = async (
   await completeOnboardingStep(db, { userId }, step, userId);
   return c.json(
     await getOnboardingProgress(db, { userId }),
-    HttpStatusCodes.OK
-  );
-};
-
-export const completeOrganization: AuthedRouteHandler<
-  CompleteOrganizationRoute
-> = async (c) => {
-  const { step } = c.req.valid("param");
-  const organizationId = c.get("organizationId");
-  const userId = c.get("userId");
-  if (!(await isBillingManager(db, { organizationId, userId }))) {
-    return c.json(
-      { message: "Only a club owner or admin can do this" },
-      HttpStatusCodes.FORBIDDEN
-    );
-  }
-  await completeOnboardingStep(db, { organizationId }, step, userId);
-  return c.json(
-    await getOnboardingProgress(db, { organizationId }),
     HttpStatusCodes.OK
   );
 };
@@ -106,6 +92,47 @@ export const saveDraft: AuthedRouteHandler<SaveDraftRoute> = async (c) => {
     });
   return c.json(
     { data, stepId, updatedAt: updatedAt.toISOString() },
+    HttpStatusCodes.OK
+  );
+};
+
+export const saveClub: AuthedRouteHandler<SaveClubStepRoute> = async (c) => {
+  const { step } = c.req.valid("param");
+  const organizationId = c.get("organizationId");
+  const userId = c.get("userId");
+  if (!(await isBillingManager(db, { organizationId, userId }))) {
+    return c.json(
+      { message: "Only a club owner or admin can do this" },
+      HttpStatusCodes.FORBIDDEN
+    );
+  }
+  const parsed = clubStepInputSchema.safeParse({
+    data: c.req.valid("json"),
+    step,
+  });
+  if (!parsed.success) {
+    return c.json(
+      {
+        issues: parsed.error.issues.map((issue) => ({
+          message: issue.message,
+          path: issue.path.join("."),
+        })),
+        message: "Some fields are not valid",
+      },
+      HttpStatusCodes.UNPROCESSABLE_ENTITY
+    );
+  }
+  try {
+    await saveClubStep(db, organizationId, parsed.data);
+  } catch (error) {
+    if (error instanceof SlugTakenError) {
+      return c.json({ message: error.message }, HttpStatusCodes.CONFLICT);
+    }
+    throw error;
+  }
+  await completeOnboardingStep(db, { organizationId }, step, userId);
+  return c.json(
+    await getOnboardingProgress(db, { organizationId }),
     HttpStatusCodes.OK
   );
 };

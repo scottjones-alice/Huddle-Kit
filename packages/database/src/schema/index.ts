@@ -2,6 +2,8 @@
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./authentication";
 // oxlint-disable-next-line oxc/no-barrel-file
+export * from "./club/club-profile";
+// oxlint-disable-next-line oxc/no-barrel-file
 export * from "./club/club-settings";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./club/opponents";

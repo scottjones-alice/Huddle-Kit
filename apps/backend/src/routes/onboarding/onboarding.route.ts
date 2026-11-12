@@ -1,8 +1,4 @@
-import {
-  ONBOARDING_FLOWS,
-  ORGANIZATION_ONBOARDING_STEPS,
-  USER_ONBOARDING_STEPS,
-} from "@alice/database";
+import { ONBOARDING_FLOWS, USER_ONBOARDING_STEPS } from "@alice/database";
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
@@ -25,9 +21,15 @@ const forbidden = jsonContent(
 // Steps a client can mark done. The rest complete on their own: Connect becomes
 // active (payouts), a member is invited (team), a subscription is paid (billing).
 const userStepSchema = z.enum(USER_ONBOARDING_STEPS).exclude(["billing"]);
-const organizationStepSchema = z
-  .enum(ORGANIZATION_ONBOARDING_STEPS)
-  .exclude(["billing", "payouts", "team"]);
+
+const CLUB_STEPS = [
+  "club",
+  "location",
+  "governance",
+  "schedule",
+  "fees",
+  "social",
+] as const;
 
 const draftBody = z.object({
   data: z.record(z.string(), z.unknown()),
@@ -60,17 +62,29 @@ export const completeUser = createRoute({
   tags: TAGS,
 });
 
-export const completeOrganization = createRoute({
-  method: "post",
-  path: "/onboarding/organization/{step}",
+export const saveClubStep = createRoute({
+  description:
+    "Saves one club wizard step (club, location, governance, schedule, fees or social) and marks it done. The body is that step's fields. Owners and admins only.",
+  method: "put",
+  path: "/onboarding/club/{step}",
   request: {
-    params: z.object({
-      step: organizationStepSchema,
-    }),
+    body: jsonContentRequired(
+      z.record(z.string(), z.unknown()),
+      "The step's fields."
+    ),
+    params: z.object({ step: z.enum(CLUB_STEPS) }),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
     [HttpStatusCodes.FORBIDDEN]: forbidden,
+    [HttpStatusCodes.CONFLICT]: jsonContent(errorSchema, "Club address taken."),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      z.object({
+        issues: z.array(z.object({ message: z.string(), path: z.string() })),
+        message: z.string(),
+      }),
+      "The fields are not valid."
+    ),
   },
   tags: TAGS,
 });
@@ -106,6 +120,6 @@ export const saveDraft = createRoute({
 export const MAX_DRAFT_JSON_BYTES = MAX_DRAFT_BYTES;
 export type GetRoute = typeof get;
 export type CompleteUserRoute = typeof completeUser;
-export type CompleteOrganizationRoute = typeof completeOrganization;
+export type SaveClubStepRoute = typeof saveClubStep;
 export type GetDraftRoute = typeof getDraft;
 export type SaveDraftRoute = typeof saveDraft;

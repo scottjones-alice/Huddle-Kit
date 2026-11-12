@@ -24,6 +24,17 @@ import {
 } from "drizzle-orm/zod";
 import { z } from "zod";
 
+import {
+  CLUB_SECTIONS,
+  CLUB_TYPES,
+  FEE_FREQUENCIES,
+  LEGAL_STRUCTURES,
+  SOCIAL_PLATFORMS,
+  clubFeeSettings,
+  clubProfiles,
+  clubSocialLinks,
+  clubTrainingSlots,
+} from "./schema/club/club-profile";
 import { clubSettings } from "./schema/club/club-settings";
 import { opponents } from "./schema/club/opponents";
 import { PITCH_FORMATS, PITCH_SURFACES, pitches } from "./schema/club/pitches";
@@ -1216,6 +1227,76 @@ export const fileViewSelectSchema = createSelectSchema(fileViews);
 export const fileViewInsertSchema = createInsertSchema(fileViews);
 export const fileViewUpdateSchema = createUpdateSchema(fileViews);
 
+// club profile --------------------------------------------------------------
+
+const clubProfileRefinements = {
+  clubType: () => z.enum(CLUB_TYPES).nullable(),
+  legalStructure: () => z.enum(LEGAL_STRUCTURES).nullable(),
+  sections: () => z.array(z.enum(CLUB_SECTIONS)).min(1).nullable(),
+};
+export const clubProfileSelectSchema = createSelectSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+export const clubProfileInsertSchema = createInsertSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+export const clubProfileUpdateSchema = createUpdateSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+
+const clubFeeSettingRefinements = {
+  frequency: () => z.enum(FEE_FREQUENCIES),
+  subscriptionMinor: () => z.number().int().min(0),
+};
+export const clubFeeSettingSelectSchema = createSelectSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+export const clubFeeSettingInsertSchema = createInsertSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+export const clubFeeSettingUpdateSchema = createUpdateSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+
+const clubSocialLinkRefinements = {
+  platform: () => z.enum(SOCIAL_PLATFORMS),
+  url: () => z.url(),
+};
+export const clubSocialLinkSelectSchema = createSelectSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+export const clubSocialLinkInsertSchema = createInsertSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+export const clubSocialLinkUpdateSchema = createUpdateSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+
+const clubTrainingSlotRefinements = {
+  dayOfWeek: () => z.number().int().min(1).max(7),
+};
+export const clubTrainingSlotSelectSchema = createSelectSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+export const clubTrainingSlotInsertSchema = createInsertSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+export const clubTrainingSlotUpdateSchema = createUpdateSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+
 // Onboarding steps ------------------------------------------------------------
 
 const onboardingDraftRefinements = { flow: () => z.enum(ONBOARDING_FLOWS) };
@@ -1434,15 +1515,35 @@ export const tableSchemas = {
     select: auditEventSelectSchema,
     update: auditEventUpdateSchema,
   },
+  club_fee_settings: {
+    insert: clubFeeSettingInsertSchema,
+    select: clubFeeSettingSelectSchema,
+    update: clubFeeSettingUpdateSchema,
+  },
+  club_profiles: {
+    insert: clubProfileInsertSchema,
+    select: clubProfileSelectSchema,
+    update: clubProfileUpdateSchema,
+  },
   club_settings: {
     insert: clubSettingsInsertSchema,
     select: clubSettingsSelectSchema,
     update: clubSettingsUpdateSchema,
   },
+  club_social_links: {
+    insert: clubSocialLinkInsertSchema,
+    select: clubSocialLinkSelectSchema,
+    update: clubSocialLinkUpdateSchema,
+  },
   club_stripe_accounts: {
     insert: clubStripeAccountInsertSchema,
     select: clubStripeAccountSelectSchema,
     update: clubStripeAccountUpdateSchema,
+  },
+  club_training_slots: {
+    insert: clubTrainingSlotInsertSchema,
+    select: clubTrainingSlotSelectSchema,
+    update: clubTrainingSlotUpdateSchema,
   },
   consent_documents: {
     insert: consentDocumentInsertSchema,

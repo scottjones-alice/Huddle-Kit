@@ -1,6 +1,7 @@
 import { defineRelationsPart } from "drizzle-orm";
 
 import { authRelations, verifications } from "./authentication";
+import { clubProfileRelations } from "./club/club-profile";
 import { clubSettingsRelations } from "./club/club-settings";
 import { opponentRelations } from "./club/opponents";
 import { pitchRelations } from "./club/pitches";
@@ -66,6 +67,7 @@ export const relations = {
   ...feeChargeRelations,
   ...feeRelations,
   ...notificationRelations,
+  ...clubProfileRelations,
   ...onboardingDraftsRelations,
   ...onboardingStepsRelations,
   ...paymentRelations,

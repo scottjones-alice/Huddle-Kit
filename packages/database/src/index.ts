@@ -34,6 +34,26 @@ export {
   verifications,
 } from "./schema/authentication";
 
+export {
+  CLUB_SECTIONS,
+  CLUB_TYPES,
+  FEE_FREQUENCIES,
+  LEGAL_STRUCTURES,
+  SOCIAL_PLATFORMS,
+  clubFeeSettings,
+  clubProfiles,
+  clubSocialLinks,
+  clubTrainingSlots,
+} from "./schema/club/club-profile";
+
+export type {
+  ClubSection,
+  ClubType,
+  FeeFrequency,
+  LegalStructure,
+  SocialPlatform,
+} from "./schema/club/club-profile";
+
 export { clubSettings } from "./schema/club/club-settings";
 
 export {
