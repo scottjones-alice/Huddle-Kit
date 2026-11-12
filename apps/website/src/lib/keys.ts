@@ -8,9 +8,11 @@ export const keys = () =>
     ...webOptions,
     client: {
       NEXT_PUBLIC_API_URL: z.url(),
+      NEXT_PUBLIC_PLATFORM_URL: z.url(),
     },
     // Next only inlines variables written out in full, one line per variable.
     runtimeEnv: {
       NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+      NEXT_PUBLIC_PLATFORM_URL: process.env.NEXT_PUBLIC_PLATFORM_URL,
     },
   });

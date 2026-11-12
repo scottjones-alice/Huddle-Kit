@@ -2,6 +2,8 @@ import { cn } from "@alice/ui/lib/utils";
 import { Geist_Mono, Geist } from "next/font/google";
 
 import "../styles/globals.css";
+import SiteFooter from "@/components/site-footer";
+import SiteHeader from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -37,8 +39,12 @@ export default function RootLayout({
         geistMono.variable
       )}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="flex min-h-svh flex-col">
+        <ThemeProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </ThemeProvider>
       </body>
     </html>
   );
