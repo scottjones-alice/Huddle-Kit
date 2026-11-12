@@ -144,6 +144,7 @@ export { roleAssignmentTeams } from "./schema/governance/role-assignment-teams";
 export {
   ROLE_ASSIGNMENT_ROLES,
   ROLE_ASSIGNMENT_SCOPES,
+  TEAM_SCOPED_ROLES,
   roleAssignments,
 } from "./schema/governance/role-assignments";
 

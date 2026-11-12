@@ -3,10 +3,7 @@ import { z } from "zod";
 
 import configureOpenAPI from "@/lib/configure-open-api";
 import { createRouter } from "@/lib/create-app";
-import * as files from "@/routes/files/files.route";
-import * as onboarding from "@/routes/onboarding/onboarding.route";
-import * as payments from "@/routes/payments/payments.route";
-import { rootRoute } from "@/routes/root/root.route";
+import { allRouteConfigs } from "@/routes/route-configs";
 
 const HTTP_METHODS = ["get", "put", "post", "delete", "patch"] as const;
 
@@ -50,15 +47,8 @@ const missingExamples = (node: unknown, path: string): string[] => {
 const fetchDocument = async (): Promise<Document> => {
   const app = createRouter();
   configureOpenAPI(app, "/api/v1");
-  for (const route of [
-    ...Object.values(files),
-    ...Object.values(onboarding),
-    ...Object.values(payments),
-    rootRoute,
-  ]) {
-    if (typeof route === "object" && "method" in route) {
-      app.openAPIRegistry.registerPath(route);
-    }
+  for (const route of allRouteConfigs) {
+    app.openAPIRegistry.registerPath(route);
   }
   const response = await app.request("/api/v1/doc");
   return documentSchema.parse(await response.json());

@@ -6,7 +6,7 @@
     "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
     "check-types": "tsc --noEmit",
     "test": "vitest run --exclude \"tests/integration/**\" --exclude \"node_modules/**\"",
-    "test:integration": "vitest run tests/integration",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
     "start": "tsx --env-file-if-exists=../../.env src/index.ts"
   },
   "dependencies": {

@@ -44,7 +44,23 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         description: "Club and member setup wizards, and saved drafts.",
         name: "Onboarding",
       },
+      {
+        description: "The club's details, legal information and settings.",
+        name: "Club",
+      },
       { description: "Uploads, downloads and file views.", name: "Files" },
+      {
+        description: "Clubs the team plays against.",
+        name: "Opponents",
+      },
+      {
+        description: "Who holds which job in the club, and who has a login.",
+        name: "Roles",
+      },
+      {
+        description: "Venues and the pitches at them.",
+        name: "Venues",
+      },
       {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
