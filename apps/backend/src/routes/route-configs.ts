@@ -15,6 +15,7 @@ import { rootRoute } from "./root/root.route";
 import * as safeguarding from "./safeguarding/safeguarding.route";
 import * as teams from "./teams/teams.route";
 import * as venues from "./venues/venues.route";
+import * as welfare from "./welfare/welfare.route";
 
 /**
  * Every route definition in the API, in one list. The tests that check the
@@ -36,6 +37,7 @@ const modules: Record<string, unknown>[] = [
   safeguarding,
   teams,
   venues,
+  welfare,
   { rootRoute },
 ];
 

@@ -96,6 +96,11 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Safeguarding",
       },
       {
+        description:
+          "Medical records, allergies, incident reports and coaching qualifications. Health information is private to the person, their parents, club admins and their coaches, and every read is audited.",
+        name: "Welfare",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },

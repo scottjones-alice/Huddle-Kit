@@ -28,6 +28,7 @@ import safeguarding from "@/routes/safeguarding/safeguarding.index";
 import teams from "@/routes/teams/teams.index";
 import venues from "@/routes/venues/venues.index";
 import connectWebhook from "@/routes/webhooks/connect-webhook";
+import welfare from "@/routes/welfare/welfare.index";
 import { auth } from "@/services/auth";
 
 const API_PREFIX = "/api/v1";
@@ -101,6 +102,7 @@ const routes = [
   safeguarding,
   teams,
   venues,
+  welfare,
 ] as const;
 
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
@@ -119,6 +121,7 @@ app.route(API_PREFIX, roles);
 app.route(API_PREFIX, safeguarding);
 app.route(API_PREFIX, teams);
 app.route(API_PREFIX, venues);
+app.route(API_PREFIX, welfare);
 app.route(API_PREFIX, connectWebhook);
 app.route(API_PREFIX, internal);
 
