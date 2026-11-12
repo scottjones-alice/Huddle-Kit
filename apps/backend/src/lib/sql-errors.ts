@@ -22,3 +22,9 @@ export const isUniqueViolation = (error: unknown): boolean =>
 /** The row points at something that does not exist (or is in another club). */
 export const isForeignKeyViolation = (error: unknown): boolean =>
   codeOf(error) === FOREIGN_KEY_VIOLATION;
+
+const CHECK_VIOLATION = "23514";
+
+/** A value broke a rule the database enforces, such as a date order or a range. */
+export const isCheckViolation = (error: unknown): boolean =>
+  codeOf(error) === CHECK_VIOLATION;

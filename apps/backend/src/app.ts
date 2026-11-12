@@ -12,6 +12,7 @@ import {
 } from "@/middlewares/protect";
 import { rateLimit } from "@/middlewares/rate-limit";
 import club from "@/routes/club/club.index";
+import events from "@/routes/events/events.index";
 import files from "@/routes/files/files.index";
 import internal from "@/routes/internal/internal.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
@@ -83,6 +84,7 @@ app.on(
 const routes = [
   root,
   club,
+  events,
   files,
   onboarding,
   opponents,
@@ -96,6 +98,7 @@ const routes = [
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
 app.route(API_PREFIX, root);
 app.route(API_PREFIX, club);
+app.route(API_PREFIX, events);
 app.route(API_PREFIX, files);
 app.route(API_PREFIX, onboarding);
 app.route(API_PREFIX, opponents);

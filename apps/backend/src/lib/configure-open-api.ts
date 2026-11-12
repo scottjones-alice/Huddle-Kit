@@ -71,6 +71,11 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Teams",
       },
       {
+        description:
+          "Training, matches and other events, who can make them, who turned up, and match squads.",
+        name: "Events",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },

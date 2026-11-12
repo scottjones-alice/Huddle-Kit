@@ -1,6 +1,7 @@
 import type { RouteConfig } from "@hono/zod-openapi";
 
 import * as club from "./club/club.route";
+import * as events from "./events/events.route";
 import * as files from "./files/files.route";
 import * as onboarding from "./onboarding/onboarding.route";
 import * as opponents from "./opponents/opponents.route";
@@ -18,6 +19,7 @@ import * as venues from "./venues/venues.route";
  */
 const modules: Record<string, unknown>[] = [
   club,
+  events,
   files,
   onboarding,
   opponents,
