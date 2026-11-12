@@ -11,11 +11,13 @@ export default defineConfig({
       AUTH_STRIPE_CLUB_PRICE_ID: "price_test",
       AUTH_STRIPE_SECRET_KEY: "sk_test_123",
       AUTH_STRIPE_WEBHOOK_SECRET: "whsec_test",
+      CRON_SECRET: "test-cron-secret-test-cron-secret-1234",
       FROM_EMAIL: "test@example.com",
       LOG_LEVEL: "silent",
       NOVU_SECRET_KEY: "novu_test",
       ONBOARDING_DRAFT_KEY: "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=",
       RESEND_API_KEY: "re_test",
+      SAFEGUARDING_KEY: "ZmVkY2JhOTg3NjU0MzIxMGZlZGNiYTk4NzY1NDMyMTA=",
     },
   },
 });

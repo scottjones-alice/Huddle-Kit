@@ -1,13 +1,14 @@
-import {
-  ONBOARDING_FLOWS,
-  ORGANIZATION_ONBOARDING_STEPS,
-  USER_ONBOARDING_STEPS,
-} from "@alice/database";
+import { ONBOARDING_FLOWS } from "@alice/database";
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 
 const TAGS = ["Onboarding"];
+const flowParams = z.object({
+  flow: z
+    .enum(ONBOARDING_FLOWS)
+    .describe("Which wizard: the club one or the people one."),
+});
 const MAX_DRAFT_BYTES = 200_000;
 
 const progressSchema = z.object({
@@ -24,10 +25,15 @@ const forbidden = jsonContent(
 
 // Steps a client can mark done. The rest complete on their own: Connect becomes
 // active (payouts), a member is invited (team), a subscription is paid (billing).
-const userStepSchema = z.enum(USER_ONBOARDING_STEPS).exclude(["billing"]);
-const organizationStepSchema = z
-  .enum(ORGANIZATION_ONBOARDING_STEPS)
-  .exclude(["billing", "payouts", "team"]);
+
+const CLUB_STEPS = [
+  "club",
+  "location",
+  "governance",
+  "schedule",
+  "fees",
+  "social",
+] as const;
 
 const draftBody = z.object({
   data: z.record(z.string(), z.unknown()),
@@ -38,6 +44,7 @@ const draftSchema = draftBody.extend({ updatedAt: z.string() });
 export const get = createRoute({
   description: "Onboarding progress for the signed-in user and active club.",
   method: "get",
+  operationId: "getOnboarding",
   path: "/onboarding",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
@@ -48,29 +55,81 @@ export const get = createRoute({
   tags: TAGS,
 });
 
-export const completeUser = createRoute({
-  method: "post",
-  path: "/onboarding/user/{step}",
+export const saveClubStep = createRoute({
+  description:
+    "Saves one club wizard step (club, location, governance, schedule, fees or social) and marks it done. The body is that step's fields. Owners and admins only.",
+  method: "put",
+  operationId: "saveClubOnboardingStep",
+  path: "/onboarding/club/{step}",
   request: {
+    body: jsonContentRequired(
+      z.record(z.string(), z.unknown()),
+      "The step's fields."
+    ),
     params: z.object({
-      step: userStepSchema,
-    }),
-  },
-  responses: { [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress.") },
-  tags: TAGS,
-});
-
-export const completeOrganization = createRoute({
-  method: "post",
-  path: "/onboarding/organization/{step}",
-  request: {
-    params: z.object({
-      step: organizationStepSchema,
+      step: z.enum(CLUB_STEPS).describe("Which club setup step to save."),
     }),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
     [HttpStatusCodes.FORBIDDEN]: forbidden,
+    [HttpStatusCodes.CONFLICT]: jsonContent(errorSchema, "Club address taken."),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      z.object({
+        issues: z.array(z.object({ message: z.string(), path: z.string() })),
+        message: z.string(),
+      }),
+      "The fields are not valid."
+    ),
+  },
+  tags: TAGS,
+});
+
+/** The founder's own steps in the club wizard reuse the people wizard's saves. */
+export const MEMBER_STEPS = [
+  "role",
+  "details",
+  "address",
+  "safety",
+  "dbs",
+  "availability",
+  "children",
+  "permissions",
+  "billing",
+  "social",
+  "you",
+  "emergency",
+  "safeguarding",
+] as const;
+
+export const saveMemberStep = createRoute({
+  description:
+    "Saves one people-wizard step for the signed-in person and their own children, and marks it done. `you`, `emergency` and `safeguarding` (the club founder's steps) save the same data as `details`, `safety` and `dbs`.",
+  method: "put",
+  operationId: "saveMemberOnboardingStep",
+  path: "/onboarding/member/{step}",
+  request: {
+    body: jsonContentRequired(
+      z.record(z.string(), z.unknown()),
+      "The step's fields."
+    ),
+    params: z.object({
+      step: z.enum(MEMBER_STEPS).describe("Which member setup step to save."),
+    }),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
+    [HttpStatusCodes.FORBIDDEN]: jsonContent(
+      errorSchema,
+      "A child in the request is not yours."
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      z.object({
+        issues: z.array(z.object({ message: z.string(), path: z.string() })),
+        message: z.string(),
+      }),
+      "The fields are not valid."
+    ),
   },
   tags: TAGS,
 });
@@ -78,11 +137,25 @@ export const completeOrganization = createRoute({
 export const getDraft = createRoute({
   description: "The saved draft for a flow, or 404 when there is none.",
   method: "get",
+  operationId: "getOnboardingDraft",
   path: "/onboarding/draft/{flow}",
-  request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
+  request: { params: flowParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(draftSchema, "The draft."),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(errorSchema, "No draft saved."),
+  },
+  tags: TAGS,
+});
+
+export const finishDraft = createRoute({
+  description:
+    "Call when a wizard is finished. Removes the saved draft, which also stops the 'finish your setup' reminder emails. The answers themselves were already saved step by step.",
+  method: "delete",
+  operationId: "finishOnboardingDraft",
+  path: "/onboarding/draft/{flow}",
+  request: { params: flowParams },
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: { description: "The draft is gone." },
   },
   tags: TAGS,
 });
@@ -91,10 +164,11 @@ export const saveDraft = createRoute({
   description:
     "Saves the form so far, encrypted. Replaces any earlier draft for the flow.",
   method: "put",
+  operationId: "saveOnboardingDraft",
   path: "/onboarding/draft/{flow}",
   request: {
     body: jsonContentRequired(draftBody, "The form values and current step."),
-    params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }),
+    params: flowParams,
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(draftSchema, "The saved draft."),
@@ -105,7 +179,8 @@ export const saveDraft = createRoute({
 
 export const MAX_DRAFT_JSON_BYTES = MAX_DRAFT_BYTES;
 export type GetRoute = typeof get;
-export type CompleteUserRoute = typeof completeUser;
-export type CompleteOrganizationRoute = typeof completeOrganization;
+export type SaveMemberStepRoute = typeof saveMemberStep;
+export type SaveClubStepRoute = typeof saveClubStep;
 export type GetDraftRoute = typeof getDraft;
 export type SaveDraftRoute = typeof saveDraft;
+export type FinishDraftRoute = typeof finishDraft;

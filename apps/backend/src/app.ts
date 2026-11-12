@@ -11,9 +11,26 @@ import {
   securityHeaders,
 } from "@/middlewares/protect";
 import { rateLimit } from "@/middlewares/rate-limit";
+import club from "@/routes/club/club.index";
+import consents from "@/routes/consents/consents.index";
+import events from "@/routes/events/events.index";
+import fees from "@/routes/fees/fees.index";
 import files from "@/routes/files/files.index";
+import internal from "@/routes/internal/internal.index";
+import messaging from "@/routes/messaging/messaging.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
+import opponents from "@/routes/opponents/opponents.index";
+import payments from "@/routes/payments/payments.index";
+import people from "@/routes/people/people.index";
+import registrations from "@/routes/registrations/registrations.index";
+import reports from "@/routes/reports/reports.index";
+import roles from "@/routes/roles/roles.index";
 import root from "@/routes/root/root.index";
+import safeguarding from "@/routes/safeguarding/safeguarding.index";
+import teams from "@/routes/teams/teams.index";
+import venues from "@/routes/venues/venues.index";
+import connectWebhook from "@/routes/webhooks/connect-webhook";
+import welfare from "@/routes/welfare/welfare.index";
 import { auth } from "@/services/auth";
 
 const API_PREFIX = "/api/v1";
@@ -71,12 +88,48 @@ app.on(
   async (c) => await auth.handler(c.req.raw)
 );
 
-const routes = [root, files, onboarding] as const;
+const routes = [
+  root,
+  club,
+  consents,
+  events,
+  fees,
+  files,
+  messaging,
+  onboarding,
+  opponents,
+  payments,
+  people,
+  registrations,
+  reports,
+  roles,
+  safeguarding,
+  teams,
+  venues,
+  welfare,
+] as const;
 
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
 app.route(API_PREFIX, root);
+app.route(API_PREFIX, club);
+app.route(API_PREFIX, consents);
+app.route(API_PREFIX, events);
+app.route(API_PREFIX, fees);
 app.route(API_PREFIX, files);
+app.route(API_PREFIX, messaging);
 app.route(API_PREFIX, onboarding);
+app.route(API_PREFIX, opponents);
+app.route(API_PREFIX, payments);
+app.route(API_PREFIX, people);
+app.route(API_PREFIX, registrations);
+app.route(API_PREFIX, reports);
+app.route(API_PREFIX, roles);
+app.route(API_PREFIX, safeguarding);
+app.route(API_PREFIX, teams);
+app.route(API_PREFIX, venues);
+app.route(API_PREFIX, welfare);
+app.route(API_PREFIX, connectWebhook);
+app.route(API_PREFIX, internal);
 
 export type AppType = (typeof routes)[number];
 

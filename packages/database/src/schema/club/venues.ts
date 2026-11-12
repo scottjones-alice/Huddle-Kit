@@ -45,7 +45,7 @@ export const venues = pgTable(
     // Retired venues stay for history but are hidden from pickers.
     isActive: boolean("is_active").default(true).notNull(),
     // A venue can be several things at once, e.g. a ground used for training and matches.
-    kinds: text("kinds").array().$type<VenueKind[]>().notNull(),
+    kinds: text("kinds").$type<VenueKind>().array().notNull(),
     name: text("name").notNull(),
     organizationId: uuid("organization_id")
       .notNull()

@@ -21,6 +21,7 @@ export const rootRoute = createRoute({
   description:
     "Checks every dependency (database, storage, email, worker, novu). Responds 503 when a critical one is down.",
   method: "get",
+  operationId: "getApiRoot",
   path: "/",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(

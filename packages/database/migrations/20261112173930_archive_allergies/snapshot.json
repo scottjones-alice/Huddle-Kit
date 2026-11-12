@@ -1,0 +1,37 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "be5a478b-3ee9-4d01-b07a-bb1c2956795d",
+  "prevIds": ["063b7f58-f76d-4fad-b51c-2d26e67b23aa"],
+  "footprints": [
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "allergies", "archived_at"],
+      "writes": [
+        "s|col|public.allergies.archived_at",
+        "n|col|public.allergies.archived_at",
+        "e|col|public.allergies.archived_at"
+      ],
+      "reads": ["n|tbl|public.allergies", "n|sch|public"]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "allergies",
+        "name": "archived_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    }
+  ]
+}

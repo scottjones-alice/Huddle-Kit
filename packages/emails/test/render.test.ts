@@ -14,6 +14,26 @@ describe(renderEmail, () => {
     expect(text).toContain("Your account is ready");
   });
 
+  it("renders the finish-setup reminder with the resume link and a final subject", async () => {
+    const props = {
+      flow: "club",
+      name: "Alex",
+      resumeUrl: "https://example.com/onboarding-club",
+    } as const;
+    const first = await renderEmail("finish-onboarding", {
+      ...props,
+      reminder: 1,
+    });
+    const last = await renderEmail("finish-onboarding", {
+      ...props,
+      reminder: 3,
+    });
+
+    expect(first.html).toContain(props.resumeUrl);
+    expect(first.subject).toBe("Pick up where you left off with huddlekit");
+    expect(last.subject).toBe("Last reminder: finish setting up your club");
+  });
+
   it("renders the verify email with the link in html and text", async () => {
     const url = "https://example.com/verify?token=abc";
     const { html, text } = await renderEmail("verify-email", {

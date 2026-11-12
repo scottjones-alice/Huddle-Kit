@@ -3,6 +3,7 @@ import { PgTable } from "drizzle-orm/pg-core";
 import { describe, expect, it } from "vitest";
 
 import * as authentication from "../src/schema/authentication";
+import * as clubProfile from "../src/schema/club/club-profile";
 import * as clubSettings from "../src/schema/club/club-settings";
 import * as opponents from "../src/schema/club/opponents";
 import * as pitches from "../src/schema/club/pitches";
@@ -34,6 +35,7 @@ import * as onboardingSteps from "../src/schema/onboarding/onboarding-steps";
 import * as addresses from "../src/schema/people/addresses";
 import * as allergies from "../src/schema/people/allergies";
 import * as medicalRecords from "../src/schema/people/medical-records";
+import * as memberProfile from "../src/schema/people/member-profile";
 import * as people from "../src/schema/people/people";
 import * as personIdentifiers from "../src/schema/people/person-identifiers";
 import * as playerProfiles from "../src/schema/people/player-profiles";
@@ -91,6 +93,8 @@ const tablesIn = (module: Record<string, unknown>) =>
 // Every other table must have them.
 const ownTables = [
   ...tablesIn(addresses),
+  ...tablesIn(clubProfile),
+  ...tablesIn(memberProfile),
   ...tablesIn(onboardingDrafts),
   ...tablesIn(onboardingSteps),
   ...tablesIn(auditEvents),

@@ -5,6 +5,7 @@ import { HTTPException } from "hono/http-exception";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
+import { AppError } from "@/lib/app-error";
 import { ConnectNotConfiguredError } from "@/services/connect-error";
 import type { AppBindings } from "@/types";
 
@@ -31,6 +32,10 @@ export const onError: ErrorHandler<AppBindings> = (error, c) => {
       { code: error.code, message: error.message },
       STORAGE_ERROR_STATUS[error.code]
     );
+  }
+
+  if (error instanceof AppError) {
+    return c.json({ message: error.message }, error.status);
   }
 
   if (error instanceof ConnectNotConfiguredError) {

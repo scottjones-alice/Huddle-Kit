@@ -16,7 +16,8 @@ router.use("/onboarding/*", session);
 
 export default router
   .openapi(routes.get, handlers.get)
-  .openapi(routes.completeUser, handlers.completeUser)
-  .openapi(routes.completeOrganization, handlers.completeOrganization)
+  .openapi(routes.saveMemberStep, handlers.saveMember)
+  .openapi(routes.saveClubStep, handlers.saveClub)
   .openapi(routes.getDraft, handlers.getDraft)
-  .openapi(routes.saveDraft, handlers.saveDraft);
+  .openapi(routes.saveDraft, handlers.saveDraft)
+  .openapi(routes.finishDraft, handlers.finishDraft);

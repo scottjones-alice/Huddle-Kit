@@ -8,14 +8,25 @@ import { z } from "@hono/zod-openapi";
 import { and, eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 
+import {
+  SlugTakenError,
+  clubStepInputSchema,
+  saveClubStep,
+} from "@/services/club-onboarding";
 import { db } from "@/services/database";
 import { draftEncryptor } from "@/services/draft-encryptor";
+import {
+  NotYourChildError,
+  memberStepInputSchema,
+  saveMemberStep,
+} from "@/services/member-onboarding";
 import type { AuthedRouteHandler } from "@/types";
 
 import { MAX_DRAFT_JSON_BYTES } from "./onboarding.route";
 import type {
-  CompleteOrganizationRoute,
-  CompleteUserRoute,
+  SaveClubStepRoute,
+  SaveMemberStepRoute,
+  FinishDraftRoute,
   GetDraftRoute,
   GetRoute,
   SaveDraftRoute,
@@ -27,37 +38,6 @@ export const get: AuthedRouteHandler<GetRoute> = async (c) => {
     getOnboardingProgress(db, { organizationId: c.get("organizationId") }),
   ]);
   return c.json({ organization, user }, HttpStatusCodes.OK);
-};
-
-export const completeUser: AuthedRouteHandler<CompleteUserRoute> = async (
-  c
-) => {
-  const { step } = c.req.valid("param");
-  const userId = c.get("userId");
-  await completeOnboardingStep(db, { userId }, step, userId);
-  return c.json(
-    await getOnboardingProgress(db, { userId }),
-    HttpStatusCodes.OK
-  );
-};
-
-export const completeOrganization: AuthedRouteHandler<
-  CompleteOrganizationRoute
-> = async (c) => {
-  const { step } = c.req.valid("param");
-  const organizationId = c.get("organizationId");
-  const userId = c.get("userId");
-  if (!(await isBillingManager(db, { organizationId, userId }))) {
-    return c.json(
-      { message: "Only a club owner or admin can do this" },
-      HttpStatusCodes.FORBIDDEN
-    );
-  }
-  await completeOnboardingStep(db, { organizationId }, step, userId);
-  return c.json(
-    await getOnboardingProgress(db, { organizationId }),
-    HttpStatusCodes.OK
-  );
 };
 
 const draftDataSchema = z.record(z.string(), z.unknown());
@@ -101,11 +81,118 @@ export const saveDraft: AuthedRouteHandler<SaveDraftRoute> = async (c) => {
     .insert(onboardingDrafts)
     .values({ data: encrypted, flow, stepId, updatedAt, userId })
     .onConflictDoUpdate({
-      set: { data: encrypted, stepId, updatedAt },
+      set: {
+        data: encrypted,
+        lastRemindedAt: null,
+        remindersSent: 0,
+        stepId,
+        updatedAt,
+      },
       target: [onboardingDrafts.userId, onboardingDrafts.flow],
     });
   return c.json(
     { data, stepId, updatedAt: updatedAt.toISOString() },
     HttpStatusCodes.OK
   );
+};
+
+export const saveClub: AuthedRouteHandler<SaveClubStepRoute> = async (c) => {
+  const { step } = c.req.valid("param");
+  const organizationId = c.get("organizationId");
+  const userId = c.get("userId");
+  if (!(await isBillingManager(db, { organizationId, userId }))) {
+    return c.json(
+      { message: "Only a club owner or admin can do this" },
+      HttpStatusCodes.FORBIDDEN
+    );
+  }
+  const parsed = clubStepInputSchema.safeParse({
+    data: c.req.valid("json"),
+    step,
+  });
+  if (!parsed.success) {
+    return c.json(
+      {
+        issues: parsed.error.issues.map((issue) => ({
+          message: issue.message,
+          path: issue.path.join("."),
+        })),
+        message: "Some fields are not valid",
+      },
+      HttpStatusCodes.UNPROCESSABLE_ENTITY
+    );
+  }
+  try {
+    await saveClubStep(db, organizationId, parsed.data);
+  } catch (error) {
+    if (error instanceof SlugTakenError) {
+      return c.json({ message: error.message }, HttpStatusCodes.CONFLICT);
+    }
+    throw error;
+  }
+  await completeOnboardingStep(db, { organizationId }, step, userId);
+  return c.json(
+    await getOnboardingProgress(db, { organizationId }),
+    HttpStatusCodes.OK
+  );
+};
+
+const MEMBER_STEP_DATA = {
+  emergency: "safety",
+  safeguarding: "dbs",
+  you: "details",
+} as const;
+
+export const saveMember: AuthedRouteHandler<SaveMemberStepRoute> = async (
+  c
+) => {
+  const { step } = c.req.valid("param");
+  const organizationId = c.get("organizationId");
+  const userId = c.get("userId");
+  const dataStep =
+    step === "you" || step === "emergency" || step === "safeguarding"
+      ? MEMBER_STEP_DATA[step]
+      : step;
+  const parsed = memberStepInputSchema.safeParse({
+    data: c.req.valid("json"),
+    step: dataStep,
+  });
+  if (!parsed.success) {
+    return c.json(
+      {
+        issues: parsed.error.issues.map((issue) => ({
+          message: issue.message,
+          path: issue.path.join("."),
+        })),
+        message: "Some fields are not valid",
+      },
+      HttpStatusCodes.UNPROCESSABLE_ENTITY
+    );
+  }
+  try {
+    await saveMemberStep(db, { organizationId, userId }, parsed.data);
+  } catch (error) {
+    if (error instanceof NotYourChildError) {
+      return c.json({ message: error.message }, HttpStatusCodes.FORBIDDEN);
+    }
+    throw error;
+  }
+  await completeOnboardingStep(db, { userId }, step, userId);
+  return c.json(
+    await getOnboardingProgress(db, { userId }),
+    HttpStatusCodes.OK
+  );
+};
+
+export const finishDraft: AuthedRouteHandler<FinishDraftRoute> = async (c) => {
+  const { flow } = c.req.valid("param");
+  await db
+    .delete(onboardingDrafts)
+    .where(
+      and(
+        eq(onboardingDrafts.userId, c.get("userId")),
+        eq(onboardingDrafts.flow, flow)
+      )
+    );
+  return c.body(null, HttpStatusCodes.NO_CONTENT);
 };

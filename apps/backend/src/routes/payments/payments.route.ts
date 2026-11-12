@@ -1,7 +1,8 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent } from "stoker/openapi/helpers";
-import { IdUUIDParamsSchema } from "stoker/openapi/schemas";
+
+import { idParam } from "@/lib/params";
 
 const TAGS = ["Payments"];
 
@@ -24,6 +25,7 @@ export const account = createRoute({
   description:
     "Whether the club can take card payments from its members. Reads the live status from Stripe.",
   method: "get",
+  operationId: "getConnectAccount",
   path: "/payments/connect/account",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
@@ -50,6 +52,7 @@ export const onboarding = createRoute({
   description:
     "Creates the club's Stripe account the first time, then returns a single-use Stripe-hosted onboarding link. Call again for a fresh link.",
   method: "post",
+  operationId: "startConnectOnboarding",
   path: "/payments/connect/onboarding",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
@@ -68,8 +71,9 @@ export const checkout = createRoute({
   description:
     "Returns a Stripe Checkout page for the amount still owed on a fee charge. The money goes to the club's own Stripe account.",
   method: "post",
+  operationId: "createChargeCheckout",
   path: "/payments/connect/charges/{id}/checkout",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: idParam("fee charge") },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ url: z.url() }),

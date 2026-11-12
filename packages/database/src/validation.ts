@@ -24,6 +24,17 @@ import {
 } from "drizzle-orm/zod";
 import { z } from "zod";
 
+import {
+  CLUB_SECTIONS,
+  CLUB_TYPES,
+  FEE_FREQUENCIES,
+  LEGAL_STRUCTURES,
+  SOCIAL_PLATFORMS,
+  clubFeeSettings,
+  clubProfiles,
+  clubSocialLinks,
+  clubTrainingSlots,
+} from "./schema/club/club-profile";
 import { clubSettings } from "./schema/club/club-settings";
 import { opponents } from "./schema/club/opponents";
 import { PITCH_FORMATS, PITCH_SURFACES, pitches } from "./schema/club/pitches";
@@ -98,6 +109,19 @@ import {
   MEDICAL_RECORD_KINDS,
   medicalRecords,
 } from "./schema/people/medical-records";
+import {
+  AVAILABILITY_SLOTS,
+  JOINING_ROLES,
+  PAYERS,
+  PAYMENT_METHODS_PREFERRED,
+  PICKUP_RULES,
+  memberBillingPreferences,
+  memberJoiningRoles,
+  personAvailability,
+  personDemographics,
+  personKit,
+  personSocialLinks,
+} from "./schema/people/member-profile";
 import { people } from "./schema/people/people";
 import {
   IDENTIFIER_TYPES,
@@ -1216,6 +1240,167 @@ export const fileViewSelectSchema = createSelectSchema(fileViews);
 export const fileViewInsertSchema = createInsertSchema(fileViews);
 export const fileViewUpdateSchema = createUpdateSchema(fileViews);
 
+// club profile --------------------------------------------------------------
+
+const clubProfileRefinements = {
+  clubType: () => z.enum(CLUB_TYPES).nullable(),
+  legalStructure: () => z.enum(LEGAL_STRUCTURES).nullable(),
+  sections: () => z.array(z.enum(CLUB_SECTIONS)).min(1).nullable(),
+};
+export const clubProfileSelectSchema = createSelectSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+export const clubProfileInsertSchema = createInsertSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+export const clubProfileUpdateSchema = createUpdateSchema(
+  clubProfiles,
+  clubProfileRefinements
+);
+
+const clubFeeSettingRefinements = {
+  frequency: () => z.enum(FEE_FREQUENCIES),
+  subscriptionMinor: () => z.number().int().min(0),
+};
+export const clubFeeSettingSelectSchema = createSelectSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+export const clubFeeSettingInsertSchema = createInsertSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+export const clubFeeSettingUpdateSchema = createUpdateSchema(
+  clubFeeSettings,
+  clubFeeSettingRefinements
+);
+
+const clubSocialLinkRefinements = {
+  platform: () => z.enum(SOCIAL_PLATFORMS),
+  url: () => z.url(),
+};
+export const clubSocialLinkSelectSchema = createSelectSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+export const clubSocialLinkInsertSchema = createInsertSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+export const clubSocialLinkUpdateSchema = createUpdateSchema(
+  clubSocialLinks,
+  clubSocialLinkRefinements
+);
+
+const clubTrainingSlotRefinements = {
+  dayOfWeek: () => z.number().int().min(1).max(7),
+};
+export const clubTrainingSlotSelectSchema = createSelectSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+export const clubTrainingSlotInsertSchema = createInsertSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+export const clubTrainingSlotUpdateSchema = createUpdateSchema(
+  clubTrainingSlots,
+  clubTrainingSlotRefinements
+);
+
+// member profile ------------------------------------------------------------
+
+export const personDemographicSelectSchema =
+  createSelectSchema(personDemographics);
+export const personDemographicInsertSchema =
+  createInsertSchema(personDemographics);
+export const personDemographicUpdateSchema =
+  createUpdateSchema(personDemographics);
+
+const personAvailabilityRefinements = {
+  dayOfWeek: () => z.number().int().min(1).max(7),
+  slot: () => z.enum(AVAILABILITY_SLOTS),
+};
+export const personAvailabilitySelectSchema = createSelectSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+export const personAvailabilityInsertSchema = createInsertSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+export const personAvailabilityUpdateSchema = createUpdateSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+
+const personKitRefinements = {
+  pickupRule: () => z.enum(PICKUP_RULES).nullable(),
+  squadNumber: () => z.number().int().min(1).max(99).nullable(),
+};
+export const personKitSelectSchema = createSelectSchema(
+  personKit,
+  personKitRefinements
+);
+export const personKitInsertSchema = createInsertSchema(
+  personKit,
+  personKitRefinements
+);
+export const personKitUpdateSchema = createUpdateSchema(
+  personKit,
+  personKitRefinements
+);
+
+const memberBillingRefinements = {
+  method: () => z.enum(PAYMENT_METHODS_PREFERRED).nullable(),
+  payer: () => z.enum(PAYERS).nullable(),
+};
+export const memberBillingSelectSchema = createSelectSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+export const memberBillingInsertSchema = createInsertSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+export const memberBillingUpdateSchema = createUpdateSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+
+const memberJoiningRoleRefinements = { joinedAs: () => z.enum(JOINING_ROLES) };
+export const memberJoiningRoleSelectSchema = createSelectSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+export const memberJoiningRoleInsertSchema = createInsertSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+export const memberJoiningRoleUpdateSchema = createUpdateSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+
+const personSocialLinkRefinements = {
+  handle: () => z.string().trim().min(1).max(200),
+  platform: () => z.enum(SOCIAL_PLATFORMS),
+};
+export const personSocialLinkSelectSchema = createSelectSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+export const personSocialLinkInsertSchema = createInsertSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+export const personSocialLinkUpdateSchema = createUpdateSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+
 // Onboarding steps ------------------------------------------------------------
 
 const onboardingDraftRefinements = { flow: () => z.enum(ONBOARDING_FLOWS) };
@@ -1434,15 +1619,35 @@ export const tableSchemas = {
     select: auditEventSelectSchema,
     update: auditEventUpdateSchema,
   },
+  club_fee_settings: {
+    insert: clubFeeSettingInsertSchema,
+    select: clubFeeSettingSelectSchema,
+    update: clubFeeSettingUpdateSchema,
+  },
+  club_profiles: {
+    insert: clubProfileInsertSchema,
+    select: clubProfileSelectSchema,
+    update: clubProfileUpdateSchema,
+  },
   club_settings: {
     insert: clubSettingsInsertSchema,
     select: clubSettingsSelectSchema,
     update: clubSettingsUpdateSchema,
   },
+  club_social_links: {
+    insert: clubSocialLinkInsertSchema,
+    select: clubSocialLinkSelectSchema,
+    update: clubSocialLinkUpdateSchema,
+  },
   club_stripe_accounts: {
     insert: clubStripeAccountInsertSchema,
     select: clubStripeAccountSelectSchema,
     update: clubStripeAccountUpdateSchema,
+  },
+  club_training_slots: {
+    insert: clubTrainingSlotInsertSchema,
+    select: clubTrainingSlotSelectSchema,
+    update: clubTrainingSlotUpdateSchema,
   },
   consent_documents: {
     insert: consentDocumentInsertSchema,
@@ -1514,6 +1719,16 @@ export const tableSchemas = {
     select: medicalRecordSelectSchema,
     update: medicalRecordUpdateSchema,
   },
+  member_billing_preferences: {
+    insert: memberBillingInsertSchema,
+    select: memberBillingSelectSchema,
+    update: memberBillingUpdateSchema,
+  },
+  member_joining_roles: {
+    insert: memberJoiningRoleInsertSchema,
+    select: memberJoiningRoleSelectSchema,
+    update: memberJoiningRoleUpdateSchema,
+  },
   notifications: {
     insert: notificationInsertSchema,
     select: notificationSelectSchema,
@@ -1544,15 +1759,35 @@ export const tableSchemas = {
     select: personSelectSchema,
     update: personUpdateSchema,
   },
+  person_availability: {
+    insert: personAvailabilityInsertSchema,
+    select: personAvailabilitySelectSchema,
+    update: personAvailabilityUpdateSchema,
+  },
+  person_demographics: {
+    insert: personDemographicInsertSchema,
+    select: personDemographicSelectSchema,
+    update: personDemographicUpdateSchema,
+  },
   person_identifiers: {
     insert: personIdentifierInsertSchema,
     select: personIdentifierSelectSchema,
     update: personIdentifierUpdateSchema,
   },
+  person_kit: {
+    insert: personKitInsertSchema,
+    select: personKitSelectSchema,
+    update: personKitUpdateSchema,
+  },
   person_relationships: {
     insert: personRelationshipInsertSchema,
     select: personRelationshipSelectSchema,
     update: personRelationshipUpdateSchema,
+  },
+  person_social_links: {
+    insert: personSocialLinkInsertSchema,
+    select: personSocialLinkSelectSchema,
+    update: personSocialLinkUpdateSchema,
   },
   pitches: {
     insert: pitchInsertSchema,

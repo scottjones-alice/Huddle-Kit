@@ -34,6 +34,26 @@ export {
   verifications,
 } from "./schema/authentication";
 
+export {
+  CLUB_SECTIONS,
+  CLUB_TYPES,
+  FEE_FREQUENCIES,
+  LEGAL_STRUCTURES,
+  SOCIAL_PLATFORMS,
+  clubFeeSettings,
+  clubProfiles,
+  clubSocialLinks,
+  clubTrainingSlots,
+} from "./schema/club/club-profile";
+
+export type {
+  ClubSection,
+  ClubType,
+  FeeFrequency,
+  LegalStructure,
+  SocialPlatform,
+} from "./schema/club/club-profile";
+
 export { clubSettings } from "./schema/club/club-settings";
 
 export {
@@ -124,6 +144,7 @@ export { roleAssignmentTeams } from "./schema/governance/role-assignment-teams";
 export {
   ROLE_ASSIGNMENT_ROLES,
   ROLE_ASSIGNMENT_SCOPES,
+  TEAM_SCOPED_ROLES,
   roleAssignments,
 } from "./schema/governance/role-assignments";
 
@@ -210,12 +231,14 @@ export {
 export type { MedicalRecordKind } from "./schema/people/medical-records";
 
 export {
+  DBS_LEVELS,
   SAFEGUARDING_CHECK_KINDS,
   SAFEGUARDING_CHECK_STATUSES,
   safeguardingChecks,
 } from "./schema/safeguarding/checks";
 
 export type {
+  DbsLevel,
   SafeguardingCheckKind,
   SafeguardingCheckStatus,
 } from "./schema/safeguarding/checks";
@@ -245,6 +268,28 @@ export type {
 } from "./schema/welfare/incident-reports";
 
 export { addresses } from "./schema/people/addresses";
+
+export {
+  AVAILABILITY_SLOTS,
+  JOINING_ROLES,
+  PAYERS,
+  PAYMENT_METHODS_PREFERRED,
+  PICKUP_RULES,
+  memberBillingPreferences,
+  memberJoiningRoles,
+  personAvailability,
+  personDemographics,
+  personKit,
+  personSocialLinks,
+} from "./schema/people/member-profile";
+
+export type {
+  AvailabilitySlot,
+  JoiningRole,
+  Payer,
+  PickupRule,
+  PreferredPaymentMethod,
+} from "./schema/people/member-profile";
 
 export { people } from "./schema/people/people";
 

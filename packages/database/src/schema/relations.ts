@@ -1,6 +1,7 @@
 import { defineRelationsPart } from "drizzle-orm";
 
 import { authRelations, verifications } from "./authentication";
+import { clubProfileRelations } from "./club/club-profile";
 import { clubSettingsRelations } from "./club/club-settings";
 import { opponentRelations } from "./club/opponents";
 import { pitchRelations } from "./club/pitches";
@@ -31,6 +32,7 @@ import { onboardingStepsRelations } from "./onboarding/onboarding-steps";
 import { addressRelations } from "./people/addresses";
 import { allergyRelations } from "./people/allergies";
 import { medicalRecordRelations } from "./people/medical-records";
+import { memberProfileRelations } from "./people/member-profile";
 import { peopleRelations } from "./people/people";
 import { personIdentifierRelations } from "./people/person-identifiers";
 import { playerProfileRelations } from "./people/player-profiles";
@@ -66,6 +68,8 @@ export const relations = {
   ...feeChargeRelations,
   ...feeRelations,
   ...notificationRelations,
+  ...clubProfileRelations,
+  ...memberProfileRelations,
   ...onboardingDraftsRelations,
   ...onboardingStepsRelations,
   ...paymentRelations,

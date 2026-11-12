@@ -1,0 +1,1987 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "98dc99b4-9dc5-4cae-9862-8d38ae5a5247",
+  "prevIds": ["e9d59c36-794f-46c5-931b-09138a97f0c0"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_fee_settings"],
+      "writes": [
+        "s|tbl|public.club_fee_settings",
+        "n|tbl|public.club_fee_settings",
+        "e|tbl|public.club_fee_settings",
+        "n|rel|public.club_fee_settings",
+        "n|type|public.club_fee_settings",
+        "n|rel|public.club_fee_settings_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_profiles"],
+      "writes": [
+        "s|tbl|public.club_profiles",
+        "n|tbl|public.club_profiles",
+        "e|tbl|public.club_profiles",
+        "n|rel|public.club_profiles",
+        "n|type|public.club_profiles",
+        "n|rel|public.club_profiles_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_social_links"],
+      "writes": [
+        "s|tbl|public.club_social_links",
+        "n|tbl|public.club_social_links",
+        "e|tbl|public.club_social_links",
+        "n|rel|public.club_social_links",
+        "n|type|public.club_social_links",
+        "n|rel|public.club_social_links_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_training_slots"],
+      "writes": [
+        "s|tbl|public.club_training_slots",
+        "n|tbl|public.club_training_slots",
+        "e|tbl|public.club_training_slots",
+        "n|rel|public.club_training_slots",
+        "n|type|public.club_training_slots",
+        "n|rel|public.club_training_slots_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "onboarding_drafts"],
+      "writes": [
+        "s|tbl|public.onboarding_drafts",
+        "n|tbl|public.onboarding_drafts",
+        "e|tbl|public.onboarding_drafts",
+        "n|rel|public.onboarding_drafts",
+        "n|type|public.onboarding_drafts",
+        "n|rel|public.onboarding_drafts_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|tbl|public.onboarding_steps",
+        "n|tbl|public.onboarding_steps",
+        "e|tbl|public.onboarding_steps",
+        "n|rel|public.onboarding_steps",
+        "n|type|public.onboarding_steps",
+        "n|rel|public.onboarding_steps_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_social_links",
+        "club_social_links_organizationId_platform_uidx"
+      ],
+      "writes": [
+        "s|idx|public.club_social_links_organizationId_platform_uidx",
+        "n|idx|public.club_social_links_organizationId_platform_uidx",
+        "e|idx|public.club_social_links_organizationId_platform_uidx",
+        "n|rel|public.club_social_links_organizationId_platform_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.club_social_links",
+        "n|sch|public",
+        "n|col|public.club_social_links.organization_id",
+        "n|col|public.club_social_links.platform"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_training_slots",
+        "club_training_slots_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.club_training_slots_organizationId_idx",
+        "n|idx|public.club_training_slots_organizationId_idx",
+        "e|idx|public.club_training_slots_organizationId_idx",
+        "n|rel|public.club_training_slots_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.club_training_slots",
+        "n|sch|public",
+        "n|col|public.club_training_slots.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_training_slots",
+        "club_training_slots_venueId_idx"
+      ],
+      "writes": [
+        "s|idx|public.club_training_slots_venueId_idx",
+        "n|idx|public.club_training_slots_venueId_idx",
+        "e|idx|public.club_training_slots_venueId_idx",
+        "n|rel|public.club_training_slots_venueId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.club_training_slots",
+        "n|sch|public",
+        "n|col|public.club_training_slots.venue_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_drafts",
+        "onboarding_drafts_userId_flow_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_drafts_userId_flow_uidx",
+        "n|idx|public.onboarding_drafts_userId_flow_uidx",
+        "e|idx|public.onboarding_drafts_userId_flow_uidx",
+        "n|rel|public.onboarding_drafts_userId_flow_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_drafts",
+        "n|sch|public",
+        "n|col|public.onboarding_drafts.user_id",
+        "n|col|public.onboarding_drafts.flow"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_userId_step_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_userId_step_uidx",
+        "n|idx|public.onboarding_steps_userId_step_uidx",
+        "e|idx|public.onboarding_steps_userId_step_uidx",
+        "n|rel|public.onboarding_steps_userId_step_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.user_id",
+        "n|col|public.onboarding_steps.step"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_organizationId_step_uidx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_organizationId_step_uidx",
+        "n|idx|public.onboarding_steps_organizationId_step_uidx",
+        "e|idx|public.onboarding_steps_organizationId_step_uidx",
+        "n|rel|public.onboarding_steps_organizationId_step_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.organization_id",
+        "n|col|public.onboarding_steps.step"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "onboarding_steps",
+        "onboarding_steps_completedBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.onboarding_steps_completedBy_idx",
+        "n|idx|public.onboarding_steps_completedBy_idx",
+        "e|idx|public.onboarding_steps_completedBy_idx",
+        "n|rel|public.onboarding_steps_completedBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.completed_by"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_fee_settings"],
+      "writes": [
+        "s|fk|public.club_fee_settings.club_fee_settings_organization_id_organizations_id_fkey",
+        "n|fk|public.club_fee_settings.club_fee_settings_organization_id_organizations_id_fkey",
+        "e|fk|public.club_fee_settings.club_fee_settings_organization_id_organizations_id_fkey",
+        "n|con|public.club_fee_settings.club_fee_settings_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_fee_settings",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_fee_settings.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_profiles"],
+      "writes": [
+        "s|fk|public.club_profiles.club_profiles_constitution_file_id_files_id_fkey",
+        "n|fk|public.club_profiles.club_profiles_constitution_file_id_files_id_fkey",
+        "e|fk|public.club_profiles.club_profiles_constitution_file_id_files_id_fkey",
+        "n|con|public.club_profiles.club_profiles_constitution_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_profiles",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.club_profiles.constitution_file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_profiles"],
+      "writes": [
+        "s|fk|public.club_profiles.club_profiles_insurance_certificate_file_id_files_id_fkey",
+        "n|fk|public.club_profiles.club_profiles_insurance_certificate_file_id_files_id_fkey",
+        "e|fk|public.club_profiles.club_profiles_insurance_certificate_file_id_files_id_fkey",
+        "n|con|public.club_profiles.club_profiles_insurance_certificate_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_profiles",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.club_profiles.insurance_certificate_file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_profiles"],
+      "writes": [
+        "s|fk|public.club_profiles.club_profiles_organization_id_organizations_id_fkey",
+        "n|fk|public.club_profiles.club_profiles_organization_id_organizations_id_fkey",
+        "e|fk|public.club_profiles.club_profiles_organization_id_organizations_id_fkey",
+        "n|con|public.club_profiles.club_profiles_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_profiles",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_profiles.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_profiles"],
+      "writes": [
+        "s|fk|public.club_profiles.club_profiles_safeguarding_policy_file_id_files_id_fkey",
+        "n|fk|public.club_profiles.club_profiles_safeguarding_policy_file_id_files_id_fkey",
+        "e|fk|public.club_profiles.club_profiles_safeguarding_policy_file_id_files_id_fkey",
+        "n|con|public.club_profiles.club_profiles_safeguarding_policy_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_profiles",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.club_profiles.safeguarding_policy_file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_social_links"],
+      "writes": [
+        "s|fk|public.club_social_links.club_social_links_organization_id_organizations_id_fkey",
+        "n|fk|public.club_social_links.club_social_links_organization_id_organizations_id_fkey",
+        "e|fk|public.club_social_links.club_social_links_organization_id_organizations_id_fkey",
+        "n|con|public.club_social_links.club_social_links_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_social_links",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_social_links.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_training_slots"],
+      "writes": [
+        "s|fk|public.club_training_slots.club_training_slots_organization_id_organizations_id_fkey",
+        "n|fk|public.club_training_slots.club_training_slots_organization_id_organizations_id_fkey",
+        "e|fk|public.club_training_slots.club_training_slots_organization_id_organizations_id_fkey",
+        "n|con|public.club_training_slots.club_training_slots_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_training_slots",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_training_slots.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_training_slots"],
+      "writes": [
+        "s|fk|public.club_training_slots.club_training_slots_venue_id_venues_id_fkey",
+        "n|fk|public.club_training_slots.club_training_slots_venue_id_venues_id_fkey",
+        "e|fk|public.club_training_slots.club_training_slots_venue_id_venues_id_fkey",
+        "n|con|public.club_training_slots.club_training_slots_venue_id_venues_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_training_slots",
+        "n|sch|public",
+        "n|tbl|public.venues",
+        "n|sch|public",
+        "n|col|public.club_training_slots.venue_id",
+        "n|col|public.venues.id",
+        "e|uniqueness|public.venues.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_drafts"],
+      "writes": [
+        "s|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "n|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "e|fk|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey",
+        "n|con|public.onboarding_drafts.onboarding_drafts_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_drafts",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_drafts.user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_completed_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.completed_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "onboarding_steps"],
+      "writes": [
+        "s|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "n|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "e|fk|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey",
+        "n|con|public.onboarding_steps.onboarding_steps_user_id_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.onboarding_steps",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.onboarding_steps.user_id",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_fee_settings",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_profiles",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_social_links",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_training_slots",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "onboarding_drafts",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "onboarding_steps",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "absorb_direct_debit_fee",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "frequency",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "joining_fee_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "kit_fee_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "late_reminders",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "match_fee_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "sibling_discount",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "subscription_minor",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "affiliation_number",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "constitution_file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "copy_parents_on_messages",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "county_fa",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "founded_year",
+        "type": "smallint",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "insurance_certificate_file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "insurance_expires_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "insurance_policy_number",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "insurance_provider",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "leagues",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "legal_structure",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "no_private_messages",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "publish_results",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "registration_number",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "safeguarding_policy_file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "safeguarding_policy_review_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "sections",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 1,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "vat_number",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "vat_registered",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "welfare_officer_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "welfare_officer_name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "platform",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "url",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "day_of_week",
+        "type": "smallint",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "ends_at",
+        "type": "time",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "starts_at",
+        "type": "time",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "venue_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "data",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "flow",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "step_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "completed_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "completed_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "step",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "club_social_links_organizationId_platform_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "platform",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_venueId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "venue_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_userId_flow_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "flow",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_userId_step_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "step",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"user_id\" is not null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_organizationId_step_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "step",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"organization_id\" is not null",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_completedBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "completed_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "club_fee_settings_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_constitution_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["constitution_file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_insurance_certificate_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["insurance_certificate_file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_safeguarding_policy_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["safeguarding_policy_file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "club_social_links_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_venue_id_venues_id_fkey",
+        "nameExplicit": false,
+        "columns": ["venue_id"],
+        "schemaTo": "public",
+        "tableTo": "venues",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_completed_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["completed_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_user_id_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["user_id"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "club_fee_settings_pkey",
+        "columns": ["organization_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_pkey",
+        "columns": ["organization_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "club_social_links_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "club_fee_settings_frequency_chk",
+        "value": "\"frequency\" in ('monthly', 'termly', 'annually', 'per-session')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_fee_settings",
+        "name": "club_fee_settings_amounts_chk",
+        "value": "\"subscription_minor\" >= 0 and coalesce(\"match_fee_minor\", 0) >= 0 and coalesce(\"joining_fee_minor\", 0) >= 0 and coalesce(\"kit_fee_minor\", 0) >= 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_type_chk",
+        "value": "\"club_type\" in ('grassroots', 'academy', 'school-or-college', 'community-or-charity', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_legal_chk",
+        "value": "\"legal_structure\" in ('unincorporated-association', 'cic', 'registered-charity', 'company-limited-by-guarantee', 'company-limited-by-shares', 'other')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_profiles",
+        "name": "club_profiles_sections_chk",
+        "value": "\"sections\" is null or (cardinality(\"sections\") > 0 and \"sections\" <@ array['mini-soccer', 'youth', 'adult-men', 'adult-women', 'veterans', 'disability']::text[])",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_social_links",
+        "name": "club_social_links_platform_chk",
+        "value": "\"platform\" in ('facebook', 'instagram', 'tiktok', 'x')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_training_slots",
+        "name": "club_training_slots_times_chk",
+        "value": "\"day_of_week\" between 1 and 7 and \"ends_at\" > \"starts_at\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_drafts",
+        "name": "onboarding_drafts_flow_chk",
+        "value": "\"flow\" in ('club', 'people')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "onboarding_steps",
+        "name": "onboarding_steps_subject_chk",
+        "value": "(\"user_id\" is not null and \"organization_id\" is null and \"step\" in ('you', 'emergency', 'safeguarding', 'role', 'details', 'address', 'safety', 'dbs', 'availability', 'children', 'permissions', 'billing', 'social'))\n        or (\"organization_id\" is not null and \"user_id\" is null and \"step\" in ('club', 'location', 'governance', 'schedule', 'fees', 'payouts', 'team', 'billing', 'social'))",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "allergies" ADD COLUMN "archived_at" timestamp with time zone;

@@ -6,9 +6,11 @@ import {
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
-import { IdUUIDParamsSchema } from "stoker/openapi/schemas";
+
+import { idParam } from "@/lib/params";
 
 const TAGS = ["Files"];
+const fileIdParams = idParam("file");
 const MAX_FILE_NAME_LENGTH = 255;
 
 const errorSchema = z.object({
@@ -31,7 +33,11 @@ const createUploadBody = fileInsertSchema
     sizeBytes: z.number().int().positive(),
   });
 
-const listQuery = z.object({ kind: fileSelectSchema.shape.kind.optional() });
+const listQuery = z.object({
+  kind: fileSelectSchema.shape.kind
+    .describe("Only return files of this kind.")
+    .optional(),
+});
 
 const unauthorized = jsonContent(errorSchema, "No signed-in user.");
 const noOrganization = jsonContent(errorSchema, "No active organization.");
@@ -49,6 +55,7 @@ export const create = createRoute({
   description:
     "Records a pending file and returns a presigned URL. The client PUTs the bytes there with exactly the returned uploadHeaders, then calls confirm. Sensitive files must declare checksumSha256 (SHA-256 as 64 lower-case hex characters).",
   method: "post",
+  operationId: "createFile",
   path: "/files",
   request: {
     body: jsonContentRequired(createUploadBody, "The file to upload."),
@@ -74,8 +81,9 @@ export const confirm = createRoute({
   description:
     "Checks the object arrived with the declared size. Safe to call twice.",
   method: "post",
+  operationId: "confirmFile",
   path: "/files/{id}/confirm",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ file: fileSelectSchema }),
@@ -94,6 +102,7 @@ export const confirm = createRoute({
 export const list = createRoute({
   description: "Uploaded files for the active organization, newest first.",
   method: "get",
+  operationId: "listFiles",
   path: "/files",
   request: { query: listQuery },
   responses: {
@@ -112,8 +121,9 @@ export const downloadUrl = createRoute({
   description:
     "Returns a presigned download URL and records who asked for it and when.",
   method: "get",
+  operationId: "getFileDownloadUrl",
   path: "/files/{id}/url",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ url: z.string() }),
@@ -131,8 +141,9 @@ export const downloadUrl = createRoute({
 export const views = createRoute({
   description: "Who was given access to a file and when, newest first.",
   method: "get",
+  operationId: "listFileViews",
   path: "/files/{id}/views",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ views: z.array(fileViewSelectSchema) }),
@@ -149,8 +160,9 @@ export const views = createRoute({
 export const remove = createRoute({
   description: "Deletes the object, then the row.",
   method: "delete",
+  operationId: "removeFile",
   path: "/files/{id}",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.NO_CONTENT]: { description: "The file was deleted." },
     [HttpStatusCodes.UNAUTHORIZED]: unauthorized,
