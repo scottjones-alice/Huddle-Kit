@@ -10,8 +10,13 @@ import { rootRoute } from "@/routes/root/root.route";
 
 const HTTP_METHODS = ["get", "put", "post", "delete", "patch"] as const;
 
+const parameterSchema = z.object({
+  description: z.string().optional(),
+  name: z.string(),
+});
 const operationSchema = z.object({
   operationId: z.string().optional(),
+  parameters: z.array(parameterSchema).optional(),
   tags: z.array(z.string()).optional(),
 });
 const documentSchema = z.object({
@@ -73,7 +78,7 @@ describe("generated OpenAPI document", () => {
     expect(missingExamples(document.paths, "paths")).toStrictEqual([]);
   });
 
-  it("gives every operation an id and a tag that is declared globally", async () => {
+  it("gives every operation an id, described parameters and a declared tag", async () => {
     const document = await fetchDocument();
     const declared = new Set((document.tags ?? []).map((tag) => tag.name));
     const problems: string[] = [];
@@ -84,6 +89,13 @@ describe("generated OpenAPI document", () => {
           const operation = parsed.data;
           if ((operation.operationId ?? "") === "") {
             problems.push(`${method} ${path} has no operationId`);
+          }
+          for (const parameter of operation.parameters ?? []) {
+            if ((parameter.description ?? "") === "") {
+              problems.push(
+                `${method} ${path} parameter ${parameter.name} has no description`
+              );
+            }
           }
           for (const tag of operation.tags ?? []) {
             if (!declared.has(tag)) {

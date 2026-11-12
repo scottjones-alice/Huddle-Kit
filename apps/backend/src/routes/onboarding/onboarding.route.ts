@@ -4,6 +4,11 @@ import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 
 const TAGS = ["Onboarding"];
+const flowParams = z.object({
+  flow: z
+    .enum(ONBOARDING_FLOWS)
+    .describe("Which wizard: the club one or the people one."),
+});
 const MAX_DRAFT_BYTES = 200_000;
 
 const progressSchema = z.object({
@@ -61,7 +66,9 @@ export const saveClubStep = createRoute({
       z.record(z.string(), z.unknown()),
       "The step's fields."
     ),
-    params: z.object({ step: z.enum(CLUB_STEPS) }),
+    params: z.object({
+      step: z.enum(CLUB_STEPS).describe("Which club setup step to save."),
+    }),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
@@ -106,7 +113,9 @@ export const saveMemberStep = createRoute({
       z.record(z.string(), z.unknown()),
       "The step's fields."
     ),
-    params: z.object({ step: z.enum(MEMBER_STEPS) }),
+    params: z.object({
+      step: z.enum(MEMBER_STEPS).describe("Which member setup step to save."),
+    }),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
@@ -130,7 +139,7 @@ export const getDraft = createRoute({
   method: "get",
   operationId: "getOnboardingDraft",
   path: "/onboarding/draft/{flow}",
-  request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
+  request: { params: flowParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(draftSchema, "The draft."),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(errorSchema, "No draft saved."),
@@ -144,7 +153,7 @@ export const finishDraft = createRoute({
   method: "delete",
   operationId: "finishOnboardingDraft",
   path: "/onboarding/draft/{flow}",
-  request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
+  request: { params: flowParams },
   responses: {
     [HttpStatusCodes.NO_CONTENT]: { description: "The draft is gone." },
   },
@@ -159,7 +168,7 @@ export const saveDraft = createRoute({
   path: "/onboarding/draft/{flow}",
   request: {
     body: jsonContentRequired(draftBody, "The form values and current step."),
-    params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }),
+    params: flowParams,
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(draftSchema, "The saved draft."),

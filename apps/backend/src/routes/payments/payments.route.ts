@@ -1,7 +1,8 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent } from "stoker/openapi/helpers";
-import { IdUUIDParamsSchema } from "stoker/openapi/schemas";
+
+import { idParam } from "@/lib/params";
 
 const TAGS = ["Payments"];
 
@@ -72,7 +73,7 @@ export const checkout = createRoute({
   method: "post",
   operationId: "createChargeCheckout",
   path: "/payments/connect/charges/{id}/checkout",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: idParam("fee charge") },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ url: z.url() }),

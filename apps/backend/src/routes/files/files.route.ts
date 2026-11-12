@@ -6,9 +6,11 @@ import {
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
-import { IdUUIDParamsSchema } from "stoker/openapi/schemas";
+
+import { idParam } from "@/lib/params";
 
 const TAGS = ["Files"];
+const fileIdParams = idParam("file");
 const MAX_FILE_NAME_LENGTH = 255;
 
 const errorSchema = z.object({
@@ -31,7 +33,11 @@ const createUploadBody = fileInsertSchema
     sizeBytes: z.number().int().positive(),
   });
 
-const listQuery = z.object({ kind: fileSelectSchema.shape.kind.optional() });
+const listQuery = z.object({
+  kind: fileSelectSchema.shape.kind
+    .describe("Only return files of this kind.")
+    .optional(),
+});
 
 const unauthorized = jsonContent(errorSchema, "No signed-in user.");
 const noOrganization = jsonContent(errorSchema, "No active organization.");
@@ -77,7 +83,7 @@ export const confirm = createRoute({
   method: "post",
   operationId: "confirmFile",
   path: "/files/{id}/confirm",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ file: fileSelectSchema }),
@@ -117,7 +123,7 @@ export const downloadUrl = createRoute({
   method: "get",
   operationId: "getFileDownloadUrl",
   path: "/files/{id}/url",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ url: z.string() }),
@@ -137,7 +143,7 @@ export const views = createRoute({
   method: "get",
   operationId: "listFileViews",
   path: "/files/{id}/views",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.object({ views: z.array(fileViewSelectSchema) }),
@@ -156,7 +162,7 @@ export const remove = createRoute({
   method: "delete",
   operationId: "removeFile",
   path: "/files/{id}",
-  request: { params: IdUUIDParamsSchema },
+  request: { params: fileIdParams },
   responses: {
     [HttpStatusCodes.NO_CONTENT]: { description: "The file was deleted." },
     [HttpStatusCodes.UNAUTHORIZED]: unauthorized,
