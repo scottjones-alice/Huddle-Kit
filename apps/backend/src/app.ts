@@ -14,7 +14,9 @@ import { rateLimit } from "@/middlewares/rate-limit";
 import files from "@/routes/files/files.index";
 import internal from "@/routes/internal/internal.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
+import payments from "@/routes/payments/payments.index";
 import root from "@/routes/root/root.index";
+import connectWebhook from "@/routes/webhooks/connect-webhook";
 import { auth } from "@/services/auth";
 
 const API_PREFIX = "/api/v1";
@@ -72,12 +74,14 @@ app.on(
   async (c) => await auth.handler(c.req.raw)
 );
 
-const routes = [root, files, onboarding] as const;
+const routes = [root, files, onboarding, payments] as const;
 
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
 app.route(API_PREFIX, root);
 app.route(API_PREFIX, files);
 app.route(API_PREFIX, onboarding);
+app.route(API_PREFIX, payments);
+app.route(API_PREFIX, connectWebhook);
 app.route(API_PREFIX, internal);
 
 export type AppType = (typeof routes)[number];
