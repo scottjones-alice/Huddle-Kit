@@ -1,0 +1,38 @@
+{
+  "name": "@alice/authentication",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sign-in, sessions and identity.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./keys": "./src/keys.ts",
+    "./client": "./src/client.ts",
+    "./client/native": "./src/client-native.ts"
+  },
+  "scripts": {
+    "dev": "stripe listen --forward-to localhost:9000/api/auth/stripe/webhook --all-snapshot",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@alice/authorization": "workspace:*",
+    "@alice/database": "workspace:*",
+    "@alice/environment": "workspace:*",
+    "@alice/payments": "workspace:*",
+    "@better-auth/drizzle-adapter": "catalog:",
+    "@better-auth/expo": "catalog:",
+    "@better-auth/passkey": "catalog:",
+    "@better-auth/stripe": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
