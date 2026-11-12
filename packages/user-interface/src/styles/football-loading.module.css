@@ -1,0 +1,536 @@
+.loader {
+  --football-ink: #18372b;
+  --football-muted: #65756c;
+  --football-track: #dfe6d9;
+  --football-surface: #f5f6ee;
+  position: relative;
+  display: flex;
+  min-height: var(--football-loader-min-height, 22rem);
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  overflow: hidden;
+  background: var(--football-surface);
+  color: var(--football-ink);
+  text-align: center;
+  container-type: inline-size;
+}
+
+.illustration {
+  width: min(100%, 27rem);
+}
+.match {
+  --match-duration: 8s;
+}
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.copy {
+  width: min(100%, 20rem);
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+  color: var(--football-muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.statusDot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: #4d8058;
+}
+.label {
+  display: block;
+  margin: 0;
+  font-size: clamp(1.2rem, 5cqi, 1.65rem);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.description {
+  display: block;
+  margin: 0.65rem 0 0;
+  color: var(--football-muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  text-wrap: balance;
+}
+.progressRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 1.5rem;
+  margin-top: 1rem;
+}
+.progress {
+  width: 7rem;
+  height: 3px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  appearance: none;
+  background: var(--football-track);
+  color: #598343;
+}
+.progress::-webkit-progress-bar {
+  background: var(--football-track);
+  border-radius: 10px;
+}
+.progress::-webkit-progress-value {
+  background: #598343;
+  border-radius: 10px;
+  transition: width 200ms ease;
+}
+.progress::-moz-progress-bar {
+  background: #598343;
+  border-radius: 10px;
+}
+.progress:indeterminate {
+  background:
+    linear-gradient(90deg, transparent 25%, #598343 50%, transparent 75%) 0 0 /
+      200% 100%,
+    var(--football-track);
+  animation: football-progress 2s ease-in-out infinite;
+}
+.progress:indeterminate::-webkit-progress-bar {
+  background: transparent;
+}
+.progress:indeterminate::-moz-progress-bar {
+  background: transparent;
+}
+.percentage {
+  min-width: 2.5em;
+  color: var(--football-muted);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+.wordmark {
+  margin: 0 0 2rem;
+  color: #f6f7ed;
+  font-size: 2rem;
+  font-weight: 750;
+  letter-spacing: -0.075em;
+}
+.wordmark span {
+  color: #d4ff00;
+}
+.tagline {
+  margin: 3.5rem 0 0;
+  color: #87988d;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+}
+
+.loader[data-variant="splash"] {
+  --football-ink: #f4f6ec;
+  --football-muted: #a6b3a8;
+  --football-track: #304137;
+  --football-surface: #101413;
+  min-height: var(--football-loader-min-height, 100svh);
+}
+.loader[data-variant="splash"] .statusDot {
+  background: #d4ff00;
+}
+.loader[data-variant="splash"] .progress {
+  color: #d4ff00;
+}
+.loader[data-variant="splash"] .progress::-webkit-progress-value {
+  background: #d4ff00;
+}
+.loader[data-variant="splash"] .progress::-moz-progress-bar {
+  background: #d4ff00;
+}
+.loader[data-variant="splash"] .progress:indeterminate {
+  background:
+    linear-gradient(90deg, transparent 25%, #d4ff00 50%, transparent 75%) 0 0 /
+      200% 100%,
+    var(--football-track);
+}
+.loader[data-variant="splash"] .progress:indeterminate::-moz-progress-bar {
+  background: transparent;
+}
+.loader[data-variant="inline"] {
+  min-height: var(--football-loader-min-height, 0);
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid #dfe6d9;
+  border-radius: 1rem;
+  text-align: left;
+}
+.loader[data-variant="inline"] .illustration {
+  width: 8.5rem;
+  flex-shrink: 0;
+}
+.loader[data-variant="inline"] .copy {
+  width: auto;
+  min-width: 0;
+  flex: 1;
+}
+.loader[data-variant="inline"] .eyebrow {
+  display: none;
+}
+.loader[data-variant="inline"] .label {
+  font-size: 0.95rem;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+.loader[data-variant="inline"] .description {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  text-wrap: pretty;
+}
+.loader[data-variant="inline"] .progressRow {
+  margin-top: 0.65rem;
+  justify-content: flex-start;
+}
+.loader[data-variant="inline"] .progress {
+  width: 100%;
+}
+.loader[data-state="error"] .statusDot {
+  background: #a04b39;
+}
+.loader[data-state="error"] .eyebrow {
+  visibility: hidden;
+}
+
+.shirt {
+  fill: #d4ff00;
+  stroke: #d4ff00;
+}
+.player[data-team="away"] .shirt {
+  fill: #f38773;
+  stroke: #f38773;
+}
+.playerBody {
+  animation: football-run 0.55s ease-in-out infinite alternate;
+}
+.player:nth-child(even) .playerBody {
+  animation-delay: -0.25s;
+}
+.player {
+  animation: football-mark var(--match-duration) ease-in-out infinite;
+}
+.player[data-player="passer"] {
+  animation-name: football-passer;
+}
+.player[data-player="winger"] {
+  animation-name: football-winger;
+}
+.player[data-player="striker"] {
+  animation-name: football-striker;
+}
+.player[data-player="keeper-away"] {
+  animation-name: football-keeper;
+}
+.player[data-player="midfielder-away"] {
+  animation-name: football-midfielder;
+}
+.player[data-player="defender-away"] {
+  animation-name: football-defender;
+}
+.player[data-player="forward-away"] {
+  animation-direction: reverse;
+}
+.ball {
+  transform: translate(190px, 186px);
+  animation: football-ball var(--match-duration) linear infinite;
+}
+.ballSpin {
+  animation: football-spin 1.2s linear infinite;
+}
+.goalGlow {
+  opacity: 0;
+  transform-origin: 434px 155px;
+  animation: football-goal var(--match-duration) ease-out infinite;
+}
+.cheer {
+  opacity: 0;
+  animation: football-cheer var(--match-duration) ease-out infinite;
+}
+.match[data-paused="true"] *,
+.loader[data-paused="true"] .progress {
+  animation-play-state: paused;
+}
+.match[data-celebration="true"] .ball {
+  animation: none;
+  transform: translate(437px, 154px);
+}
+.match[data-celebration="true"] .cheer,
+.match[data-celebration="true"] .goalGlow {
+  animation: none;
+  opacity: 1;
+}
+
+.boundary {
+  position: relative;
+  isolation: isolate;
+}
+.content {
+  height: 100%;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    visibility 0s 220ms;
+}
+.boundaryLoader {
+  --football-loader-min-height: 0;
+  height: 100%;
+}
+.boundary[data-loading="true"] .content {
+  opacity: 0;
+  transform: translateY(5px);
+}
+.boundary[data-loading="true"] .overlay {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 180ms ease;
+}
+
+@keyframes football-run {
+  to {
+    transform: translateY(-1.5px) rotate(2deg);
+  }
+}
+@keyframes football-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes football-progress {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: -100% 0;
+  }
+}
+@keyframes football-mark {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(12px, 8px);
+  }
+  65%,
+  82% {
+    transform: translate(20px, -9px);
+  }
+}
+@keyframes football-passer {
+  0%,
+  8%,
+  100% {
+    transform: translate(0, 0);
+  }
+  22%,
+  42% {
+    transform: translate(20px, -8px);
+  }
+  60%,
+  82% {
+    transform: translate(45px, -14px);
+  }
+}
+@keyframes football-winger {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25%,
+  33% {
+    transform: translate(0, 7px);
+  }
+  48%,
+  82% {
+    transform: translate(36px, 13px);
+  }
+}
+@keyframes football-striker {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  38%,
+  48% {
+    transform: translate(-8px, -12px);
+  }
+  58%,
+  82% {
+    transform: translate(22px, -17px);
+  }
+}
+@keyframes football-keeper {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-3px, -10px);
+  }
+  57% {
+    transform: translate(0, 0);
+  }
+  68%,
+  82% {
+    transform: translate(7px, 16px) rotate(22deg);
+  }
+}
+@keyframes football-midfielder {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(-8px, -12px);
+  }
+  55%,
+  82% {
+    transform: translate(20px, -19px);
+  }
+}
+@keyframes football-defender {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  28% {
+    transform: translate(-32px, -3px);
+  }
+  56%,
+  82% {
+    transform: translate(10px, 11px);
+  }
+}
+@keyframes football-ball {
+  0%,
+  8% {
+    transform: translate(190px, 186px);
+    opacity: 1;
+  }
+  25%,
+  33% {
+    transform: translate(266px, 105px);
+  }
+  46%,
+  50% {
+    transform: translate(327px, 166px);
+  }
+  58% {
+    transform: translate(360px, 160px);
+  }
+  68%,
+  84% {
+    transform: translate(437px, 154px);
+    opacity: 1;
+  }
+  89% {
+    transform: translate(437px, 154px);
+    opacity: 0;
+  }
+  90%,
+  94% {
+    transform: translate(190px, 186px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(190px, 186px);
+    opacity: 1;
+  }
+}
+@keyframes football-goal {
+  0%,
+  66% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  70%,
+  79% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  88%,
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+@keyframes football-cheer {
+  0%,
+  68% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  73%,
+  83% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  91%,
+  100% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 420px) {
+  .loader {
+    padding: 1.25rem;
+  }
+  .loader[data-variant="inline"] {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+  .loader[data-variant="inline"] .illustration {
+    width: 6.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match *,
+  .progress:indeterminate {
+    animation: none !important;
+  }
+  .content,
+  .overlay,
+  .boundary[data-loading="true"] .overlay {
+    transition: none;
+    transform: none;
+  }
+  .progress::-webkit-progress-value {
+    transition: none;
+  }
+}
