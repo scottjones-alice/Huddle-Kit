@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <defs>
+    <g id="player">
+      <ellipse cx="4" cy="11" rx="10" ry="4" fill="#072219" opacity=".4"/>
+      <rect x="-10" y="-4" width="20" height="6" rx="3" fill="currentColor"/>
+      <rect x="-6" y="-6" width="12" height="12" rx="4" fill="currentColor"/>
+      <path d="M-5 4H5V8H-5Z" fill="#172a23"/>
+      <rect x="-5" y="7" width="4" height="5" rx="1" fill="#f4f2df"/>
+      <rect x="1" y="7" width="4" height="5" rx="1" fill="#f4f2df"/>
+      <circle cy="-8" r="4.5" fill="#dfaf83"/>
+      <path d="M-4.5-9A4.5 4.5 0 0 1 4.5-9Z" fill="#342b24"/>
+    </g>
+    <clipPath id="turf"><rect x="16" y="17" width="288" height="178" rx="18"/></clipPath>
+  </defs>
+  <rect x="16" y="27" width="288" height="178" rx="18" fill="#143d2d"/>
+  <rect x="16" y="17" width="288" height="178" rx="18" fill="#26714d" stroke="#438f61"/>
+  <g clip-path="url(#turf)" fill="#fff" opacity=".04">
+    <path d="M16 17H52V195H16ZM88 17H124V195H88ZM160 17H196V195H160ZM232 17H268V195H232Z"/>
+  </g>
+  <g stroke="#a2c8a6">
+    <rect x="28" y="28" width="264" height="156" rx="3"/>
+    <path d="M160 28V184M28 59H67V153H28M292 59H253V153H292M28 82H42V130H28M292 82H278V130H292"/>
+    <circle cx="160" cy="106" r="27"/>
+  </g>
+  <circle cx="160" cy="106" r="2" fill="#d6e6cc"/>
+  <g fill="#a2c8a6" fill-opacity=".14" stroke="#e7eada" stroke-width="2">
+    <rect x="13" y="83" width="16" height="45" rx="3"/>
+    <rect x="291" y="83" width="16" height="45" rx="3"/>
+  </g>
+  <g color="#d4ff00">
+    <use href="#player" x="39" y="106"/>
+    <use href="#player" x="112" y="68"/>
+    <use href="#player" x="115" y="121"/>
+    <use href="#player" x="180" y="140"/>
+  </g>
+  <g color="#f38773">
+    <use href="#player" x="277" y="106"/>
+    <use href="#player" x="230" y="77"/>
+    <use href="#player" x="180" y="93"/>
+    <use href="#player" x="216" y="152"/>
+  </g>
+  <circle cx="125" cy="124" r="4" fill="#fffdf0" stroke="#10271c"/>
+  <path d="m125 122 2 1-.6 2.2h-2.8l-.6-2.2Z" fill="#172a23"/>
+</svg>
