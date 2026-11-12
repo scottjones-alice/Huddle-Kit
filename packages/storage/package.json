@@ -1,0 +1,33 @@
+{
+  "name": "@alice/storage",
+  "version": "0.0.0",
+  "private": true,
+  "description": "File and object storage on S3, tracked in the files table.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./keys": "./src/keys.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "test": "vitest run --exclude \"test/integration/**\" --exclude \"node_modules/**\"",
+    "test:integration": "vitest run test/integration"
+  },
+  "dependencies": {
+    "@alice/database": "workspace:*",
+    "@alice/environment": "workspace:*",
+    "@aws-sdk/client-s3": "catalog:",
+    "@aws-sdk/s3-request-presigner": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "drizzle-orm": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "aws-sdk-client-mock": "catalog:",
+    "dotenv": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
