@@ -3,6 +3,7 @@ import { Scalar } from "@scalar/hono-api-reference";
 import type { AppOpenAPI } from "@/types";
 
 import packageJSON from "../../package.json" with { type: "json" };
+import { addExamples } from "./openapi-examples";
 
 const API_TITLE = "Huddlekit API";
 const SESSION_COOKIE_SCHEME = "sessionCookie";
@@ -21,14 +22,15 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
     }
   );
 
-  app.doc31(`${prefix}/doc`, {
+  // Same as app.doc31(), plus a sample value on every schema (see openapi-examples).
+  const documentConfig = {
     info: {
       description:
         "The Huddlekit backend: club and member onboarding, files, and payments. Calls are authenticated with the Better Auth session cookie unless an operation says otherwise.",
       title: API_TITLE,
       version: packageJSON.version,
     },
-    openapi: "3.1.0",
+    openapi: "3.1.0" as const,
     security: [{ [SESSION_COOKIE_SCHEME]: [] }],
     // Relative on purpose: the same document works locally and when deployed,
     // because it resolves against the address it was fetched from.
@@ -48,7 +50,11 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Payments",
       },
     ],
-  });
+  };
+
+  app.get(`${prefix}/doc`, (c) =>
+    c.json(addExamples(app.getOpenAPI31Document(documentConfig)))
+  );
 
   app.get(
     `${prefix}/reference`,

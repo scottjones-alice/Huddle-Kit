@@ -16,11 +16,31 @@ const operationSchema = z.object({
 });
 const documentSchema = z.object({
   info: z.object({ description: z.string().optional() }),
-  paths: z.record(z.string(), z.record(z.string(), operationSchema)),
+  paths: z.record(z.string(), z.record(z.string(), z.unknown())),
   servers: z.array(z.object({ url: z.string() })).optional(),
   tags: z.array(z.object({ name: z.string() })).optional(),
 });
 type Document = z.infer<typeof documentSchema>;
+
+const hasExample = (node: object): boolean =>
+  "examples" in node || "example" in node;
+
+/** Paths of every schema (a node with a `type`) that has no example. */
+const missingExamples = (node: unknown, path: string): string[] => {
+  if (Array.isArray(node)) {
+    return node.flatMap((item, index) =>
+      missingExamples(item, `${path}/${index}`)
+    );
+  }
+  if (typeof node !== "object" || node === null) {
+    return [];
+  }
+  const nested = Object.entries(node).flatMap(([key, value]) =>
+    missingExamples(value, `${path}/${key}`)
+  );
+  const isSchema = path.includes("/schema") && "type" in node;
+  return isSchema && !hasExample(node) ? [path, ...nested] : nested;
+};
 
 const fetchDocument = async (): Promise<Document> => {
   const app = createRouter();
@@ -47,14 +67,21 @@ describe("generated OpenAPI document", () => {
     expect(document.servers?.length).toBeGreaterThan(0);
   });
 
+  it("shows a sample value for every schema", async () => {
+    const document = await fetchDocument();
+
+    expect(missingExamples(document.paths, "paths")).toStrictEqual([]);
+  });
+
   it("gives every operation an id and a tag that is declared globally", async () => {
     const document = await fetchDocument();
     const declared = new Set((document.tags ?? []).map((tag) => tag.name));
     const problems: string[] = [];
     for (const [path, item] of Object.entries(document.paths)) {
       for (const method of HTTP_METHODS) {
-        const operation = item[method];
-        if (operation !== undefined) {
+        const parsed = operationSchema.safeParse(item[method]);
+        if (parsed.success) {
+          const operation = parsed.data;
           if ((operation.operationId ?? "") === "") {
             problems.push(`${method} ${path} has no operationId`);
           }
