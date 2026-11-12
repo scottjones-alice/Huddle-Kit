@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@alice/authentication": "workspace:*",
+    "@alicesystems-co/huddlekit": "workspace:*",
     "expo": "catalog:",
     "expo-constants": "catalog:",
     "expo-linking": "catalog:",

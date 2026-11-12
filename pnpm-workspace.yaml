@@ -155,6 +155,7 @@ catalog:
   "@novu/api": ^3.19.1
   cross-env: ^10.1.0
   expo-secure-store: ~58.0.3
+  simple-icons: ^16.37.0
 catalogs:
   nativewind:
     "@tailwindcss/postcss": 4.1.12

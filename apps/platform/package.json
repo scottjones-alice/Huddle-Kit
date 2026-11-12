@@ -11,6 +11,7 @@
     "@alice/authentication": "workspace:*",
     "@alice/environment": "workspace:*",
     "@alice/user-interface": "workspace:*",
+    "@alicesystems-co/huddlekit": "workspace:*",
     "@t3-oss/env-core": "catalog:",
     "cn": "catalog:",
     "motion": "catalog:",
