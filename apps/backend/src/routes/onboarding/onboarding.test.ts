@@ -3,14 +3,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import createApp from "@/lib/create-app";
 import type { GetSession } from "@/middlewares/require-session";
 import { SlugTakenError } from "@/services/club-onboarding";
+import { NotYourChildError } from "@/services/member-onboarding";
 
 import router from "./onboarding.index";
 
 const USER = "11111111-1111-4111-8111-111111111111";
 const ORG = "22222222-2222-4222-8222-222222222222";
 
-const { complete, getProgress, getSession, isManager, save } = vi.hoisted(
-  () => ({
+const { complete, getProgress, getSession, isManager, save, saveMember } =
+  vi.hoisted(() => ({
     complete: vi.fn<(...args: unknown[]) => Promise<void>>(),
     getProgress: vi.fn<
       (...args: unknown[]) => Promise<{
@@ -22,8 +23,8 @@ const { complete, getProgress, getSession, isManager, save } = vi.hoisted(
     getSession: vi.fn<GetSession>(),
     isManager: vi.fn<(...args: unknown[]) => Promise<boolean>>(),
     save: vi.fn<(...args: unknown[]) => Promise<void>>(),
-  })
-);
+    saveMember: vi.fn<(...args: unknown[]) => Promise<void>>(),
+  }));
 
 vi.mock(import("@alice/database"), async (importOriginal) => ({
   ...(await importOriginal()),
@@ -42,6 +43,10 @@ vi.mock("@/services/draft-encryptor", () => ({
     decrypt: vi.fn<() => string>(),
     encrypt: vi.fn<() => string>(),
   },
+}));
+vi.mock(import("@/services/member-onboarding"), async (importOriginal) => ({
+  ...(await importOriginal()),
+  saveMemberStep: saveMember,
 }));
 vi.mock(import("@/services/club-onboarding"), async (importOriginal) => ({
   ...(await importOriginal()),
@@ -143,10 +148,27 @@ describe("onboarding routes", () => {
     expect(response.status).toBe(422);
   });
 
-  it("lets a user mark their own step", async () => {
-    const response = await app.request("/onboarding/user/you", {
-      method: "POST",
-    });
+  it("saves a people step for the signed-in person", async () => {
+    const response = await app.request(
+      "/onboarding/member/address",
+      put({ city: "Leeds", countryCode: "GB", line1: "1 High St" })
+    );
+
+    expect(response.status).toBe(200);
+    expect(saveMember).toHaveBeenCalledOnce();
+    expect(complete).toHaveBeenCalledExactlyOnceWith(
+      {},
+      { userId: USER },
+      "address",
+      USER
+    );
+  });
+
+  it("saves the founder's you step with the details rules", async () => {
+    const response = await app.request(
+      "/onboarding/member/you",
+      put({ firstName: "Sam", lastName: "Lee" })
+    );
 
     expect(response.status).toBe(200);
     expect(complete).toHaveBeenCalledExactlyOnceWith(
@@ -155,5 +177,27 @@ describe("onboarding routes", () => {
       "you",
       USER
     );
+  });
+
+  it("returns 422 for a people step with bad fields", async () => {
+    const response = await app.request(
+      "/onboarding/member/address",
+      put({ city: "Leeds", countryCode: "gb" })
+    );
+
+    expect(response.status).toBe(422);
+    expect(saveMember).not.toHaveBeenCalled();
+  });
+
+  it("returns 403 when a child is not the caller's", async () => {
+    saveMember.mockRejectedValue(new NotYourChildError());
+
+    const response = await app.request(
+      "/onboarding/member/permissions",
+      put({ children: [{ consents: { travel: true }, id: USER }] })
+    );
+
+    expect(response.status).toBe(403);
+    expect(complete).not.toHaveBeenCalled();
   });
 });

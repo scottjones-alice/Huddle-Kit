@@ -66,6 +66,8 @@ export * from "./people/allergies";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./people/medical-records";
 // oxlint-disable-next-line oxc/no-barrel-file
+export * from "./people/member-profile";
+// oxlint-disable-next-line oxc/no-barrel-file
 export * from "./people/people";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./people/person-identifiers";

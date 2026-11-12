@@ -32,6 +32,7 @@ import { onboardingStepsRelations } from "./onboarding/onboarding-steps";
 import { addressRelations } from "./people/addresses";
 import { allergyRelations } from "./people/allergies";
 import { medicalRecordRelations } from "./people/medical-records";
+import { memberProfileRelations } from "./people/member-profile";
 import { peopleRelations } from "./people/people";
 import { personIdentifierRelations } from "./people/person-identifiers";
 import { playerProfileRelations } from "./people/player-profiles";
@@ -68,6 +69,7 @@ export const relations = {
   ...feeRelations,
   ...notificationRelations,
   ...clubProfileRelations,
+  ...memberProfileRelations,
   ...onboardingDraftsRelations,
   ...onboardingStepsRelations,
   ...paymentRelations,

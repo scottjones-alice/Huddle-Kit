@@ -109,6 +109,16 @@ import {
   MEDICAL_RECORD_KINDS,
   medicalRecords,
 } from "./schema/people/medical-records";
+import {
+  AVAILABILITY_SLOTS,
+  PAYERS,
+  PAYMENT_METHODS_PREFERRED,
+  PICKUP_RULES,
+  memberBillingPreferences,
+  personAvailability,
+  personDemographics,
+  personKit,
+} from "./schema/people/member-profile";
 import { people } from "./schema/people/people";
 import {
   IDENTIFIER_TYPES,
@@ -1297,6 +1307,66 @@ export const clubTrainingSlotUpdateSchema = createUpdateSchema(
   clubTrainingSlotRefinements
 );
 
+// member profile ------------------------------------------------------------
+
+export const personDemographicSelectSchema =
+  createSelectSchema(personDemographics);
+export const personDemographicInsertSchema =
+  createInsertSchema(personDemographics);
+export const personDemographicUpdateSchema =
+  createUpdateSchema(personDemographics);
+
+const personAvailabilityRefinements = {
+  dayOfWeek: () => z.number().int().min(1).max(7),
+  slot: () => z.enum(AVAILABILITY_SLOTS),
+};
+export const personAvailabilitySelectSchema = createSelectSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+export const personAvailabilityInsertSchema = createInsertSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+export const personAvailabilityUpdateSchema = createUpdateSchema(
+  personAvailability,
+  personAvailabilityRefinements
+);
+
+const personKitRefinements = {
+  pickupRule: () => z.enum(PICKUP_RULES).nullable(),
+  squadNumber: () => z.number().int().min(1).max(99).nullable(),
+};
+export const personKitSelectSchema = createSelectSchema(
+  personKit,
+  personKitRefinements
+);
+export const personKitInsertSchema = createInsertSchema(
+  personKit,
+  personKitRefinements
+);
+export const personKitUpdateSchema = createUpdateSchema(
+  personKit,
+  personKitRefinements
+);
+
+const memberBillingRefinements = {
+  method: () => z.enum(PAYMENT_METHODS_PREFERRED).nullable(),
+  payer: () => z.enum(PAYERS).nullable(),
+};
+export const memberBillingSelectSchema = createSelectSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+export const memberBillingInsertSchema = createInsertSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+export const memberBillingUpdateSchema = createUpdateSchema(
+  memberBillingPreferences,
+  memberBillingRefinements
+);
+
 // Onboarding steps ------------------------------------------------------------
 
 const onboardingDraftRefinements = { flow: () => z.enum(ONBOARDING_FLOWS) };
@@ -1615,6 +1685,11 @@ export const tableSchemas = {
     select: medicalRecordSelectSchema,
     update: medicalRecordUpdateSchema,
   },
+  member_billing_preferences: {
+    insert: memberBillingInsertSchema,
+    select: memberBillingSelectSchema,
+    update: memberBillingUpdateSchema,
+  },
   notifications: {
     insert: notificationInsertSchema,
     select: notificationSelectSchema,
@@ -1645,10 +1720,25 @@ export const tableSchemas = {
     select: personSelectSchema,
     update: personUpdateSchema,
   },
+  person_availability: {
+    insert: personAvailabilityInsertSchema,
+    select: personAvailabilitySelectSchema,
+    update: personAvailabilityUpdateSchema,
+  },
+  person_demographics: {
+    insert: personDemographicInsertSchema,
+    select: personDemographicSelectSchema,
+    update: personDemographicUpdateSchema,
+  },
   person_identifiers: {
     insert: personIdentifierInsertSchema,
     select: personIdentifierSelectSchema,
     update: personIdentifierUpdateSchema,
+  },
+  person_kit: {
+    insert: personKitInsertSchema,
+    select: personKitSelectSchema,
+    update: personKitUpdateSchema,
   },
   person_relationships: {
     insert: personRelationshipInsertSchema,

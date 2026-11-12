@@ -266,6 +266,24 @@ export type {
 
 export { addresses } from "./schema/people/addresses";
 
+export {
+  AVAILABILITY_SLOTS,
+  PAYERS,
+  PAYMENT_METHODS_PREFERRED,
+  PICKUP_RULES,
+  memberBillingPreferences,
+  personAvailability,
+  personDemographics,
+  personKit,
+} from "./schema/people/member-profile";
+
+export type {
+  AvailabilitySlot,
+  Payer,
+  PickupRule,
+  PreferredPaymentMethod,
+} from "./schema/people/member-profile";
+
 export { people } from "./schema/people/people";
 
 export {

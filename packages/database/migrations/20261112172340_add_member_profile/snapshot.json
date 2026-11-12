@@ -1,0 +1,1075 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "063b7f58-f76d-4fad-b51c-2d26e67b23aa",
+  "prevIds": ["98dc99b4-9dc5-4cae-9862-8d38ae5a5247"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "member_billing_preferences"],
+      "writes": [
+        "s|tbl|public.member_billing_preferences",
+        "n|tbl|public.member_billing_preferences",
+        "e|tbl|public.member_billing_preferences",
+        "n|rel|public.member_billing_preferences",
+        "n|type|public.member_billing_preferences",
+        "n|rel|public.member_billing_preferences_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_availability"],
+      "writes": [
+        "s|tbl|public.person_availability",
+        "n|tbl|public.person_availability",
+        "e|tbl|public.person_availability",
+        "n|rel|public.person_availability",
+        "n|type|public.person_availability",
+        "n|rel|public.person_availability_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_demographics"],
+      "writes": [
+        "s|tbl|public.person_demographics",
+        "n|tbl|public.person_demographics",
+        "e|tbl|public.person_demographics",
+        "n|rel|public.person_demographics",
+        "n|type|public.person_demographics",
+        "n|rel|public.person_demographics_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_kit"],
+      "writes": [
+        "s|tbl|public.person_kit",
+        "n|tbl|public.person_kit",
+        "e|tbl|public.person_kit",
+        "n|rel|public.person_kit",
+        "n|type|public.person_kit",
+        "n|rel|public.person_kit_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_availability",
+        "person_availability_person_day_slot_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_availability_person_day_slot_uidx",
+        "n|idx|public.person_availability_person_day_slot_uidx",
+        "e|idx|public.person_availability_person_day_slot_uidx",
+        "n|rel|public.person_availability_person_day_slot_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_availability",
+        "n|sch|public",
+        "n|col|public.person_availability.person_id",
+        "n|col|public.person_availability.day_of_week",
+        "n|col|public.person_availability.slot"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_demographics",
+        "person_demographics_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_demographics_organizationId_idx",
+        "n|idx|public.person_demographics_organizationId_idx",
+        "e|idx|public.person_demographics_organizationId_idx",
+        "n|rel|public.person_demographics_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_demographics",
+        "n|sch|public",
+        "n|col|public.person_demographics.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "member_billing_preferences"],
+      "writes": [
+        "s|fk|public.member_billing_preferences.member_billing_preferences_aOWMQCY5sb3I_fkey",
+        "n|fk|public.member_billing_preferences.member_billing_preferences_aOWMQCY5sb3I_fkey",
+        "e|fk|public.member_billing_preferences.member_billing_preferences_aOWMQCY5sb3I_fkey",
+        "n|con|public.member_billing_preferences.member_billing_preferences_aOWMQCY5sb3I_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.member_billing_preferences",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.member_billing_preferences.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "member_billing_preferences"],
+      "writes": [
+        "s|fk|public.member_billing_preferences.member_billing_preferences_person_same_org_fkey",
+        "n|fk|public.member_billing_preferences.member_billing_preferences_person_same_org_fkey",
+        "e|fk|public.member_billing_preferences.member_billing_preferences_person_same_org_fkey",
+        "n|con|public.member_billing_preferences.member_billing_preferences_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.member_billing_preferences",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.member_billing_preferences.organization_id",
+        "n|col|public.member_billing_preferences.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_availability"],
+      "writes": [
+        "s|fk|public.person_availability.person_availability_organization_id_organizations_id_fkey",
+        "n|fk|public.person_availability.person_availability_organization_id_organizations_id_fkey",
+        "e|fk|public.person_availability.person_availability_organization_id_organizations_id_fkey",
+        "n|con|public.person_availability.person_availability_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_availability",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_availability.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_availability"],
+      "writes": [
+        "s|fk|public.person_availability.person_availability_person_same_org_fkey",
+        "n|fk|public.person_availability.person_availability_person_same_org_fkey",
+        "e|fk|public.person_availability.person_availability_person_same_org_fkey",
+        "n|con|public.person_availability.person_availability_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_availability",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_availability.organization_id",
+        "n|col|public.person_availability.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_demographics"],
+      "writes": [
+        "s|fk|public.person_demographics.person_demographics_organization_id_organizations_id_fkey",
+        "n|fk|public.person_demographics.person_demographics_organization_id_organizations_id_fkey",
+        "e|fk|public.person_demographics.person_demographics_organization_id_organizations_id_fkey",
+        "n|con|public.person_demographics.person_demographics_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_demographics",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_demographics.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_demographics"],
+      "writes": [
+        "s|fk|public.person_demographics.person_demographics_person_same_org_fkey",
+        "n|fk|public.person_demographics.person_demographics_person_same_org_fkey",
+        "e|fk|public.person_demographics.person_demographics_person_same_org_fkey",
+        "n|con|public.person_demographics.person_demographics_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_demographics",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_demographics.organization_id",
+        "n|col|public.person_demographics.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_kit"],
+      "writes": [
+        "s|fk|public.person_kit.person_kit_organization_id_organizations_id_fkey",
+        "n|fk|public.person_kit.person_kit_organization_id_organizations_id_fkey",
+        "e|fk|public.person_kit.person_kit_organization_id_organizations_id_fkey",
+        "n|con|public.person_kit.person_kit_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_kit",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_kit.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_kit"],
+      "writes": [
+        "s|fk|public.person_kit.person_kit_person_same_org_fkey",
+        "n|fk|public.person_kit.person_kit_person_same_org_fkey",
+        "e|fk|public.person_kit.person_kit_person_same_org_fkey",
+        "n|con|public.person_kit.person_kit_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_kit",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_kit.organization_id",
+        "n|col|public.person_kit.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "member_billing_preferences",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_availability",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_demographics",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_kit",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "billing_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "method",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "payer",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "second_payer_email",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "second_payer_name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "send_reminders",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "day_of_week",
+        "type": "smallint",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "slot",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "additional_needs",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "ethnicity",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "gender",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "religion",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "pickup_rule",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "shirt_name",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "shirt_size",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "shorts_size",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "squad_number",
+        "type": "smallint",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_person_day_slot_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "day_of_week",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "slot",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "person_demographics_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "member_billing_preferences_aOWMQCY5sb3I_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "member_billing_preferences_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "person_demographics_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "person_demographics_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_kit_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_kit_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "member_billing_preferences_pkey",
+        "columns": ["person_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_demographics",
+        "name": "person_demographics_pkey",
+        "columns": ["person_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_kit_pkey",
+        "columns": ["person_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "member_billing_payer_chk",
+        "value": "\"payer\" in ('me', 'other-guardian', 'split', 'player', 'club-funded')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_billing_preferences",
+        "name": "member_billing_method_chk",
+        "value": "\"method\" in ('direct-debit', 'card', 'bank-transfer', 'cash')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_slot_chk",
+        "value": "\"slot\" in ('morning', 'afternoon', 'evening')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_availability",
+        "name": "person_availability_day_chk",
+        "value": "\"day_of_week\" between 1 and 7",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_kit_pickup_chk",
+        "value": "\"pickup_rule\" in ('guardian', 'approved', 'alone')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_kit",
+        "name": "person_kit_squadNumber_chk",
+        "value": "\"squad_number\" is null or \"squad_number\" between 1 and 99",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

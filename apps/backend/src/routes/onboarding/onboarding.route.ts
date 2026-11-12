@@ -1,4 +1,4 @@
-import { ONBOARDING_FLOWS, USER_ONBOARDING_STEPS } from "@alice/database";
+import { ONBOARDING_FLOWS } from "@alice/database";
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
@@ -20,7 +20,6 @@ const forbidden = jsonContent(
 
 // Steps a client can mark done. The rest complete on their own: Connect becomes
 // active (payouts), a member is invited (team), a subscription is paid (billing).
-const userStepSchema = z.enum(USER_ONBOARDING_STEPS).exclude(["billing"]);
 
 const CLUB_STEPS = [
   "club",
@@ -50,18 +49,6 @@ export const get = createRoute({
   tags: TAGS,
 });
 
-export const completeUser = createRoute({
-  method: "post",
-  path: "/onboarding/user/{step}",
-  request: {
-    params: z.object({
-      step: userStepSchema,
-    }),
-  },
-  responses: { [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress.") },
-  tags: TAGS,
-});
-
 export const saveClubStep = createRoute({
   description:
     "Saves one club wizard step (club, location, governance, schedule, fees or social) and marks it done. The body is that step's fields. Owners and admins only.",
@@ -78,6 +65,52 @@ export const saveClubStep = createRoute({
     [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
     [HttpStatusCodes.FORBIDDEN]: forbidden,
     [HttpStatusCodes.CONFLICT]: jsonContent(errorSchema, "Club address taken."),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      z.object({
+        issues: z.array(z.object({ message: z.string(), path: z.string() })),
+        message: z.string(),
+      }),
+      "The fields are not valid."
+    ),
+  },
+  tags: TAGS,
+});
+
+/** The founder's own steps in the club wizard reuse the people wizard's saves. */
+export const MEMBER_STEPS = [
+  "role",
+  "details",
+  "address",
+  "safety",
+  "dbs",
+  "availability",
+  "children",
+  "permissions",
+  "billing",
+  "social",
+  "you",
+  "emergency",
+  "safeguarding",
+] as const;
+
+export const saveMemberStep = createRoute({
+  description:
+    "Saves one people-wizard step for the signed-in person and their own children, and marks it done. `you`, `emergency` and `safeguarding` (the club founder's steps) save the same data as `details`, `safety` and `dbs`.",
+  method: "put",
+  path: "/onboarding/member/{step}",
+  request: {
+    body: jsonContentRequired(
+      z.record(z.string(), z.unknown()),
+      "The step's fields."
+    ),
+    params: z.object({ step: z.enum(MEMBER_STEPS) }),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(progressSchema, "Progress."),
+    [HttpStatusCodes.FORBIDDEN]: jsonContent(
+      errorSchema,
+      "A child in the request is not yours."
+    ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
       z.object({
         issues: z.array(z.object({ message: z.string(), path: z.string() })),
@@ -119,7 +152,7 @@ export const saveDraft = createRoute({
 
 export const MAX_DRAFT_JSON_BYTES = MAX_DRAFT_BYTES;
 export type GetRoute = typeof get;
-export type CompleteUserRoute = typeof completeUser;
+export type SaveMemberStepRoute = typeof saveMemberStep;
 export type SaveClubStepRoute = typeof saveClubStep;
 export type GetDraftRoute = typeof getDraft;
 export type SaveDraftRoute = typeof saveDraft;

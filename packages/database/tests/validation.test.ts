@@ -35,6 +35,7 @@ import * as onboardingSteps from "../src/schema/onboarding/onboarding-steps";
 import * as addresses from "../src/schema/people/addresses";
 import * as allergies from "../src/schema/people/allergies";
 import * as medicalRecords from "../src/schema/people/medical-records";
+import * as memberProfile from "../src/schema/people/member-profile";
 import * as people from "../src/schema/people/people";
 import * as personIdentifiers from "../src/schema/people/person-identifiers";
 import * as playerProfiles from "../src/schema/people/player-profiles";
@@ -93,6 +94,7 @@ const tablesIn = (module: Record<string, unknown>) =>
 const ownTables = [
   ...tablesIn(addresses),
   ...tablesIn(clubProfile),
+  ...tablesIn(memberProfile),
   ...tablesIn(onboardingDrafts),
   ...tablesIn(onboardingSteps),
   ...tablesIn(auditEvents),
