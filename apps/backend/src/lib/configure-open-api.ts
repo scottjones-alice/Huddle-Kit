@@ -7,7 +7,7 @@ import { addExamples } from "./openapi-examples";
 
 const API_TITLE = "Huddlekit API";
 const SESSION_COOKIE_SCHEME = "sessionCookie";
-const SESSION_COOKIE_NAME = "better-auth.session_token";
+const SESSION_COOKIE_NAME = "huddlekit.session_token";
 const MAX_VISIBLE_REQUEST_BODY_PROPERTIES = 12;
 
 export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {

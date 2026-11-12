@@ -32,6 +32,8 @@ export interface CreateAuthOptions {
   baseURL: string;
   /** Browser origins allowed to call the auth endpoints. */
   trustedOrigins: string[];
+  /** Parent domain to share the session cookie across subdomains, e.g. "huddlekit.app". */
+  cookieDomain?: string;
   /** URL scheme of the native app (app.json "scheme"), e.g. "huddlekit". */
   nativeScheme: string;
   /** Passkey relying party: the domain passkeys are tied to, and its display name. */
@@ -55,6 +57,7 @@ export const createAuth = ({
   baseURL,
   db,
   billing,
+  cookieDomain,
   mailer,
   nativeScheme,
   passkey: passkeyOptions,
@@ -66,7 +69,16 @@ export const createAuth = ({
   const allTrustedOrigins = [...trustedOrigins, `${nativeScheme}://`];
 
   return betterAuth({
-    advanced: { database: { generateId: "uuid" } },
+    advanced: {
+      // Cookies are named huddlekit.session_token and so on.
+      cookiePrefix: "huddlekit",
+      // With a domain set, the website and platform share one session cookie.
+      crossSubDomainCookies:
+        cookieDomain === undefined
+          ? { enabled: false }
+          : { domain: cookieDomain, enabled: true },
+      database: { generateId: "uuid" },
+    },
     baseURL,
     database: drizzleAdapter(db, { provider: "pg", schema, usePlural: true }),
     emailAndPassword: {

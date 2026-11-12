@@ -9,6 +9,7 @@ import { notifyWelcome } from "@/services/notifications";
 import { sendEmail } from "@/services/resend";
 
 const {
+  AUTH_COOKIE_DOMAIN,
   AUTH_NATIVE_SCHEME,
   BETTER_AUTH_SECRET,
   BETTER_AUTH_URL,
@@ -70,6 +71,7 @@ export const auth = createAuth({
     secretKey: AUTH_STRIPE_SECRET_KEY,
     webhookSecret: AUTH_STRIPE_WEBHOOK_SECRET,
   },
+  cookieDomain: AUTH_COOKIE_DOMAIN,
   db,
   mailer,
   nativeScheme: AUTH_NATIVE_SCHEME,

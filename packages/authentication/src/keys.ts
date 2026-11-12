@@ -9,6 +9,10 @@ export const keys = () =>
   createEnv({
     ...serverOptions,
     server: {
+      // Parent domain the session cookie is shared on, e.g. "huddlekit.app", so the
+      // website, platform and API (all subdomains) see the same session. Leave
+      // unset on localhost: cookies already ignore ports there.
+      AUTH_COOKIE_DOMAIN: z.string().min(1).optional(),
       // URL scheme of the native app: app.json "scheme", without "://".
       AUTH_NATIVE_SCHEME: z
         .string()
