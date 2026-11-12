@@ -1,0 +1,30 @@
+{
+  "name": "@alice/payments",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Payments and billing.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./connect-keys": "./src/connect-keys.ts",
+    "./keys": "./src/keys.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@alice/environment": "workspace:*",
+    "@better-auth/stripe": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "better-auth": "catalog:",
+    "stripe": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
