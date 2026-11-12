@@ -17,11 +17,13 @@ import events from "@/routes/events/events.index";
 import fees from "@/routes/fees/fees.index";
 import files from "@/routes/files/files.index";
 import internal from "@/routes/internal/internal.index";
+import messaging from "@/routes/messaging/messaging.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
 import opponents from "@/routes/opponents/opponents.index";
 import payments from "@/routes/payments/payments.index";
 import people from "@/routes/people/people.index";
 import registrations from "@/routes/registrations/registrations.index";
+import reports from "@/routes/reports/reports.index";
 import roles from "@/routes/roles/roles.index";
 import root from "@/routes/root/root.index";
 import safeguarding from "@/routes/safeguarding/safeguarding.index";
@@ -93,11 +95,13 @@ const routes = [
   events,
   fees,
   files,
+  messaging,
   onboarding,
   opponents,
   payments,
   people,
   registrations,
+  reports,
   roles,
   safeguarding,
   teams,
@@ -112,11 +116,13 @@ app.route(API_PREFIX, consents);
 app.route(API_PREFIX, events);
 app.route(API_PREFIX, fees);
 app.route(API_PREFIX, files);
+app.route(API_PREFIX, messaging);
 app.route(API_PREFIX, onboarding);
 app.route(API_PREFIX, opponents);
 app.route(API_PREFIX, payments);
 app.route(API_PREFIX, people);
 app.route(API_PREFIX, registrations);
+app.route(API_PREFIX, reports);
 app.route(API_PREFIX, roles);
 app.route(API_PREFIX, safeguarding);
 app.route(API_PREFIX, teams);

@@ -5,11 +5,13 @@ import * as consents from "./consents/consents.route";
 import * as events from "./events/events.route";
 import * as fees from "./fees/fees.route";
 import * as files from "./files/files.route";
+import * as messaging from "./messaging/messaging.route";
 import * as onboarding from "./onboarding/onboarding.route";
 import * as opponents from "./opponents/opponents.route";
 import * as payments from "./payments/payments.route";
 import * as people from "./people/people.route";
 import * as registrations from "./registrations/registrations.route";
+import * as reports from "./reports/reports.route";
 import * as roles from "./roles/roles.route";
 import { rootRoute } from "./root/root.route";
 import * as safeguarding from "./safeguarding/safeguarding.route";
@@ -28,11 +30,13 @@ const modules: Record<string, unknown>[] = [
   events,
   fees,
   files,
+  messaging,
   onboarding,
   opponents,
   payments,
   people,
   registrations,
+  reports,
   roles,
   safeguarding,
   teams,

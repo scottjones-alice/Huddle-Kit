@@ -101,6 +101,16 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Welfare",
       },
       {
+        description:
+          "Announcements from the club and each person's notification inbox. There is no private messaging between adults and children.",
+        name: "Messaging",
+      },
+      {
+        description:
+          "Summaries for club admins, the treasurer and coaches: club size, money owed, and team attendance.",
+        name: "Reports",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },
