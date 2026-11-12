@@ -40,7 +40,14 @@ const missingExamples = (node: unknown, path: string): string[] => {
   const nested = Object.entries(node).flatMap(([key, value]) =>
     missingExamples(value, `${path}/${key}`)
   );
-  const isSchema = path.includes("/schema") && "type" in node;
+  // A property can itself be called "type" (a consent's type), so a schema's
+  // `type` must be a name or a list of names, and not inside `properties` or an example.
+  const isSchema =
+    path.includes("/schema") &&
+    "type" in node &&
+    (typeof node.type === "string" || Array.isArray(node.type)) &&
+    !path.includes("/examples/") &&
+    !path.endsWith("/properties");
   return isSchema && !hasExample(node) ? [path, ...nested] : nested;
 };
 
