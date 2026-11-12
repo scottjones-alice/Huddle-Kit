@@ -38,6 +38,8 @@ export const keys = () =>
             .filter(Boolean)
         )
         .pipe(z.array(z.url()).min(1)),
+      // Shared secret the worker sends to run scheduled jobs. At least 32 characters.
+      CRON_SECRET: z.string().min(32),
       FROM_EMAIL: z.email(),
       LOG_LEVEL: z
         .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])

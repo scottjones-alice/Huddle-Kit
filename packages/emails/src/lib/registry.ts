@@ -10,6 +10,11 @@ import type { ComponentType } from "react";
 
 import { AcceptInviteEmail } from "../templates/accept-invite";
 import type { AcceptInviteEmailProps } from "../templates/accept-invite";
+import {
+  FinishOnboardingEmail,
+  finishOnboardingSubject,
+} from "../templates/finish-onboarding";
+import type { FinishOnboardingEmailProps } from "../templates/finish-onboarding";
 import { ForgotPasswordEmail } from "../templates/forgot-password";
 import type { ForgotPasswordEmailProps } from "../templates/forgot-password";
 import { PasswordResetEmail } from "../templates/password-reset";
@@ -22,6 +27,7 @@ import { brand } from "./brand";
 
 export interface EmailPropsMap {
   "accept-invite": AcceptInviteEmailProps;
+  "finish-onboarding": FinishOnboardingEmailProps;
   "forgot-password": ForgotPasswordEmailProps;
   "password-reset": PasswordResetEmailProps;
   "verify-email": VerifyEmailProps;
@@ -42,6 +48,10 @@ export const emailTemplates: {
     component: AcceptInviteEmail,
     subject: ({ inviterName, teamName }) =>
       `${inviterName} invited you to join ${teamName}`,
+  },
+  "finish-onboarding": {
+    component: FinishOnboardingEmail,
+    subject: finishOnboardingSubject,
   },
   "forgot-password": {
     component: ForgotPasswordEmail,

@@ -36,6 +36,8 @@ export const allergies = pgTable(
   {
     // What they react to: "peanuts", "bee stings", "penicillin".
     allergen: text("allergen").notNull(),
+    // Set when the allergy no longer applies. The row stays: it is part of the person's history.
+    archivedAt: timestamp("archived_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),

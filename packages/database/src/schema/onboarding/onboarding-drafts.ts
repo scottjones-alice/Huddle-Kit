@@ -9,6 +9,7 @@ import { defineRelationsPart, sql } from "drizzle-orm";
 import {
   check,
   pgTable,
+  smallint,
   text,
   timestamp,
   uniqueIndex,
@@ -30,6 +31,11 @@ export const onboardingDrafts = pgTable(
     id: uuid("id")
       .default(sql`pg_catalog.gen_random_uuid()`)
       .primaryKey(),
+    // When the last "finish your setup" email went out, if any.
+    lastRemindedAt: timestamp("last_reminded_at", { withTimezone: true }),
+    // How many reminders went out since the last save: 0, 1 (12 hours), 2 (24 hours), 3 (5 days).
+    // Saving the draft again starts the count over, because the person is back.
+    remindersSent: smallint("reminders_sent").default(0).notNull(),
     // The wizard step to resume on.
     stepId: text("step_id").notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true })
@@ -41,6 +47,10 @@ export const onboardingDrafts = pgTable(
   },
   (table) => [
     check("onboarding_drafts_flow_chk", isOneOf(table.flow, ONBOARDING_FLOWS)),
+    check(
+      "onboarding_drafts_remindersSent_chk",
+      sql`${table.remindersSent} between 0 and 3`
+    ),
     uniqueIndex("onboarding_drafts_userId_flow_uidx").on(
       table.userId,
       table.flow

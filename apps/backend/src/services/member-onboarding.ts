@@ -20,7 +20,7 @@ import {
 } from "@alice/database";
 import type { Database } from "@alice/database";
 import { z } from "@hono/zod-openapi";
-import { and, eq, inArray, isNull } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 
 const MAX_TEXT = 200;
 const MAX_LONG = 2000;
@@ -123,7 +123,11 @@ export const memberStepSchemas = {
     secondPayerName: optionalText(),
     sendReminders: z.boolean().default(true),
   }),
-  children: z.object({ children: z.array(childSchema).min(1).max(MAX_ITEMS) }),
+  children: z.object({
+    // Children to archive (hidden, never deleted). Their records are kept.
+    archiveChildIds: z.array(z.uuid()).max(MAX_ITEMS).default([]),
+    children: z.array(childSchema).max(MAX_ITEMS).default([]),
+  }),
   dbs: z.object({
     coaching: z
       .object({
@@ -297,55 +301,98 @@ const upsertKit = async (
     .onConflictDoUpdate({ set: values, target: personKit.personId });
 };
 
+/** Today as YYYY-MM-DD, for ending a medical record without deleting it. */
+const today = () => new Date().toISOString().slice(0, 10);
+
+const MEDICAL_KINDS = [
+  { field: "conditions", kind: "condition", name: "Medical conditions" },
+  { field: "medication", kind: "medication", name: "Medication" },
+] as const;
+
+/**
+ * Keeps medical history. A record is updated in place, or ended (`endedOn`)
+ * when the text is cleared; allergies are archived, never deleted.
+ */
 const saveMedical = async (
   tx: Tx,
   organizationId: string,
   personId: string,
   medical: z.infer<typeof medicalSchema>
 ) => {
-  await tx
-    .delete(medicalRecords)
-    .where(
-      and(
-        eq(medicalRecords.personId, personId),
-        inArray(medicalRecords.kind, ["condition", "medication"])
-      )
-    );
-  await tx.delete(allergies).where(eq(allergies.personId, personId));
-  const records = [
-    medical.conditions === null || medical.conditions === undefined
-      ? undefined
-      : {
-          details: medical.conditions,
+  await Promise.all(
+    MEDICAL_KINDS.map(async ({ field, kind, name }) => {
+      const details = medical[field];
+      const [current] = await tx
+        .select({ id: medicalRecords.id })
+        .from(medicalRecords)
+        .where(
+          and(
+            eq(medicalRecords.personId, personId),
+            eq(medicalRecords.kind, kind),
+            isNull(medicalRecords.endedOn)
+          )
+        );
+      const hasText =
+        details !== null && details !== undefined && details !== "";
+      if (hasText && current === undefined) {
+        await tx.insert(medicalRecords).values({
+          details,
           isEmergencyRelevant: true,
-          kind: "condition" as const,
-          name: "Medical conditions",
-        },
-    medical.medication === null || medical.medication === undefined
-      ? undefined
-      : {
-          details: medical.medication,
-          isEmergencyRelevant: true,
-          kind: "medication" as const,
-          name: "Medication",
-        },
-  ].filter((record) => record !== undefined);
-  if (records.length > 0) {
+          kind,
+          name,
+          organizationId,
+          personId,
+        });
+      } else if (hasText && current !== undefined) {
+        await tx
+          .update(medicalRecords)
+          .set({ details })
+          .where(eq(medicalRecords.id, current.id));
+      } else if (!hasText && current !== undefined) {
+        await tx
+          .update(medicalRecords)
+          .set({ endedOn: today() })
+          .where(eq(medicalRecords.id, current.id));
+      }
+    })
+  );
+
+  const existing = await tx
+    .select({ allergen: allergies.allergen, id: allergies.id })
+    .from(allergies)
+    .where(eq(allergies.personId, personId));
+  const byName = new Map(existing.map((row) => [row.allergen, row.id]));
+  const keep = new Set(medical.allergies.map((allergy) => allergy.allergen));
+  const now = new Date();
+  const archiveAllergy = async (id: string) => {
     await tx
-      .insert(medicalRecords)
-      .values(
-        records.map((record) => ({ ...record, organizationId, personId }))
-      );
-  }
-  if (medical.allergies.length > 0) {
-    await tx.insert(allergies).values(
-      medical.allergies.map((allergy) => ({
-        ...allergy,
-        organizationId,
-        personId,
-      }))
-    );
-  }
+      .update(allergies)
+      .set({ archivedAt: now })
+      .where(and(eq(allergies.id, id), isNull(allergies.archivedAt)));
+  };
+  await Promise.all([
+    ...medical.allergies.map(async (allergy) => {
+      const id = byName.get(allergy.allergen);
+      if (id === undefined) {
+        await tx
+          .insert(allergies)
+          .values({ ...allergy, organizationId, personId });
+        return;
+      }
+      await tx
+        .update(allergies)
+        .set({
+          archivedAt: null,
+          reaction: allergy.reaction ?? null,
+          severity: allergy.severity,
+          treatment: allergy.treatment ?? null,
+        })
+        .where(eq(allergies.id, id));
+    }),
+    ...existing.flatMap((row) =>
+      keep.has(row.allergen) ? [] : [archiveAllergy(row.id)]
+    ),
+  ]);
 };
 
 const CONSENT_FLAGS = [
@@ -497,39 +544,34 @@ const saveSafety = async (
       medicalTreatment: data.emergencyTreatment,
     });
   }
-  // Replace the contacts this person set up earlier. Contacts who are also
-  // account holders keep their own row; only the link is removed.
+  // The contacts replace the ones set up earlier. Old contacts are archived
+  // (`isActive` false), never deleted, and their links stay as history.
   const old = await tx
     .select({ related: personRelationships.relatedPersonId })
     .from(personRelationships)
+    .innerJoin(people, eq(people.id, personRelationships.relatedPersonId))
     .where(
       and(
         eq(personRelationships.personId, personId),
         eq(personRelationships.isEmergencyContact, true),
-        eq(personRelationships.hasParentalResponsibility, false)
-      )
-    );
-  await tx
-    .delete(personRelationships)
-    .where(
-      and(
-        eq(personRelationships.personId, personId),
-        eq(personRelationships.isEmergencyContact, true),
-        eq(personRelationships.hasParentalResponsibility, false)
+        eq(personRelationships.hasParentalResponsibility, false),
+        eq(people.isActive, true),
+        isNull(people.userId)
       )
     );
   if (old.length > 0) {
-    // Orphaned contacts (no login, no other link) are removed with their link.
-    await tx.delete(people).where(
-      and(
-        inArray(
-          people.id,
-          old.map((row) => row.related)
-        ),
-        eq(people.organizationId, organizationId),
-        eq(people.isActive, true)
-      )
-    );
+    await tx
+      .update(people)
+      .set({ isActive: false })
+      .where(
+        and(
+          inArray(
+            people.id,
+            old.map((row) => row.related)
+          ),
+          eq(people.organizationId, organizationId)
+        )
+      );
   }
   await Promise.all(
     data.contacts.map(async (contact) => {
@@ -558,19 +600,54 @@ const saveSafety = async (
   );
 };
 
-const replaceByKind = async (
+type CheckKind = "dbs" | "first_aid" | "safeguarding_training";
+
+interface CheckValues {
+  dbsLevel?: "basic" | "standard" | "enhanced" | "enhanced_barred_list";
+  dbsUpdateService?: boolean;
+  expiresOn: string | null;
+  fileId?: string | null;
+  issuedOn?: string | null;
+  reference?: string | null;
+}
+
+/**
+ * Self-reported checks are history: the latest one of each kind is updated in
+ * place (and goes back to "pending" for an admin to re-verify), or a first one
+ * is added. Clearing a field never removes a check.
+ */
+const upsertCheck = async (
   tx: Tx,
+  caller: Caller,
   personId: string,
-  kinds: ("dbs" | "first_aid" | "safeguarding_training")[]
+  kind: CheckKind,
+  values: CheckValues
 ) => {
-  await tx
-    .delete(safeguardingChecks)
+  const [current] = await tx
+    .select({ id: safeguardingChecks.id })
+    .from(safeguardingChecks)
     .where(
       and(
         eq(safeguardingChecks.personId, personId),
-        inArray(safeguardingChecks.kind, kinds)
+        eq(safeguardingChecks.kind, kind)
       )
-    );
+    )
+    .orderBy(desc(safeguardingChecks.createdAt))
+    .limit(1);
+  if (current === undefined) {
+    await tx.insert(safeguardingChecks).values({
+      ...values,
+      kind,
+      organizationId: caller.organizationId,
+      personId,
+      status: "pending",
+    });
+    return;
+  }
+  await tx
+    .update(safeguardingChecks)
+    .set({ ...values, status: "pending", verifiedAt: null, verifiedBy: null })
+    .where(eq(safeguardingChecks.id, current.id));
 };
 
 const saveDbs = async (
@@ -579,65 +656,72 @@ const saveDbs = async (
   data: z.infer<typeof memberStepSchemas.dbs>
 ) => {
   const personId = await ensureOwnPerson(tx, caller);
-  const { organizationId } = caller;
-  // Self-reported checks start as "pending": only a club admin marks them valid.
-  await replaceByKind(tx, personId, [
-    "dbs",
-    "first_aid",
-    "safeguarding_training",
-  ]);
-  const rows = [
-    data.dbs === null || data.dbs === undefined
-      ? undefined
-      : {
-          dbsLevel: data.dbs.level,
-          dbsUpdateService: data.dbs.onUpdateService,
-          expiresOn: data.dbs.expiresOn ?? null,
-          fileId: data.dbs.fileId ?? null,
-          issuedOn: data.dbs.issuedOn ?? null,
-          kind: "dbs" as const,
-          reference: data.dbs.reference ?? null,
-        },
-    data.firstAidExpiresOn === null || data.firstAidExpiresOn === undefined
-      ? undefined
-      : { expiresOn: data.firstAidExpiresOn, kind: "first_aid" as const },
-    data.safeguardingTrainingExpiresOn === null ||
-    data.safeguardingTrainingExpiresOn === undefined
-      ? undefined
-      : {
-          expiresOn: data.safeguardingTrainingExpiresOn,
-          kind: "safeguarding_training" as const,
-        },
-  ].filter((row) => row !== undefined);
-  if (rows.length > 0) {
-    await tx.insert(safeguardingChecks).values(
-      rows.map((row) => ({
-        ...row,
-        organizationId,
-        personId,
-        status: "pending" as const,
-      }))
+  const { dbs, firstAidExpiresOn, safeguardingTrainingExpiresOn } = data;
+  const work: Promise<void>[] = [];
+  if (dbs !== null && dbs !== undefined) {
+    work.push(
+      upsertCheck(tx, caller, personId, "dbs", {
+        dbsLevel: dbs.level,
+        dbsUpdateService: dbs.onUpdateService,
+        expiresOn: dbs.expiresOn ?? null,
+        fileId: dbs.fileId ?? null,
+        issuedOn: dbs.issuedOn ?? null,
+        reference: dbs.reference ?? null,
+      })
     );
   }
-  await tx
-    .delete(qualifications)
+  if (firstAidExpiresOn !== null && firstAidExpiresOn !== undefined) {
+    work.push(
+      upsertCheck(tx, caller, personId, "first_aid", {
+        expiresOn: firstAidExpiresOn,
+      })
+    );
+  }
+  if (
+    safeguardingTrainingExpiresOn !== null &&
+    safeguardingTrainingExpiresOn !== undefined
+  ) {
+    work.push(
+      upsertCheck(tx, caller, personId, "safeguarding_training", {
+        expiresOn: safeguardingTrainingExpiresOn,
+      })
+    );
+  }
+  await Promise.all(work);
+
+  const { coaching } = data;
+  if (coaching === null || coaching === undefined) {
+    return;
+  }
+  const values = {
+    awardedBy: coaching.awardedBy ?? null,
+    expiresOn: coaching.expiresOn ?? null,
+    issuedOn: coaching.issuedOn ?? null,
+    title: coaching.title,
+  };
+  const [current] = await tx
+    .select({ id: qualifications.id })
+    .from(qualifications)
     .where(
       and(
         eq(qualifications.personId, personId),
-        eq(qualifications.kind, "coaching")
+        eq(qualifications.kind, "coaching"),
+        eq(qualifications.title, coaching.title)
       )
     );
-  if (data.coaching !== null && data.coaching !== undefined) {
+  if (current === undefined) {
     await tx.insert(qualifications).values({
-      awardedBy: data.coaching.awardedBy ?? null,
-      expiresOn: data.coaching.expiresOn ?? null,
-      issuedOn: data.coaching.issuedOn ?? null,
+      ...values,
       kind: "coaching",
-      organizationId,
+      organizationId: caller.organizationId,
       personId,
-      title: data.coaching.title,
     });
+    return;
   }
+  await tx
+    .update(qualifications)
+    .set(values)
+    .where(eq(qualifications.id, current.id));
 };
 
 const saveAvailability = async (
@@ -768,11 +852,20 @@ const saveChildren = async (
 ) => {
   const parentId = await ensureOwnPerson(tx, caller);
   const ownedIds = await ownChildIds(tx, caller.organizationId, parentId);
+  if (data.archiveChildIds.some((id) => !ownedIds.has(id))) {
+    throw new NotYourChildError();
+  }
   await Promise.all(
     data.children.map(async (child) => {
       await saveOneChild(tx, caller, parentId, child, ownedIds);
     })
   );
+  if (data.archiveChildIds.length > 0) {
+    await tx
+      .update(people)
+      .set({ isActive: false })
+      .where(inArray(people.id, data.archiveChildIds));
+  }
 };
 
 const savePermissions = async (

@@ -15,6 +15,10 @@ export const keys = () =>
     ...serverOptions,
     extends: [serverBase()],
     server: {
+      // Where the backend API is reachable from the worker.
+      BACKEND_URL: z.url().default("http://localhost:9000"),
+      // Same value as the backend's CRON_SECRET: it proves the call is ours.
+      CRON_SECRET: z.string().min(32),
       // Only needed when self-hosting Trigger.dev; defaults to Trigger.dev Cloud.
       TRIGGER_API_URL: z.url().optional(),
       // Secret key for the environment you are running in:

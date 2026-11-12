@@ -134,6 +134,18 @@ export const getDraft = createRoute({
   tags: TAGS,
 });
 
+export const finishDraft = createRoute({
+  description:
+    "Call when a wizard is finished. Removes the saved draft, which also stops the 'finish your setup' reminder emails. The answers themselves were already saved step by step.",
+  method: "delete",
+  path: "/onboarding/draft/{flow}",
+  request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: { description: "The draft is gone." },
+  },
+  tags: TAGS,
+});
+
 export const saveDraft = createRoute({
   description:
     "Saves the form so far, encrypted. Replaces any earlier draft for the flow.",
@@ -156,3 +168,4 @@ export type SaveMemberStepRoute = typeof saveMemberStep;
 export type SaveClubStepRoute = typeof saveClubStep;
 export type GetDraftRoute = typeof getDraft;
 export type SaveDraftRoute = typeof saveDraft;
+export type FinishDraftRoute = typeof finishDraft;

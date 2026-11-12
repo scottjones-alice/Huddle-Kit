@@ -12,6 +12,7 @@ import {
 } from "@/middlewares/protect";
 import { rateLimit } from "@/middlewares/rate-limit";
 import files from "@/routes/files/files.index";
+import internal from "@/routes/internal/internal.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
 import root from "@/routes/root/root.index";
 import { auth } from "@/services/auth";
@@ -77,6 +78,7 @@ const routes = [root, files, onboarding] as const;
 app.route(API_PREFIX, root);
 app.route(API_PREFIX, files);
 app.route(API_PREFIX, onboarding);
+app.route(API_PREFIX, internal);
 
 export type AppType = (typeof routes)[number];
 

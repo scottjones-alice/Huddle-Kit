@@ -26,6 +26,7 @@ import { MAX_DRAFT_JSON_BYTES } from "./onboarding.route";
 import type {
   SaveClubStepRoute,
   SaveMemberStepRoute,
+  FinishDraftRoute,
   GetDraftRoute,
   GetRoute,
   SaveDraftRoute,
@@ -80,7 +81,13 @@ export const saveDraft: AuthedRouteHandler<SaveDraftRoute> = async (c) => {
     .insert(onboardingDrafts)
     .values({ data: encrypted, flow, stepId, updatedAt, userId })
     .onConflictDoUpdate({
-      set: { data: encrypted, stepId, updatedAt },
+      set: {
+        data: encrypted,
+        lastRemindedAt: null,
+        remindersSent: 0,
+        stepId,
+        updatedAt,
+      },
       target: [onboardingDrafts.userId, onboardingDrafts.flow],
     });
   return c.json(
@@ -175,4 +182,17 @@ export const saveMember: AuthedRouteHandler<SaveMemberStepRoute> = async (
     await getOnboardingProgress(db, { userId }),
     HttpStatusCodes.OK
   );
+};
+
+export const finishDraft: AuthedRouteHandler<FinishDraftRoute> = async (c) => {
+  const { flow } = c.req.valid("param");
+  await db
+    .delete(onboardingDrafts)
+    .where(
+      and(
+        eq(onboardingDrafts.userId, c.get("userId")),
+        eq(onboardingDrafts.flow, flow)
+      )
+    );
+  return c.body(null, HttpStatusCodes.NO_CONTENT);
 };

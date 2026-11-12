@@ -19,4 +19,5 @@ export default router
   .openapi(routes.saveMemberStep, handlers.saveMember)
   .openapi(routes.saveClubStep, handlers.saveClub)
   .openapi(routes.getDraft, handlers.getDraft)
-  .openapi(routes.saveDraft, handlers.saveDraft);
+  .openapi(routes.saveDraft, handlers.saveDraft)
+  .openapi(routes.finishDraft, handlers.finishDraft);
