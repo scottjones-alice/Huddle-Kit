@@ -1,0 +1,453 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "aa3dd172-761f-4033-bd69-b4a551d3e2a5",
+  "prevIds": ["d224e4d9-5731-403d-8c87-6ec2e3876173"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "member_joining_roles"],
+      "writes": [
+        "s|tbl|public.member_joining_roles",
+        "n|tbl|public.member_joining_roles",
+        "e|tbl|public.member_joining_roles",
+        "n|rel|public.member_joining_roles",
+        "n|type|public.member_joining_roles",
+        "n|rel|public.member_joining_roles_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_social_links"],
+      "writes": [
+        "s|tbl|public.person_social_links",
+        "n|tbl|public.person_social_links",
+        "e|tbl|public.person_social_links",
+        "n|rel|public.person_social_links",
+        "n|type|public.person_social_links",
+        "n|rel|public.person_social_links_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_social_links",
+        "person_social_links_person_platform_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_social_links_person_platform_uidx",
+        "n|idx|public.person_social_links_person_platform_uidx",
+        "e|idx|public.person_social_links_person_platform_uidx",
+        "n|rel|public.person_social_links_person_platform_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_social_links",
+        "n|sch|public",
+        "n|col|public.person_social_links.person_id",
+        "n|col|public.person_social_links.platform"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "member_joining_roles"],
+      "writes": [
+        "s|fk|public.member_joining_roles.member_joining_roles_organization_id_organizations_id_fkey",
+        "n|fk|public.member_joining_roles.member_joining_roles_organization_id_organizations_id_fkey",
+        "e|fk|public.member_joining_roles.member_joining_roles_organization_id_organizations_id_fkey",
+        "n|con|public.member_joining_roles.member_joining_roles_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.member_joining_roles",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.member_joining_roles.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "member_joining_roles"],
+      "writes": [
+        "s|fk|public.member_joining_roles.member_joining_roles_person_same_org_fkey",
+        "n|fk|public.member_joining_roles.member_joining_roles_person_same_org_fkey",
+        "e|fk|public.member_joining_roles.member_joining_roles_person_same_org_fkey",
+        "n|con|public.member_joining_roles.member_joining_roles_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.member_joining_roles",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.member_joining_roles.organization_id",
+        "n|col|public.member_joining_roles.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_social_links"],
+      "writes": [
+        "s|fk|public.person_social_links.person_social_links_organization_id_organizations_id_fkey",
+        "n|fk|public.person_social_links.person_social_links_organization_id_organizations_id_fkey",
+        "e|fk|public.person_social_links.person_social_links_organization_id_organizations_id_fkey",
+        "n|con|public.person_social_links.person_social_links_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_social_links",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_social_links.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_social_links"],
+      "writes": [
+        "s|fk|public.person_social_links.person_social_links_person_same_org_fkey",
+        "n|fk|public.person_social_links.person_social_links_person_same_org_fkey",
+        "e|fk|public.person_social_links.person_social_links_person_same_org_fkey",
+        "n|con|public.person_social_links.person_social_links_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_social_links",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_social_links.organization_id",
+        "n|col|public.person_social_links.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "member_joining_roles",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_social_links",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "joined_as",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "handle",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "platform",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_social_links_person_platform_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "platform",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "member_joining_roles_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "member_joining_roles_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_social_links_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_social_links_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "member_joining_roles_pkey",
+        "columns": ["person_id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_social_links_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "member_joining_roles",
+        "name": "member_joining_roles_chk",
+        "value": "\"joined_as\" in ('staff', 'player', 'parent')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_social_links",
+        "name": "person_social_links_platform_chk",
+        "value": "\"platform\" in ('facebook', 'instagram', 'tiktok', 'x')",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

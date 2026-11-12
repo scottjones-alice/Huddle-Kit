@@ -21,8 +21,13 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { organizations } from "../authentication";
+import { SOCIAL_PLATFORMS } from "../club/club-profile";
+import type { SocialPlatform } from "../club/club-profile";
 import { isOneOf } from "../shared/constraints";
 import { people } from "./people";
+
+export const JOINING_ROLES = ["staff", "player", "parent"] as const;
+export type JoiningRole = (typeof JOINING_ROLES)[number];
 
 export const AVAILABILITY_SLOTS = ["morning", "afternoon", "evening"] as const;
 export type AvailabilitySlot = (typeof AVAILABILITY_SLOTS)[number];
@@ -175,18 +180,83 @@ export const memberBillingPreferences = pgTable(
   ]
 );
 
+/**
+ * How someone said they are joining the club: as staff, a player or a parent.
+ * This is what the person picked in the wizard. The club's own jobs for them
+ * (coach, welfare officer) are separate, in `role_assignments`.
+ */
+export const memberJoiningRoles = pgTable(
+  "member_joining_roles",
+  {
+    joinedAs: text("joined_as").$type<JoiningRole>().notNull(),
+    organizationId: uuid("organization_id")
+      .notNull()
+      .references(() => organizations.id, { onDelete: "cascade" }),
+    personId: uuid("person_id").primaryKey(),
+    updatedAt: updatedAtColumn(),
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.organizationId, table.personId],
+      foreignColumns: [people.organizationId, people.id],
+      name: "member_joining_roles_person_same_org_fkey",
+    }).onDelete("cascade"),
+    check("member_joining_roles_chk", isOneOf(table.joinedAs, JOINING_ROLES)),
+  ]
+);
+
+/** A person's own social handles or links, one per platform. */
+export const personSocialLinks = pgTable(
+  "person_social_links",
+  {
+    handle: text("handle").notNull(),
+    id: uuid("id")
+      .default(sql`pg_catalog.gen_random_uuid()`)
+      .primaryKey(),
+    organizationId: uuid("organization_id")
+      .notNull()
+      .references(() => organizations.id, { onDelete: "cascade" }),
+    personId: personKey(),
+    platform: text("platform").$type<SocialPlatform>().notNull(),
+    updatedAt: updatedAtColumn(),
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.organizationId, table.personId],
+      foreignColumns: [people.organizationId, people.id],
+      name: "person_social_links_person_same_org_fkey",
+    }).onDelete("cascade"),
+    check(
+      "person_social_links_platform_chk",
+      isOneOf(table.platform, SOCIAL_PLATFORMS)
+    ),
+    uniqueIndex("person_social_links_person_platform_uidx").on(
+      table.personId,
+      table.platform
+    ),
+  ]
+);
+
 export const memberProfileRelations = defineRelationsPart(
   {
     memberBillingPreferences,
+    memberJoiningRoles,
     people,
     personAvailability,
     personDemographics,
     personKit,
+    personSocialLinks,
   },
   (r) => ({
     memberBillingPreferences: {
       person: r.one.people({
         from: r.memberBillingPreferences.personId,
+        to: r.people.id,
+      }),
+    },
+    memberJoiningRoles: {
+      person: r.one.people({
+        from: r.memberJoiningRoles.personId,
         to: r.people.id,
       }),
     },
@@ -205,6 +275,12 @@ export const memberProfileRelations = defineRelationsPart(
     personKit: {
       person: r.one.people({
         from: r.personKit.personId,
+        to: r.people.id,
+      }),
+    },
+    personSocialLinks: {
+      person: r.one.people({
+        from: r.personSocialLinks.personId,
         to: r.people.id,
       }),
     },

@@ -17,11 +17,13 @@ import {
   consents,
   createDatabase,
   medicalRecords,
+  memberJoiningRoles,
   onboardingDrafts,
   organizations,
   people,
   personAvailability,
   personRelationships,
+  personSocialLinks,
   safeguardingChecks,
   users,
 } from "@alice/database";
@@ -297,6 +299,41 @@ describe("onboarding saves (real Postgres)", () => {
 
     expect(rows).toHaveLength(1);
     expect(rows[0]?.withdrawnAt).not.toBeNull();
+  });
+
+  it("remembers the chosen role and changes it in place", async () => {
+    await member(parent, "role", { role: "parent" });
+    await member(parent, "role", { role: "player" });
+    const me = await personFor(parentUserId);
+    const rows = await db
+      .select()
+      .from(memberJoiningRoles)
+      .where(eq(memberJoiningRoles.personId, me.id));
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0]?.joinedAs).toBe("player");
+  });
+
+  it("saves social handles and replaces the list on the next save", async () => {
+    await member(parent, "social", {
+      consents: {},
+      links: [
+        { handle: "@kit", platform: "instagram" },
+        { handle: "kit.fc", platform: "facebook" },
+      ],
+    });
+    await member(parent, "social", {
+      consents: {},
+      links: [{ handle: "@kit2", platform: "instagram" }],
+    });
+    const me = await personFor(parentUserId);
+    const rows = await db
+      .select()
+      .from(personSocialLinks)
+      .where(eq(personSocialLinks.personId, me.id));
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0]?.handle).toBe("@kit2");
   });
 
   it("saves club steps and refuses a taken address", async () => {

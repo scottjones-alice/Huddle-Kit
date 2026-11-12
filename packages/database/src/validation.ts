@@ -111,13 +111,16 @@ import {
 } from "./schema/people/medical-records";
 import {
   AVAILABILITY_SLOTS,
+  JOINING_ROLES,
   PAYERS,
   PAYMENT_METHODS_PREFERRED,
   PICKUP_RULES,
   memberBillingPreferences,
+  memberJoiningRoles,
   personAvailability,
   personDemographics,
   personKit,
+  personSocialLinks,
 } from "./schema/people/member-profile";
 import { people } from "./schema/people/people";
 import {
@@ -1367,6 +1370,37 @@ export const memberBillingUpdateSchema = createUpdateSchema(
   memberBillingRefinements
 );
 
+const memberJoiningRoleRefinements = { joinedAs: () => z.enum(JOINING_ROLES) };
+export const memberJoiningRoleSelectSchema = createSelectSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+export const memberJoiningRoleInsertSchema = createInsertSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+export const memberJoiningRoleUpdateSchema = createUpdateSchema(
+  memberJoiningRoles,
+  memberJoiningRoleRefinements
+);
+
+const personSocialLinkRefinements = {
+  handle: () => z.string().trim().min(1).max(200),
+  platform: () => z.enum(SOCIAL_PLATFORMS),
+};
+export const personSocialLinkSelectSchema = createSelectSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+export const personSocialLinkInsertSchema = createInsertSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+export const personSocialLinkUpdateSchema = createUpdateSchema(
+  personSocialLinks,
+  personSocialLinkRefinements
+);
+
 // Onboarding steps ------------------------------------------------------------
 
 const onboardingDraftRefinements = { flow: () => z.enum(ONBOARDING_FLOWS) };
@@ -1690,6 +1724,11 @@ export const tableSchemas = {
     select: memberBillingSelectSchema,
     update: memberBillingUpdateSchema,
   },
+  member_joining_roles: {
+    insert: memberJoiningRoleInsertSchema,
+    select: memberJoiningRoleSelectSchema,
+    update: memberJoiningRoleUpdateSchema,
+  },
   notifications: {
     insert: notificationInsertSchema,
     select: notificationSelectSchema,
@@ -1744,6 +1783,11 @@ export const tableSchemas = {
     insert: personRelationshipInsertSchema,
     select: personRelationshipSelectSchema,
     update: personRelationshipUpdateSchema,
+  },
+  person_social_links: {
+    insert: personSocialLinkInsertSchema,
+    select: personSocialLinkSelectSchema,
+    update: personSocialLinkUpdateSchema,
   },
   pitches: {
     insert: pitchInsertSchema,

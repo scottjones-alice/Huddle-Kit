@@ -268,17 +268,21 @@ export { addresses } from "./schema/people/addresses";
 
 export {
   AVAILABILITY_SLOTS,
+  JOINING_ROLES,
   PAYERS,
   PAYMENT_METHODS_PREFERRED,
   PICKUP_RULES,
   memberBillingPreferences,
+  memberJoiningRoles,
   personAvailability,
   personDemographics,
   personKit,
+  personSocialLinks,
 } from "./schema/people/member-profile";
 
 export type {
   AvailabilitySlot,
+  JoiningRole,
   Payer,
   PickupRule,
   PreferredPaymentMethod,

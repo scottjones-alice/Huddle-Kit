@@ -1,18 +1,22 @@
 import {
   AVAILABILITY_SLOTS,
+  JOINING_ROLES,
   PAYERS,
   PAYMENT_METHODS_PREFERRED,
   PICKUP_RULES,
+  SOCIAL_PLATFORMS,
   addresses,
   allergies,
   consents,
   medicalRecords,
   memberBillingPreferences,
+  memberJoiningRoles,
   people,
   personAvailability,
   personDemographics,
   personKit,
   personRelationships,
+  personSocialLinks,
   playerProfiles,
   qualifications,
   safeguardingChecks,
@@ -20,7 +24,7 @@ import {
 } from "@alice/database";
 import type { Database } from "@alice/database";
 import { z } from "@hono/zod-openapi";
-import { and, desc, eq, inArray, isNull } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 
 const MAX_TEXT = 200;
 const MAX_LONG = 2000;
@@ -177,7 +181,7 @@ export const memberStepSchemas = {
       .default([]),
     self: consentFlags.optional(),
   }),
-  role: z.object({ role: z.enum(["staff", "player", "parent"]) }),
+  role: z.object({ role: z.enum(JOINING_ROLES) }),
   safety: z.object({
     contacts: z.array(contactSchema).max(MAX_ITEMS).default([]),
     emergencyTreatment: z.boolean().optional(),
@@ -185,6 +189,16 @@ export const memberStepSchemas = {
   }),
   social: z.object({
     consents: consentFlags,
+    // The person's own handles, one per platform. Sending the list replaces it.
+    links: z
+      .array(
+        z.object({
+          handle: z.string().trim().min(1).max(MAX_TEXT),
+          platform: z.enum(SOCIAL_PLATFORMS),
+        })
+      )
+      .max(SOCIAL_PLATFORMS.length)
+      .default([]),
   }),
 } as const;
 
@@ -931,23 +945,53 @@ const saveSocial = async (
     personId,
     data.consents
   );
+  const { organizationId } = caller;
+  await tx
+    .delete(personSocialLinks)
+    .where(eq(personSocialLinks.personId, personId));
+  if (data.links.length > 0) {
+    await tx
+      .insert(personSocialLinks)
+      .values(data.links.map((link) => ({ ...link, organizationId, personId })))
+      .onConflictDoUpdate({
+        set: { handle: sql`excluded.handle` },
+        target: [personSocialLinks.personId, personSocialLinks.platform],
+      });
+  }
+};
+
+/** Remembers how the person said they are joining: staff, player or parent. */
+const saveRole = async (
+  tx: Tx,
+  caller: Caller,
+  data: z.infer<typeof memberStepSchemas.role>
+) => {
+  const personId = await ensureOwnPerson(tx, caller);
+  await tx
+    .insert(memberJoiningRoles)
+    .values({
+      joinedAs: data.role,
+      organizationId: caller.organizationId,
+      personId,
+    })
+    .onConflictDoUpdate({
+      set: { joinedAs: data.role },
+      target: memberJoiningRoles.personId,
+    });
 };
 
 /**
  * Saves one people-wizard step for the signed-in person (and, where the step
  * names them, their own children). Everything is scoped to the caller: a child
  * id that is not linked to them as a parent throws NotYourChildError.
- * `role` records nothing: the club decides a member's role when it invites them.
+ * `role` stores what the person picked; the club's own jobs for them (coach,
+ * welfare officer) are set separately in `role_assignments`.
  */
 export const saveMemberStep = async (
   db: Database,
   caller: Caller,
   input: MemberStepInput
 ): Promise<void> => {
-  // "role" carries no data: the club sets a member's role when it invites them.
-  if (input.step === "role") {
-    return;
-  }
   await db.transaction(async (tx) => {
     switch (input.step) {
       case "address": {
@@ -978,6 +1022,10 @@ export const saveMemberStep = async (
         await savePermissions(tx, caller, input.data);
         return;
       }
+      case "role": {
+        await saveRole(tx, caller, input.data);
+        return;
+      }
       case "safety": {
         await saveSafety(tx, caller, input.data);
         return;
@@ -987,7 +1035,7 @@ export const saveMemberStep = async (
         break;
       }
       default: {
-        // Unreachable: the switch covers every step except "role", handled above.
+        // Unreachable: every step is handled above.
         break;
       }
     }
