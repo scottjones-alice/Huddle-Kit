@@ -1,12 +1,15 @@
 import type { RouteConfig } from "@hono/zod-openapi";
 
 import * as club from "./club/club.route";
+import * as consents from "./consents/consents.route";
 import * as events from "./events/events.route";
+import * as fees from "./fees/fees.route";
 import * as files from "./files/files.route";
 import * as onboarding from "./onboarding/onboarding.route";
 import * as opponents from "./opponents/opponents.route";
 import * as payments from "./payments/payments.route";
 import * as people from "./people/people.route";
+import * as registrations from "./registrations/registrations.route";
 import * as roles from "./roles/roles.route";
 import { rootRoute } from "./root/root.route";
 import * as teams from "./teams/teams.route";
@@ -19,12 +22,15 @@ import * as venues from "./venues/venues.route";
  */
 const modules: Record<string, unknown>[] = [
   club,
+  consents,
   events,
+  fees,
   files,
   onboarding,
   opponents,
   payments,
   people,
+  registrations,
   roles,
   teams,
   venues,

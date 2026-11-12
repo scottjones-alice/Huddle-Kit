@@ -76,6 +76,21 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         name: "Events",
       },
       {
+        description:
+          "Fees, who owes what, and payments received. Money is in pence or cents. Admins and the treasurer manage it; members see their own family's.",
+        name: "Fees",
+      },
+      {
+        description:
+          "Asking to join for a season, and a club admin accepting or placing them.",
+        name: "Registrations",
+      },
+      {
+        description:
+          "Consent form wording, and what each person or parent has agreed to.",
+        name: "Consents",
+      },
+      {
         description: "Stripe Connect payouts and fee checkout.",
         name: "Payments",
       },

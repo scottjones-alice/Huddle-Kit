@@ -12,13 +12,16 @@ import {
 } from "@/middlewares/protect";
 import { rateLimit } from "@/middlewares/rate-limit";
 import club from "@/routes/club/club.index";
+import consents from "@/routes/consents/consents.index";
 import events from "@/routes/events/events.index";
+import fees from "@/routes/fees/fees.index";
 import files from "@/routes/files/files.index";
 import internal from "@/routes/internal/internal.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
 import opponents from "@/routes/opponents/opponents.index";
 import payments from "@/routes/payments/payments.index";
 import people from "@/routes/people/people.index";
+import registrations from "@/routes/registrations/registrations.index";
 import roles from "@/routes/roles/roles.index";
 import root from "@/routes/root/root.index";
 import teams from "@/routes/teams/teams.index";
@@ -84,12 +87,15 @@ app.on(
 const routes = [
   root,
   club,
+  consents,
   events,
+  fees,
   files,
   onboarding,
   opponents,
   payments,
   people,
+  registrations,
   roles,
   teams,
   venues,
@@ -98,12 +104,15 @@ const routes = [
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
 app.route(API_PREFIX, root);
 app.route(API_PREFIX, club);
+app.route(API_PREFIX, consents);
 app.route(API_PREFIX, events);
+app.route(API_PREFIX, fees);
 app.route(API_PREFIX, files);
 app.route(API_PREFIX, onboarding);
 app.route(API_PREFIX, opponents);
 app.route(API_PREFIX, payments);
 app.route(API_PREFIX, people);
+app.route(API_PREFIX, registrations);
 app.route(API_PREFIX, roles);
 app.route(API_PREFIX, teams);
 app.route(API_PREFIX, venues);
