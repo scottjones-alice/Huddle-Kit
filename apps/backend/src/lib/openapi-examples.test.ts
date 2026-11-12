@@ -86,4 +86,19 @@ describe(addExamples, () => {
       new RegExp(schema.pattern, "u").test(schema.examples[0] ?? "")
     ).toBeTruthy();
   });
+
+  it("builds the parent sample from the children's finished samples", () => {
+    const document = documentWith({
+      properties: {
+        hash: { pattern: "^[0-9a-f]{8}$/u", type: ["string", "null"] },
+      },
+      type: "object",
+    });
+    addExamples(document);
+    const schema = z
+      .object({ examples: z.array(z.object({ hash: z.string() })) })
+      .parse(examplesOf(document));
+
+    expect(schema.examples[0]?.hash).toMatch(/^[0-9a-f]{8}$/u);
+  });
 });

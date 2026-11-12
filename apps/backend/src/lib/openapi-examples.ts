@@ -172,9 +172,6 @@ const fillSchema = (schema: unknown): void => {
   if (typeof schema.pattern === "string") {
     schema.pattern = schema.pattern.replace(TRAILING_FLAGS, "");
   }
-  if (!("examples" in schema) && !("example" in schema)) {
-    schema.examples = [exampleOf(schema)];
-  }
   if (isObject(schema.properties)) {
     for (const property of Object.values(schema.properties)) {
       fillSchema(property);
@@ -189,6 +186,11 @@ const fillSchema = (schema: unknown): void => {
         fillSchema(part);
       }
     }
+  }
+  // After the children, so this sample is built from their finished samples
+  // (a parent object must repeat the hash a child's pattern demands).
+  if (!("examples" in schema) && !("example" in schema)) {
+    schema.examples = [exampleOf(schema)];
   }
 };
 
