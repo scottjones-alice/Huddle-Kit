@@ -23,11 +23,31 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
 
   app.doc31(`${prefix}/doc`, {
     info: {
+      description:
+        "The Huddlekit backend: club and member onboarding, files, and payments. Calls are authenticated with the Better Auth session cookie unless an operation says otherwise.",
       title: API_TITLE,
       version: packageJSON.version,
     },
     openapi: "3.1.0",
     security: [{ [SESSION_COOKIE_SCHEME]: [] }],
+    // Relative on purpose: the same document works locally and when deployed,
+    // because it resolves against the address it was fetched from.
+    servers: [{ description: "This server", url: "/" }],
+    tags: [
+      {
+        description: "Whether the API and its dependencies are up.",
+        name: "Health",
+      },
+      {
+        description: "Club and member setup wizards, and saved drafts.",
+        name: "Onboarding",
+      },
+      { description: "Uploads, downloads and file views.", name: "Files" },
+      {
+        description: "Stripe Connect payouts and fee checkout.",
+        name: "Payments",
+      },
+    ],
   });
 
   app.get(
