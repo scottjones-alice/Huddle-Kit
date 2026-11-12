@@ -1,0 +1,26 @@
+{
+  "name": "@alice/notifications",
+  "version": "0.0.0",
+  "private": true,
+  "description": "In-app and push notifications.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@alice/environment": "workspace:*",
+    "@novu/api": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@alice/typescript": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
