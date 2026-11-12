@@ -39,6 +39,7 @@ const draftSchema = draftBody.extend({ updatedAt: z.string() });
 export const get = createRoute({
   description: "Onboarding progress for the signed-in user and active club.",
   method: "get",
+  operationId: "getOnboarding",
   path: "/onboarding",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
@@ -53,6 +54,7 @@ export const saveClubStep = createRoute({
   description:
     "Saves one club wizard step (club, location, governance, schedule, fees or social) and marks it done. The body is that step's fields. Owners and admins only.",
   method: "put",
+  operationId: "saveClubOnboardingStep",
   path: "/onboarding/club/{step}",
   request: {
     body: jsonContentRequired(
@@ -97,6 +99,7 @@ export const saveMemberStep = createRoute({
   description:
     "Saves one people-wizard step for the signed-in person and their own children, and marks it done. `you`, `emergency` and `safeguarding` (the club founder's steps) save the same data as `details`, `safety` and `dbs`.",
   method: "put",
+  operationId: "saveMemberOnboardingStep",
   path: "/onboarding/member/{step}",
   request: {
     body: jsonContentRequired(
@@ -125,6 +128,7 @@ export const saveMemberStep = createRoute({
 export const getDraft = createRoute({
   description: "The saved draft for a flow, or 404 when there is none.",
   method: "get",
+  operationId: "getOnboardingDraft",
   path: "/onboarding/draft/{flow}",
   request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
   responses: {
@@ -138,6 +142,7 @@ export const finishDraft = createRoute({
   description:
     "Call when a wizard is finished. Removes the saved draft, which also stops the 'finish your setup' reminder emails. The answers themselves were already saved step by step.",
   method: "delete",
+  operationId: "finishOnboardingDraft",
   path: "/onboarding/draft/{flow}",
   request: { params: z.object({ flow: z.enum(ONBOARDING_FLOWS) }) },
   responses: {
@@ -150,6 +155,7 @@ export const saveDraft = createRoute({
   description:
     "Saves the form so far, encrypted. Replaces any earlier draft for the flow.",
   method: "put",
+  operationId: "saveOnboardingDraft",
   path: "/onboarding/draft/{flow}",
   request: {
     body: jsonContentRequired(draftBody, "The form values and current step."),

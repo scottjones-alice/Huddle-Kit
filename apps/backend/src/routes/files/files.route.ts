@@ -49,6 +49,7 @@ export const create = createRoute({
   description:
     "Records a pending file and returns a presigned URL. The client PUTs the bytes there with exactly the returned uploadHeaders, then calls confirm. Sensitive files must declare checksumSha256 (SHA-256 as 64 lower-case hex characters).",
   method: "post",
+  operationId: "createFile",
   path: "/files",
   request: {
     body: jsonContentRequired(createUploadBody, "The file to upload."),
@@ -74,6 +75,7 @@ export const confirm = createRoute({
   description:
     "Checks the object arrived with the declared size. Safe to call twice.",
   method: "post",
+  operationId: "confirmFile",
   path: "/files/{id}/confirm",
   request: { params: IdUUIDParamsSchema },
   responses: {
@@ -94,6 +96,7 @@ export const confirm = createRoute({
 export const list = createRoute({
   description: "Uploaded files for the active organization, newest first.",
   method: "get",
+  operationId: "listFiles",
   path: "/files",
   request: { query: listQuery },
   responses: {
@@ -112,6 +115,7 @@ export const downloadUrl = createRoute({
   description:
     "Returns a presigned download URL and records who asked for it and when.",
   method: "get",
+  operationId: "getFileDownloadUrl",
   path: "/files/{id}/url",
   request: { params: IdUUIDParamsSchema },
   responses: {
@@ -131,6 +135,7 @@ export const downloadUrl = createRoute({
 export const views = createRoute({
   description: "Who was given access to a file and when, newest first.",
   method: "get",
+  operationId: "listFileViews",
   path: "/files/{id}/views",
   request: { params: IdUUIDParamsSchema },
   responses: {
@@ -149,6 +154,7 @@ export const views = createRoute({
 export const remove = createRoute({
   description: "Deletes the object, then the row.",
   method: "delete",
+  operationId: "removeFile",
   path: "/files/{id}",
   request: { params: IdUUIDParamsSchema },
   responses: {
