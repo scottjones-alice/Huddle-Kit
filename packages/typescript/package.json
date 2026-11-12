@@ -1,0 +1,12 @@
+{
+  "name": "@alice/typescript",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared TypeScript configurations",
+  "files": [
+    "base.json",
+    "expo.json",
+    "nextjs.json",
+    "react-library.json"
+  ]
+}
