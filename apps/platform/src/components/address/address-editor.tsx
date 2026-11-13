@@ -1,5 +1,6 @@
 "use client";
 
+import { AddressSearch } from "@/components/address/address-search";
 import { TextField } from "@/components/onboarding/form-fields";
 import type { AddressValues } from "@/lib/address";
 
@@ -24,6 +25,7 @@ export function AddressEditor({
 }: AddressEditorProps) {
   return (
     <div className="space-y-4">
+      <AddressSearch onPick={onChange} />
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField
           id={`${idPrefix}-line1`}

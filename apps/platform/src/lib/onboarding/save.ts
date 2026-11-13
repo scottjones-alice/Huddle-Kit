@@ -4,16 +4,22 @@ import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { huddlekit } from "@/lib/huddle-kit";
 import { clubPayload, clubSavesForStep } from "@/lib/onboarding/club-steps";
+import { text } from "@/lib/onboarding/form-data";
 import {
   founderSavesForStep,
   isFounderStep,
   memberSavesForStep,
+  rowIds,
 } from "@/lib/onboarding/member-steps";
 import type {
   MemberPlanOptions,
   MemberSavePlan,
 } from "@/lib/onboarding/member-steps";
-import { chosenFile, uploadSensitiveFile } from "@/lib/onboarding/upload";
+import {
+  chosenFile,
+  UPLOAD_FAILED,
+  uploadSensitiveFile,
+} from "@/lib/onboarding/upload";
 
 const CONFLICT_STATUS = 409;
 const UNPROCESSABLE_STATUS = 422;
@@ -182,13 +188,84 @@ const governanceFileIds = async (
   return ids;
 };
 
+/** Adds an uploaded DBS certificate to the DBS save, when one was chosen. */
+const withDbsFile = async (
+  plan: MemberSavePlan,
+  data: FormData,
+  fieldName: string
+): Promise<MemberSavePlan> => {
+  const file = chosenFile(data, fieldName);
+  if (file === null || "problem" in plan) {
+    return plan;
+  }
+  const fileId = await uploadSensitiveFile(file);
+  return {
+    saves: plan.saves.map((save) => {
+      const { dbs } = save.payload;
+      const isDbs = save.step === "dbs" || save.step === "safeguarding";
+      return isDbs && typeof dbs === "object" && dbs !== null
+        ? { ...save, payload: { ...save.payload, dbs: { ...dbs, fileId } } }
+        : save;
+    }),
+  };
+};
+
+/** Runs a member plan, uploading the DBS certificate first when there is one. */
+const runMemberPlanWithFile = async (
+  plan: MemberSavePlan,
+  data: FormData,
+  fieldName: string
+): Promise<StepResult> => {
+  try {
+    return await runMemberPlan(await withDbsFile(plan, data, fieldName));
+  } catch {
+    return { message: UPLOAD_FAILED, ok: false };
+  }
+};
+
+const INVITE_ROLE = "member";
+
+/** Sends the invites typed on the team step. Blank rows are skipped. */
+const sendInvites = async (data: FormData): Promise<StepResult> => {
+  for (const id of rowIds(data, "invite")) {
+    const email = text(data, `invite-${id}-primary`);
+    if (email.length > 0) {
+      // Sent one at a time so an error names the address that failed.
+      // oxlint-disable-next-line eslint/no-await-in-loop, react-doctor/async-await-in-loop
+      const { error } = await authClient.organization.inviteMember({
+        email,
+        role: INVITE_ROLE,
+      });
+      const alreadyInvited = (error?.code ?? "").includes("ALREADY_INVITED");
+      if (error !== null && !alreadyInvited) {
+        return {
+          message: `We couldn't invite ${email}. ${error.message ?? ""}`.trim(),
+          ok: false,
+        };
+      }
+    }
+  }
+  return { ok: true };
+};
+
 /** Saves what the person entered on a club wizard step. */
 export const saveClubStep = async (
   stepId: string,
   data: FormData
 ): Promise<StepResult> => {
   if (isFounderStep(stepId)) {
-    return await runMemberPlan(founderSavesForStep(stepId, data));
+    return await runMemberPlanWithFile(
+      founderSavesForStep(stepId, data),
+      data,
+      "owner-dbs-upload"
+    );
+  }
+  if (stepId === "team") {
+    try {
+      return await sendInvites(data);
+    } catch {
+      return GENERIC_FAILURE;
+    }
   }
   const saves = clubSavesForStep(stepId, data);
   if (saves.length === 0) {
@@ -221,10 +298,12 @@ export const saveMemberStep = async (
   stepId: string,
   data: FormData,
   options: MemberPlanOptions
-): Promise<StepResult> => {
-  const result = await runMemberPlan(memberSavesForStep(stepId, data, options));
-  return result;
-};
+): Promise<StepResult> =>
+  await runMemberPlanWithFile(
+    memberSavesForStep(stepId, data, options),
+    data,
+    "me-dbs-upload"
+  );
 
 const draftDataSchema = z.record(
   z.string(),

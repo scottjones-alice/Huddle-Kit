@@ -218,6 +218,38 @@ export namespace PeopleListResponse {
      * @format uuid
      */
     userId: string | null;
+    /**
+     * What they said they were joining as: staff, player or parent.
+     */
+    joinedAs: 'staff' | 'player' | 'parent' | null;
+    /**
+     * Club jobs their login holds now, such as coach or treasurer.
+     */
+    roles: Array<
+      | 'admin'
+      | 'secretary'
+      | 'treasurer'
+      | 'head_coach'
+      | 'coach'
+      | 'assistant_coach'
+      | 'team_manager'
+      | 'first_aider'
+      | 'volunteer'
+      | 'welfare_officer'
+      | 'safeguarding_lead'
+      | 'safeguarding_deputy'
+    >;
+    /**
+     * Teams they are on now, and their role on each.
+     */
+    teams: Array<{
+      role: 'player' | 'coach' | 'assistant_coach' | 'manager' | 'volunteer';
+      /**
+       * @format uuid
+       */
+      teamId: string;
+      teamName: string;
+    }>;
   }
 }
 

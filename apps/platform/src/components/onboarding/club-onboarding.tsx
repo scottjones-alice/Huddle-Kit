@@ -564,7 +564,7 @@ export function ClubOnboarding({
                     active={isActive("team")}
                     stepId="team"
                     title="Invite your team"
-                    description="Choose whether each person joins as staff, a player or a parent. They get a link that already knows their role, so they are never asked again. You can skip this."
+                    description="They get an email with a link to join your club, and choose whether they are staff, a player or a parent when they sign up. You can skip this."
                   >
                     <ContactList
                       idPrefix="invite"
