@@ -13,8 +13,10 @@
     "check-types": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db": "tsx scripts/db.ts",
     "db:diagram": "tsx scripts/generate-dbml.ts",
     "db:push": "drizzle-kit push",
+    "db:seed": "tsx scripts/seed-huddlekit-demo.ts",
     "dev": "drizzle-kit studio",
     "test": "vitest run --exclude \"tests/integration/**\" --exclude \"node_modules/**\"",
     "test:integration": "vitest run tests/integration"
@@ -31,6 +33,7 @@
     "@alice/typescript": "workspace:*",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
+    "better-auth": "catalog:",
     "drizzle-kit": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",

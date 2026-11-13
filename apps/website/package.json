@@ -23,6 +23,7 @@
     "embla-carousel-react": "catalog:",
     "input-otp": "catalog:",
     "lucide-react": "^0.577.0",
+    "motion": "catalog:",
     "next": "catalog:",
     "next-themes": "catalog:",
     "radix-ui": "catalog:",
@@ -35,6 +36,7 @@
     "shiki": "catalog:",
     "simple-icons": "catalog:",
     "sonner": "catalog:",
+    "three": "catalog:",
     "tw-animate-css": "catalog:",
     "vaul": "catalog:",
     "zod": "catalog:"
@@ -45,6 +47,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@types/three": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"

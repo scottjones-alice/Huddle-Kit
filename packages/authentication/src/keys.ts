@@ -18,6 +18,9 @@ export const keys = () =>
         .string()
         .regex(/^[a-z][a-z0-9+.-]*$/u)
         .default("huddlekit"),
+      // Turn off the sign-in, sign-up and reset rate limits. For end-to-end
+      // tests only, which sign up many accounts in a minute. Keep it on otherwise.
+      AUTH_RATE_LIMIT_ENABLED: z.stringbool().default(true),
       BETTER_AUTH_SECRET: z.string().min(MIN_SECRET_LENGTH),
       BETTER_AUTH_URL: z.url(),
       // Passkeys are bound to this domain, e.g. "localhost" or "huddlekit.app".

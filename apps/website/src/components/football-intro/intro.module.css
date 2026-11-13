@@ -1,0 +1,217 @@
+.overlay {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  overflow: hidden;
+  color: #f1f4e9;
+  background: #091b17;
+  isolation: isolate;
+  transition: opacity 250ms ease;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.overlay::backdrop {
+  background: transparent;
+}
+
+:global(html[data-football-intro="playing"]) .canvas,
+:global(html[data-football-intro="revealing"]) .canvas {
+  opacity: 1;
+}
+
+:global(html[data-football-intro="revealing"]) .overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(3 14 11 / 35%),
+      transparent 30%,
+      transparent 65%,
+      rgb(3 14 11 / 75%)
+    ),
+    radial-gradient(
+      ellipse at 50% 45%,
+      transparent 35%,
+      rgb(3 14 11 / 35%) 100%
+    );
+}
+
+.topBar,
+.bottomBar {
+  position: absolute;
+  right: max(40px, env(safe-area-inset-right));
+  left: max(40px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topBar {
+  top: max(30px, env(safe-area-inset-top));
+}
+.bottomBar {
+  bottom: max(28px, env(safe-area-inset-bottom));
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: #a6b8ab;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -1px;
+}
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 30px;
+  border-radius: 8px;
+  background: #d4ff00;
+  color: #10251a;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 850;
+  font-style: italic;
+}
+.skip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgb(226 240 221 / 22%);
+  border-radius: 999px;
+  background: rgb(5 19 14 / 50%);
+  color: #ecf1e9;
+  font-size: 12px;
+  cursor: pointer;
+}
+.skip:hover {
+  background: rgb(212 255 0 / 12%);
+  border-color: #d4ff00;
+}
+.skip:focus-visible {
+  outline: 2px solid #d4ff00;
+  outline-offset: 5px;
+}
+.skip span {
+  font-size: 18px;
+}
+.caption {
+  position: absolute;
+  left: max(7vw, env(safe-area-inset-left));
+  top: 39%;
+  pointer-events: none;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #bdcbbc;
+}
+.liveDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d4ff00;
+  box-shadow: 0 0 12px rgb(212 255 0 / 35%);
+}
+.caption p {
+  margin: 18px 0 0;
+  font-size: clamp(30px, 4.6vw, 70px);
+  line-height: 1.02;
+  font-weight: 550;
+  letter-spacing: -0.055em;
+}
+.caption p span {
+  color: #d4ff00;
+}
+.matchLabel {
+  display: flex;
+  gap: 12px;
+  color: #e1e9df;
+}
+.matchLabel span {
+  color: #6e8575;
+}
+
+@media (max-width: 700px) {
+  .topBar,
+  .bottomBar {
+    right: max(22px, env(safe-area-inset-right));
+    left: max(22px, env(safe-area-inset-left));
+  }
+  .topBar {
+    top: max(20px, env(safe-area-inset-top));
+  }
+  .brand {
+    font-size: 21px;
+  }
+  .caption {
+    top: auto;
+    bottom: max(88px, calc(env(safe-area-inset-bottom) + 70px));
+    left: 28px;
+  }
+  .caption p {
+    font-size: 38px;
+    margin-top: 12px;
+  }
+  .bottomBar {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+  .matchLabel {
+    gap: 7px;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .topBar {
+    top: 12px;
+  }
+  .bottomBar {
+    bottom: 12px;
+  }
+  .caption {
+    top: 40%;
+    bottom: auto;
+    left: 5%;
+  }
+  .caption p {
+    font-size: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    display: none;
+    transition: none;
+  }
+}

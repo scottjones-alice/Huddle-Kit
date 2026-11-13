@@ -8,7 +8,9 @@ import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { expo } from "@better-auth/expo";
 import { passkey } from "@better-auth/passkey";
 import { betterAuth } from "better-auth";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { organization } from "better-auth/plugins";
+import { z } from "zod";
 
 import { resolveAppURL } from "./app-url";
 import { isBillingManager } from "./billing-access";
@@ -23,6 +25,8 @@ const SESSION_FRESH_MINUTES = 5;
 const SESSION_COOKIE_CACHE_SECONDS = 60;
 const VERIFICATION_LIFETIME_SECONDS = 60 * SECONDS_PER_MINUTE;
 const RESET_LIFETIME_SECONDS = 30 * SECONDS_PER_MINUTE;
+const signUpBodySchema = z.object({ email: z.string() });
+
 const SIGN_IN_RATE_LIMIT = { max: 5, window: 60 } as const;
 
 export interface CreateAuthOptions {
@@ -42,6 +46,8 @@ export interface CreateAuthOptions {
   platformURL: string;
   /** Clubs paying us through Stripe. The membership check is supplied here. */
   billing: Omit<CreateStripeBillingOptions, "canManageBilling">;
+  /** Set false only for end-to-end tests. Defaults to true. */
+  rateLimitEnabled?: boolean;
   /** Sends the transactional emails. Injected so this package never owns a provider. */
   mailer: AuthMailer;
 }
@@ -62,6 +68,7 @@ export const createAuth = ({
   nativeScheme,
   passkey: passkeyOptions,
   platformURL,
+  rateLimitEnabled = true,
   secret,
   trustedOrigins,
 }: CreateAuthOptions) => {
@@ -133,6 +140,40 @@ export const createAuth = ({
         await Promise.resolve();
       },
     },
+    hooks: {
+      // With requireEmailVerification on, Better Auth answers a sign-up for an
+      // existing address with a fake success, so the form can't say "you already
+      // have an account". We choose to tell people, so this checks first and
+      // refuses with the same error Better Auth uses when verification is off.
+      // The owner is also emailed, so they know someone tried their address.
+      // Sign-up is rate limited below, which limits how fast addresses can be probed.
+      before: createAuthMiddleware(async (ctx) => {
+        if (ctx.path !== "/sign-up/email") {
+          return;
+        }
+        const body = signUpBodySchema.safeParse(ctx.body);
+        if (!body.success) {
+          return;
+        }
+        const existing = await ctx.context.internalAdapter.findUserByEmail(
+          body.data.email.toLowerCase()
+        );
+        if (existing === null) {
+          return;
+        }
+        const appURL = resolveAppURL(ctx.request, allTrustedOrigins, baseURL);
+        mailer.sendAccountExists({
+          forgotPasswordUrl: `${appURL}/forgot-password`,
+          name: existing.user.name,
+          signInUrl: `${appURL}/login`,
+          to: existing.user.email,
+        });
+        throw new APIError("UNPROCESSABLE_ENTITY", {
+          code: "USER_ALREADY_EXISTS",
+          message: "An account with this email already exists.",
+        });
+      }),
+    },
     plugins: [
       organization({
         ac,
@@ -180,7 +221,7 @@ export const createAuth = ({
         "/sign-in/passkey": SIGN_IN_RATE_LIMIT,
         "/sign-up/email": SIGN_IN_RATE_LIMIT,
       },
-      enabled: true,
+      enabled: rateLimitEnabled,
     },
     secret,
     session: {

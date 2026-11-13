@@ -66,6 +66,9 @@ export const keys = () =>
         }),
       SHUTDOWN_TIMEOUT_MS: positiveInt(DEFAULT_SHUTDOWN_TIMEOUT_MS),
       SLOW_REQUEST_MS: positiveInt(DEFAULT_SLOW_REQUEST_MS),
+      // Local and test only: send email over SMTP (for example to Mailpit at
+      // smtp://127.0.0.1:1025) instead of Resend. Refused in production.
+      SMTP_URL: z.url().optional(),
       // Only true behind a proxy you control: it makes X-Forwarded-For trusted.
       TRUST_PROXY: z.stringbool().default(false),
     },

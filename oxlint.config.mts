@@ -54,6 +54,17 @@ export default defineConfig({
       rules: { "shadcn/no-raw-colors": "off" },
     },
     {
+      // Playwright fixtures take empty destructuring and a `use` callback, which these rules misread. Specs are named *.e2e.ts so the vitest rules skip them.
+      files: [
+        "apps/platform/e2e/**/*.ts",
+        "apps/platform/playwright.config.ts",
+      ],
+      rules: {
+        "eslint/no-empty-pattern": "off",
+        "react-hooks/rules-of-hooks": "off",
+      },
+    },
+    {
       // Metro only loads CommonJS config files.
       files: ["apps/native/metro.config.js"],
       rules: {

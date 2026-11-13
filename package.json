@@ -6,6 +6,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
+    "db": "pnpm --filter @alice/database db",
     "db:generate": "turbo run db:generate --ui=stream",
     "db:migrate": "turbo run db:migrate --ui=stream",
     "db:push": "turbo run db:push --ui=stream",
@@ -13,7 +14,8 @@
     "check": "ultracite check",
     "fix": "ultracite fix",
     "prepare": "husky",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e --ui=stream"
   },
   "devDependencies": {
     "@shadcn/lint": "catalog:",

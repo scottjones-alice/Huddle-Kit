@@ -4,7 +4,7 @@ import { cn } from "@alice/ui/lib/utils";
 import "../styles/globals.css";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/shared/providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -40,10 +40,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
+        <Providers>
           {children}
           <Toaster closeButton expand position="bottom-center" richColors />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

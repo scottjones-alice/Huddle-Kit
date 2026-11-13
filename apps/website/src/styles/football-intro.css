@@ -1,0 +1,33 @@
+/* Opt in before first paint; without JavaScript the normal page stays visible. */
+html[data-football-intro] {
+  overflow: hidden;
+}
+
+html[data-football-intro]::before {
+  position: fixed;
+  z-index: 99;
+  inset: 0;
+  content: "";
+  background: #091b17;
+}
+
+html[data-football-intro="pending"] #website-content,
+html[data-football-intro="playing"] #website-content {
+  visibility: hidden;
+}
+
+html[data-football-intro="revealing"]::before {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-football-intro] {
+    overflow: auto;
+  }
+  html[data-football-intro]::before {
+    display: none;
+  }
+  html[data-football-intro] #website-content {
+    visibility: visible;
+  }
+}

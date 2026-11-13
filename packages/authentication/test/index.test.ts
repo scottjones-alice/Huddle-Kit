@@ -5,6 +5,7 @@ import { createAuth } from "../src/index";
 import type { AuthMailer } from "../src/index";
 
 const makeMailer = (): AuthMailer => ({
+  sendAccountExists: vi.fn<() => void>(),
   sendInvitation: vi.fn<() => void>(),
   sendPasswordChanged: vi.fn<() => void>(),
   sendPasswordReset: vi.fn<() => void>(),

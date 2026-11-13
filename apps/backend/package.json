@@ -26,6 +26,7 @@
     "drizzle-orm": "catalog:",
     "hono": "catalog:",
     "hono-pino": "catalog:",
+    "nodemailer": "catalog:",
     "openapi3-ts": "catalog:",
     "pino": "catalog:",
     "pino-pretty": "catalog:",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@alice/typescript": "workspace:*",
     "@types/node": "catalog:",
+    "@types/nodemailer": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

@@ -33,6 +33,7 @@ Ref: "addresses".("organization_id") > "organizations".("id")
 
 Table "allergies" {
   "allergen" text [not null]
+  "archived_at" timestamp_with_time_zone
   "created_at" timestamp_with_time_zone [not null]
   "id" uuid [pk]
   "organization_id" uuid [not null]
@@ -74,6 +75,51 @@ Table "audit_events" {
   "user_agent" text
 }
 
+Table "club_fee_settings" {
+  "absorb_direct_debit_fee" boolean [not null]
+  "frequency" text [not null]
+  "joining_fee_minor" integer
+  "kit_fee_minor" integer
+  "late_reminders" boolean [not null]
+  "match_fee_minor" integer
+  "organization_id" uuid [pk]
+  "sibling_discount" boolean [not null]
+  "subscription_minor" integer [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "club_fee_settings".("organization_id") > "organizations".("id")
+
+Table "club_profiles" {
+  "affiliation_number" text
+  "club_type" text
+  "constitution_file_id" uuid
+  "copy_parents_on_messages" boolean [not null]
+  "county_fa" text
+  "founded_year" smallint
+  "insurance_certificate_file_id" uuid
+  "insurance_expires_on" date
+  "insurance_policy_number" text
+  "insurance_provider" text
+  "leagues" text
+  "legal_structure" text
+  "no_private_messages" boolean [not null]
+  "organization_id" uuid [pk]
+  "publish_results" boolean [not null]
+  "registration_number" text
+  "safeguarding_policy_file_id" uuid
+  "safeguarding_policy_review_on" date
+  "sections" text
+  "updated_at" timestamp_with_time_zone [not null]
+  "vat_number" text
+  "vat_registered" boolean [not null]
+  "welfare_officer_email" text
+  "welfare_officer_name" text
+}
+Ref: "club_profiles".("constitution_file_id") > "files".("id")
+Ref: "club_profiles".("insurance_certificate_file_id") > "files".("id")
+Ref: "club_profiles".("organization_id") > "organizations".("id")
+Ref: "club_profiles".("safeguarding_policy_file_id") > "files".("id")
+
 Table "club_settings" {
   "address_id" uuid
   "contact_email" text
@@ -89,6 +135,15 @@ Ref: "club_settings".("home_venue_id") > "venues".("id")
 Ref: "club_settings".("organization_id") > "organizations".("id")
 Ref: "club_settings".("organization_id", "address_id") > "addresses".("organization_id", "id")
 
+Table "club_social_links" {
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "platform" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "url" text [not null]
+}
+Ref: "club_social_links".("organization_id") > "organizations".("id")
+
 Table "club_stripe_accounts" {
   "card_payments_status" text [not null]
   "created_at" timestamp_with_time_zone [not null]
@@ -97,6 +152,18 @@ Table "club_stripe_accounts" {
   "updated_at" timestamp_with_time_zone [not null]
 }
 Ref: "club_stripe_accounts".("organization_id") > "organizations".("id")
+
+Table "club_training_slots" {
+  "day_of_week" smallint [not null]
+  "ends_at" time [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "starts_at" time [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+  "venue_id" uuid
+}
+Ref: "club_training_slots".("organization_id") > "organizations".("id")
+Ref: "club_training_slots".("venue_id") > "venues".("id")
 
 Table "consent_documents" {
   "body" text [not null]
@@ -367,6 +434,29 @@ Table "medical_records" {
 Ref: "medical_records".("organization_id") > "organizations".("id")
 Ref: "medical_records".("organization_id", "person_id") > "people".("organization_id", "id")
 
+Table "member_billing_preferences" {
+  "billing_email" text
+  "method" text
+  "organization_id" uuid [not null]
+  "payer" text
+  "person_id" uuid [pk]
+  "second_payer_email" text
+  "second_payer_name" text
+  "send_reminders" boolean [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "member_billing_preferences".("organization_id") > "organizations".("id")
+Ref: "member_billing_preferences".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "member_joining_roles" {
+  "joined_as" text [not null]
+  "organization_id" uuid [not null]
+  "person_id" uuid [pk]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "member_joining_roles".("organization_id") > "organizations".("id")
+Ref: "member_joining_roles".("organization_id", "person_id") > "people".("organization_id", "id")
+
 Table "members" {
   "id" uuid [pk]
   "organization_id" uuid [not null]
@@ -396,6 +486,8 @@ Table "onboarding_drafts" {
   "data" text [not null]
   "flow" text [not null]
   "id" uuid [pk]
+  "last_reminded_at" timestamp_with_time_zone
+  "reminders_sent" smallint [not null]
   "step_id" text [not null]
   "updated_at" timestamp_with_time_zone [not null]
   "user_id" uuid [not null]
@@ -494,6 +586,29 @@ Ref: "people".("organization_id") > "organizations".("id")
 Ref: "people".("user_id") > "users".("id")
 Ref: "people".("organization_id", "address_id") > "addresses".("organization_id", "id")
 
+Table "person_availability" {
+  "day_of_week" smallint [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "slot" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "person_availability".("organization_id") > "organizations".("id")
+Ref: "person_availability".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "person_demographics" {
+  "additional_needs" text
+  "ethnicity" text
+  "gender" text
+  "organization_id" uuid [not null]
+  "person_id" uuid [pk]
+  "religion" text
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "person_demographics".("organization_id") > "organizations".("id")
+Ref: "person_demographics".("organization_id", "person_id") > "people".("organization_id", "id")
+
 Table "person_identifiers" {
   "created_at" timestamp_with_time_zone [not null]
   "id" uuid [pk]
@@ -505,6 +620,19 @@ Table "person_identifiers" {
 }
 Ref: "person_identifiers".("organization_id") > "organizations".("id")
 Ref: "person_identifiers".("organization_id", "person_id") > "people".("organization_id", "id")
+
+Table "person_kit" {
+  "organization_id" uuid [not null]
+  "person_id" uuid [pk]
+  "pickup_rule" text
+  "shirt_name" text
+  "shirt_size" text
+  "shorts_size" text
+  "squad_number" smallint
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "person_kit".("organization_id") > "organizations".("id")
+Ref: "person_kit".("organization_id", "person_id") > "people".("organization_id", "id")
 
 Table "person_relationships" {
   "can_collect" boolean [not null]
@@ -521,6 +649,17 @@ Table "person_relationships" {
 Ref: "person_relationships".("organization_id") > "organizations".("id")
 Ref: "person_relationships".("organization_id", "person_id") > "people".("organization_id", "id")
 Ref: "person_relationships".("organization_id", "related_person_id") > "people".("organization_id", "id")
+
+Table "person_social_links" {
+  "handle" text [not null]
+  "id" uuid [pk]
+  "organization_id" uuid [not null]
+  "person_id" uuid [not null]
+  "platform" text [not null]
+  "updated_at" timestamp_with_time_zone [not null]
+}
+Ref: "person_social_links".("organization_id") > "organizations".("id")
+Ref: "person_social_links".("organization_id", "person_id") > "people".("organization_id", "id")
 
 Table "pitches" {
   "created_at" timestamp_with_time_zone [not null]

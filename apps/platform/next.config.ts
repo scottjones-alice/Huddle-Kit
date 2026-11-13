@@ -12,6 +12,8 @@ if (existsSync(rootEnvPath)) {
 const nextConfig: NextConfig = {
   cacheComponents: true,
   devIndicators: false,
+  // End-to-end tests build into their own folder so they never fight a running `pnpm dev`.
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   partialPrefetching: true,
   reactCompiler: true,
   transpilePackages: [

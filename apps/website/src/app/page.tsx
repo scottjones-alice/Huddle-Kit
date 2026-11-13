@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
+import { FootballIntro } from "@/components/football-intro/football-intro";
+
 export const metadata: Metadata = {
   description:
     "Huddlekit: fixtures, RSVPs, lineups and match fees for your whole squad.",
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="bg-background flex flex-1 flex-col items-center justify-center font-sans">
+      <FootballIntro />
       <main className="bg-background flex w-full max-w-3xl flex-1 flex-col items-center justify-between px-16 py-32 sm:items-start">
         <Image
           className="h-5 w-25 dark:invert"

@@ -10,6 +10,7 @@ import { sendEmail } from "@/services/resend";
 
 const {
   AUTH_COOKIE_DOMAIN,
+  AUTH_RATE_LIMIT_ENABLED,
   AUTH_NATIVE_SCHEME,
   BETTER_AUTH_SECRET,
   BETTER_AUTH_URL,
@@ -26,6 +27,13 @@ const {
 
 /** sendEmail never throws and Better Auth never awaits these, so no timing leak. */
 const mailer: AuthMailer = {
+  sendAccountExists: ({ forgotPasswordUrl, name, signInUrl, to }) => {
+    void sendEmail({
+      props: { forgotPasswordUrl, name, signInUrl },
+      template: "account-exists",
+      to,
+    });
+  },
   sendInvitation: ({ inviteUrl, inviterName, teamName, to }) => {
     void sendEmail({
       props: { inviteUrl, inviterName, teamName },
@@ -77,6 +85,7 @@ export const auth = createAuth({
   nativeScheme: AUTH_NATIVE_SCHEME,
   passkey: { rpID: PASSKEY_RP_ID, rpName: PASSKEY_RP_NAME },
   platformURL: PLATFORM_URL,
+  rateLimitEnabled: AUTH_RATE_LIMIT_ENABLED,
   secret: BETTER_AUTH_SECRET,
   trustedOrigins: CORS_ORIGINS,
 });

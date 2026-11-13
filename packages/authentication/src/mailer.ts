@@ -10,6 +10,10 @@ interface AuthMail {
 }
 
 export interface AuthMailer {
+  /** Tells the owner of an address that someone tried to sign up with it again. */
+  sendAccountExists: (
+    input: AuthMail & { forgotPasswordUrl: string; signInUrl: string }
+  ) => void;
   sendInvitation: (input: {
     /** Link to the accept-invite page; the invitation id in it is the token. */
     inviteUrl: string;
