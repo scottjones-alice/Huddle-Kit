@@ -23,7 +23,7 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { safeguardingConcerns } from "./concerns";
 
 export const safeguardingNotes = pgTable(

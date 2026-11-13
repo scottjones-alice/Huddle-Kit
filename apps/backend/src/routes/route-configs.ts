@@ -6,6 +6,7 @@ import * as consents from "./consents/consents.route";
 import * as events from "./events/events.route";
 import * as fees from "./fees/fees.route";
 import * as files from "./files/files.route";
+import * as membership from "./membership/membership.route";
 import * as messaging from "./messaging/messaging.route";
 import * as onboarding from "./onboarding/onboarding.route";
 import * as opponents from "./opponents/opponents.route";
@@ -32,6 +33,7 @@ const modules: Record<string, unknown>[] = [
   events,
   fees,
   files,
+  membership,
   messaging,
   onboarding,
   opponents,

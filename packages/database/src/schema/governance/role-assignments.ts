@@ -30,7 +30,8 @@ import {
   unique,
 } from "drizzle-orm/pg-core";
 
-import { organizations, users } from "../authentication";
+import { users } from "../authentication";
+import { organizations } from "../club/clubs";
 import { isOneOf } from "../shared/constraints";
 
 export const ROLE_ASSIGNMENT_ROLES = [

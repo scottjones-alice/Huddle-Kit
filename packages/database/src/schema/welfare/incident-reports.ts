@@ -19,7 +19,8 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 
-import { organizations, users } from "../authentication";
+import { users } from "../authentication";
+import { organizations } from "../club/clubs";
 import { venues } from "../club/venues";
 import { teams } from "../football/teams";
 import { people } from "../people/people";

@@ -17,9 +17,9 @@ import {
   unique,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
 import { addresses } from "../people/addresses";
 import { isNonEmptyArrayOf } from "../shared/constraints";
+import { organizations } from "./clubs";
 
 export const VENUE_KINDS = [
   "training_ground",

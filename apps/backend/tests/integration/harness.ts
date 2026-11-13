@@ -95,6 +95,7 @@ export const createTestClub = async <T extends Record<string, MemberSeed>>(
           body: body === undefined ? undefined : JSON.stringify(body),
           headers: {
             "content-type": "application/json",
+            "x-test-email": `${name}-${runId}@example.com`,
             "x-test-org": organizationId,
             "x-test-user": id,
           },

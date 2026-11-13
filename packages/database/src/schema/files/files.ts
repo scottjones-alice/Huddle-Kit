@@ -15,7 +15,8 @@ import {
   check,
 } from "drizzle-orm/pg-core";
 
-import { organizations, users } from "../authentication";
+import { users } from "../authentication";
+import { organizations } from "../club/clubs";
 import { isOneOf } from "../shared/constraints";
 
 // "sensitive" is for scans of personal documents (consent forms, DBS and other

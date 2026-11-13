@@ -23,13 +23,12 @@ import {
 } from "../../src/index";
 import {
   accounts,
-  invitations,
-  members,
-  organizations,
   sessions,
   users,
   verifications,
 } from "../../src/schema/authentication";
+import { invitations } from "../../src/schema/club/club-invitations";
+import { members, organizations } from "../../src/schema/club/clubs";
 import { seasons } from "../../src/schema/football/seasons";
 import { auditEvents } from "../../src/schema/governance/audit-events";
 import { consents } from "../../src/schema/governance/consent";

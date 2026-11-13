@@ -29,7 +29,11 @@ vi.mock("@/services/auth", () => ({
         }
         return {
           session: { activeOrganizationId: headers.get("x-test-org") },
-          user: { id: userId },
+          user: {
+            email: headers.get("x-test-email") ?? `${userId}@example.com`,
+            emailVerified: headers.get("x-test-unverified") === null,
+            id: userId,
+          },
         };
       },
     },

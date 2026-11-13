@@ -21,7 +21,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { opponents } from "../club/opponents";
 import { isOneOf } from "../shared/constraints";
 import { events } from "./events";

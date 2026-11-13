@@ -3,8 +3,10 @@ import { PgTable } from "drizzle-orm/pg-core";
 import { describe, expect, it } from "vitest";
 
 import * as authentication from "../src/schema/authentication";
+import * as clubInvitations from "../src/schema/club/club-invitations";
 import * as clubProfile from "../src/schema/club/club-profile";
 import * as clubSettings from "../src/schema/club/club-settings";
+import * as clubs from "../src/schema/club/clubs";
 import * as opponents from "../src/schema/club/opponents";
 import * as pitches from "../src/schema/club/pitches";
 import * as venues from "../src/schema/club/venues";
@@ -119,6 +121,8 @@ const ownTables = [
   ...tablesIn(consentDocuments),
   ...tablesIn(clubStripeAccounts),
   ...tablesIn(clubSubscriptions),
+  ...tablesIn(clubs),
+  ...tablesIn(clubInvitations),
   ...tablesIn(feeCharges),
   ...tablesIn(fees),
   ...tablesIn(notifications),

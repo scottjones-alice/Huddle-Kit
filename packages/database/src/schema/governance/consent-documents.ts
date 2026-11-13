@@ -21,7 +21,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { isOneOf } from "../shared/constraints";
 import { CONSENT_TYPES } from "./consent-types";
 import type { ConsentType } from "./consent-types";

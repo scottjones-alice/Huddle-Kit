@@ -22,7 +22,7 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { files } from "../files/files";
 import { people } from "../people/people";
 import { isOneOf } from "../shared/constraints";

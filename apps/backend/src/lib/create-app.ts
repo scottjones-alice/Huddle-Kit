@@ -7,7 +7,12 @@ import { defaultHook } from "stoker/openapi";
 import { onError } from "@/lib/on-error";
 import { cors } from "@/middlewares/cors";
 import { pinoLogger } from "@/middlewares/pino-logger";
-import type { AppBindings, AppOpenAPI, AuthedBindings } from "@/types";
+import type {
+  AppBindings,
+  AppOpenAPI,
+  AuthedBindings,
+  UserBindings,
+} from "@/types";
 
 export function createRouter() {
   return new OpenAPIHono<AppBindings>({
@@ -19,6 +24,14 @@ export function createRouter() {
 /** A router whose handlers can read `userId` and `organizationId` (see requireSession). */
 export function createAuthedRouter() {
   return new OpenAPIHono<AuthedBindings>({
+    defaultHook,
+    strict: false,
+  });
+}
+
+/** A router whose handlers can read `user` (see requireUser). */
+export function createUserRouter() {
+  return new OpenAPIHono<UserBindings>({
     defaultHook,
     strict: false,
   });

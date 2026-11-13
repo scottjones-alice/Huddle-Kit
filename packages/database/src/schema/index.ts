@@ -1,6 +1,8 @@
 // drizzle-kit reads the whole schema from this one entry point, so a barrel is the intent here.
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./authentication";
+export * from "./club/club-invitations";
+export * from "./club/clubs";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./club/club-profile";
 // oxlint-disable-next-line oxc/no-barrel-file

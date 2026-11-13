@@ -19,7 +19,7 @@ import {
   unique,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { venues } from "../club/venues";
 import { seasons } from "./seasons";
 

@@ -1,0 +1,448 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "5cbef891-0eda-44f4-905d-24ef74e6a915",
+  "prevIds": ["f8d0e688-70fe-4e85-b095-3cb0009bd72e"],
+  "footprints": [
+    {
+      "statementType": "drop_index",
+      "statementTarget": ["index", "public", "members", "members_userId_idx"],
+      "writes": [
+        "s|idx|public.members_userId_idx",
+        "n|idx|public.members_userId_idx",
+        "e|idx|public.members_userId_idx",
+        "n|rel|public.members_userId_idx"
+      ],
+      "reads": [
+        "e|tbl|public.members",
+        "n|sch|public",
+        "e|col|public.members.user_id"
+      ],
+      "sharedWrites": []
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "invitations", "person_id"],
+      "writes": [
+        "s|col|public.invitations.person_id",
+        "n|col|public.invitations.person_id",
+        "e|col|public.invitations.person_id"
+      ],
+      "reads": ["n|tbl|public.invitations", "n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "invitations", "team_id"],
+      "writes": [
+        "s|col|public.invitations.team_id",
+        "n|col|public.invitations.team_id",
+        "e|col|public.invitations.team_id"
+      ],
+      "reads": ["n|tbl|public.invitations", "n|sch|public"]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": ["column", "public", "invitations", "team_role"],
+      "writes": [
+        "s|col|public.invitations.team_role",
+        "n|col|public.invitations.team_role",
+        "e|col|public.invitations.team_role"
+      ],
+      "reads": ["n|tbl|public.invitations", "n|sch|public"]
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": ["column", "public", "invitations", "role"],
+      "writes": [
+        "s|colprop|public.invitations.role.notNull",
+        "s|colprop|public.invitations.role.default"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.role"
+      ],
+      "sqlHash": "211452f60b03dd36"
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "invitations",
+        "invitations_organizationId_email_pending_uidx"
+      ],
+      "writes": [
+        "s|idx|public.invitations_organizationId_email_pending_uidx",
+        "n|idx|public.invitations_organizationId_email_pending_uidx",
+        "e|idx|public.invitations_organizationId_email_pending_uidx",
+        "n|rel|public.invitations_organizationId_email_pending_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.organization_id",
+        "n|col|public.invitations.email"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "members", "members_userId_uidx"],
+      "writes": [
+        "s|idx|public.members_userId_uidx",
+        "n|idx|public.members_userId_uidx",
+        "e|idx|public.members_userId_uidx",
+        "n|rel|public.members_userId_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.members",
+        "n|sch|public",
+        "n|col|public.members.user_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|fk|public.invitations.invitations_person_same_org_fkey",
+        "n|fk|public.invitations.invitations_person_same_org_fkey",
+        "e|fk|public.invitations.invitations_person_same_org_fkey",
+        "n|con|public.invitations.invitations_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.invitations.organization_id",
+        "n|col|public.invitations.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|fk|public.invitations.invitations_team_same_org_fkey",
+        "n|fk|public.invitations.invitations_team_same_org_fkey",
+        "e|fk|public.invitations.invitations_team_same_org_fkey",
+        "n|con|public.invitations.invitations_team_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|tbl|public.teams",
+        "n|sch|public",
+        "n|col|public.invitations.organization_id",
+        "n|col|public.invitations.team_id",
+        "n|col|public.teams.organization_id",
+        "n|col|public.teams.id",
+        "e|uniqueness|public.teams.id.organization_id"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|ck|public.invitations.invitations_role_chk",
+        "n|ck|public.invitations.invitations_role_chk",
+        "e|ck|public.invitations.invitations_role_chk",
+        "n|con|public.invitations.invitations_role_chk"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.role"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|ck|public.invitations.invitations_status_chk",
+        "n|ck|public.invitations.invitations_status_chk",
+        "e|ck|public.invitations.invitations_status_chk",
+        "n|con|public.invitations.invitations_status_chk"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.status"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|ck|public.invitations.invitations_team_chk",
+        "n|ck|public.invitations.invitations_team_chk",
+        "e|ck|public.invitations.invitations_team_chk",
+        "n|con|public.invitations.invitations_team_chk"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.team_id",
+        "n|col|public.invitations.team_role",
+        "n|col|public.invitations.person_id"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|ck|public.invitations.invitations_teamRole_chk",
+        "n|ck|public.invitations.invitations_teamRole_chk",
+        "e|ck|public.invitations.invitations_teamRole_chk",
+        "n|con|public.invitations.invitations_teamRole_chk"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.team_role"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "invitations"],
+      "writes": [
+        "s|ck|public.invitations.invitations_email_chk",
+        "n|ck|public.invitations.invitations_email_chk",
+        "e|ck|public.invitations.invitations_email_chk",
+        "n|con|public.invitations.invitations_email_chk"
+      ],
+      "reads": [
+        "n|tbl|public.invitations",
+        "n|sch|public",
+        "n|col|public.invitations.email"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": ["table", "public", "members"],
+      "writes": [
+        "s|ck|public.members.members_role_chk",
+        "n|ck|public.members.members_role_chk",
+        "e|ck|public.members.members_role_chk",
+        "n|con|public.members.members_role_chk"
+      ],
+      "reads": [
+        "n|tbl|public.members",
+        "n|sch|public",
+        "n|col|public.members.role"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "team_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "team_role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_organizationId_email_pending_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "email",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"status\" = 'pending'",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "members",
+        "name": "members_userId_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_team_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "team_id"],
+        "schemaTo": "public",
+        "tableTo": "teams",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "RESTRICT",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_role_chk",
+        "value": "\"role\" ~ '^(owner|admin|member)(,(owner|admin|member))*$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_status_chk",
+        "value": "\"status\" in ('pending', 'accepted', 'rejected', 'canceled')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_team_chk",
+        "value": "(\"team_id\" is null) = (\"team_role\" is null) and (\"team_id\" is null or \"person_id\" is not null)",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_teamRole_chk",
+        "value": "\"team_role\" is null or \"team_role\" in ('player', 'coach', 'assistant_coach', 'manager', 'volunteer')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "invitations",
+        "name": "invitations_email_chk",
+        "value": "\"email\" = lower(\"email\")",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "members",
+        "name": "members_role_chk",
+        "value": "\"role\" ~ '^(owner|admin|member)(,(owner|admin|member))*$'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"members_userId_idx\"]"
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"invitations\",\"role\"]",
+      "set": {
+        "notNull": true,
+        "default": "'member'"
+      }
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { defineRelationsPart } from "drizzle-orm";
 
-import { authRelations, verifications } from "./authentication";
+import { authRelations } from "./auth-relations";
+import { verifications } from "./authentication";
 import { clubProfileRelations } from "./club/club-profile";
 import { clubSettingsRelations } from "./club/club-settings";
 import { opponentRelations } from "./club/opponents";

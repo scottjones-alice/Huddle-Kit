@@ -25,6 +25,10 @@ import {
 import { z } from "zod";
 
 import {
+  INVITATION_STATUSES,
+  invitations,
+} from "./schema/club/club-invitations";
+import {
   CLUB_SECTIONS,
   CLUB_TYPES,
   FEE_FREQUENCIES,
@@ -36,6 +40,7 @@ import {
   clubTrainingSlots,
 } from "./schema/club/club-profile";
 import { clubSettings } from "./schema/club/club-settings";
+import { members, organizations } from "./schema/club/clubs";
 import { opponents } from "./schema/club/opponents";
 import { PITCH_FORMATS, PITCH_SURFACES, pitches } from "./schema/club/pitches";
 import { VENUE_KINDS, venues } from "./schema/club/venues";
@@ -1046,6 +1051,83 @@ export const clubStripeAccountUpdateSchema = createUpdateSchema(
   clubStripeAccountRefinements
 );
 
+// clubs, members and invitations -------------------------------------------
+
+const CLUB_SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
+const CLUB_SLUG_MIN = 3;
+const CLUB_SLUG_MAX = 48;
+const CLUB_NAME_MAX = 120;
+const MEMBER_ROLES_PATTERN =
+  /^(?:owner|admin|member)(?:,(?:owner|admin|member))*$/u;
+
+const roleListRefinement = (schema: z.ZodString) =>
+  schema.regex(
+    MEMBER_ROLES_PATTERN,
+    "Use owner, admin or member, separated by commas"
+  );
+
+const clubRefinements = {
+  name: (schema: z.ZodString) => schema.trim().min(1).max(CLUB_NAME_MAX),
+  slug: (schema: z.ZodString) =>
+    schema
+      .min(CLUB_SLUG_MIN)
+      .max(CLUB_SLUG_MAX)
+      .regex(CLUB_SLUG_PATTERN, "Use lower-case letters, numbers and hyphens"),
+};
+
+export const clubSelectSchema = createSelectSchema(
+  organizations,
+  clubRefinements
+);
+export const clubInsertSchema = createInsertSchema(
+  organizations,
+  clubRefinements
+);
+export const clubUpdateSchema = createUpdateSchema(
+  organizations,
+  clubRefinements
+);
+
+const memberRefinements = { role: roleListRefinement };
+
+export const memberSelectSchema = createSelectSchema(
+  members,
+  memberRefinements
+);
+export const memberInsertSchema = createInsertSchema(
+  members,
+  memberRefinements
+);
+export const memberUpdateSchema = createUpdateSchema(
+  members,
+  memberRefinements
+);
+
+const invitationRefinements = {
+  email: () =>
+    z
+      .email()
+      .refine(
+        (value) => value === value.toLowerCase(),
+        "Use a lower-case email address"
+      ),
+  role: roleListRefinement,
+  status: () => z.enum(INVITATION_STATUSES),
+};
+
+export const invitationSelectSchema = createSelectSchema(
+  invitations,
+  invitationRefinements
+);
+export const invitationInsertSchema = createInsertSchema(
+  invitations,
+  invitationRefinements
+);
+export const invitationUpdateSchema = createUpdateSchema(
+  invitations,
+  invitationRefinements
+);
+
 // club_subscriptions and stripe_events --------------------------------------
 
 const STRIPE_SUBSCRIPTION_ID_PATTERN = /^sub_[A-Za-z0-9]+$/u;
@@ -1637,6 +1719,11 @@ export type ClubStripeAccountRecord = z.infer<
 export type NewClubStripeAccountRecord = z.infer<
   typeof clubStripeAccountInsertSchema
 >;
+export type ClubRecord = z.infer<typeof clubSelectSchema>;
+export type MemberRecord = z.infer<typeof memberSelectSchema>;
+export type NewMemberRecord = z.infer<typeof memberInsertSchema>;
+export type InvitationRecord = z.infer<typeof invitationSelectSchema>;
+export type NewInvitationRecord = z.infer<typeof invitationInsertSchema>;
 export type ClubSubscriptionRecord = z.infer<
   typeof clubSubscriptionSelectSchema
 >;
@@ -1793,6 +1880,11 @@ export const tableSchemas = {
     select: incidentReportSelectSchema,
     update: incidentReportUpdateSchema,
   },
+  invitations: {
+    insert: invitationInsertSchema,
+    select: invitationSelectSchema,
+    update: invitationUpdateSchema,
+  },
   match_details: {
     insert: matchDetailInsertSchema,
     select: matchDetailSelectSchema,
@@ -1818,6 +1910,11 @@ export const tableSchemas = {
     select: memberJoiningRoleSelectSchema,
     update: memberJoiningRoleUpdateSchema,
   },
+  members: {
+    insert: memberInsertSchema,
+    select: memberSelectSchema,
+    update: memberUpdateSchema,
+  },
   notifications: {
     insert: notificationInsertSchema,
     select: notificationSelectSchema,
@@ -1837,6 +1934,11 @@ export const tableSchemas = {
     insert: opponentInsertSchema,
     select: opponentSelectSchema,
     update: opponentUpdateSchema,
+  },
+  organizations: {
+    insert: clubInsertSchema,
+    select: clubSelectSchema,
+    update: clubUpdateSchema,
   },
   payments: {
     insert: paymentInsertSchema,

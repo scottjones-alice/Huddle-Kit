@@ -24,14 +24,20 @@ export type {
 
 export {
   accounts,
-  invitations,
   passkeys,
-  members,
-  organizations,
   sessions,
   users,
   verifications,
 } from "./schema/authentication";
+
+export {
+  INVITATION_STATUSES,
+  invitations,
+} from "./schema/club/club-invitations";
+export type { InvitationStatus } from "./schema/club/club-invitations";
+
+export { CLUB_MEMBER_ROLES, members, organizations } from "./schema/club/clubs";
+export type { ClubMemberRole } from "./schema/club/clubs";
 
 export {
   CLUB_SECTIONS,

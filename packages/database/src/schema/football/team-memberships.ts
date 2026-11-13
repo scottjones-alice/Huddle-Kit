@@ -19,7 +19,7 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 import { people } from "../people/people";
 import { isOneOf } from "../shared/constraints";
 import { teams } from "./teams";

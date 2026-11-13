@@ -16,7 +16,7 @@ import {
   unique,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
+import { organizations } from "../club/clubs";
 
 export const addresses = pgTable(
   "addresses",

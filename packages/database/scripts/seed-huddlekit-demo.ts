@@ -29,13 +29,9 @@ import { createDatabase } from "../src/create-database";
 import type { Database } from "../src/create-database";
 import { createFieldEncryptor, keyFromBase64 } from "../src/field-encryption";
 import { keys } from "../src/keys";
-import {
-  accounts,
-  members,
-  organizations,
-  users,
-} from "../src/schema/authentication";
+import { accounts, users } from "../src/schema/authentication";
 import { clubSettings } from "../src/schema/club/club-settings";
+import { members, organizations } from "../src/schema/club/clubs";
 import { opponents } from "../src/schema/club/opponents";
 import { pitches } from "../src/schema/club/pitches";
 import { venues } from "../src/schema/club/venues";

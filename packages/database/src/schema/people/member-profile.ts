@@ -20,9 +20,9 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
 import { SOCIAL_PLATFORMS } from "../club/club-profile";
 import type { SocialPlatform } from "../club/club-profile";
+import { organizations } from "../club/clubs";
 import { isOneOf } from "../shared/constraints";
 import { people } from "./people";
 

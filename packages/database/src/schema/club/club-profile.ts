@@ -22,9 +22,9 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
 import { files } from "../files/files";
 import { isNonEmptyArrayOf, isOneOf } from "../shared/constraints";
+import { organizations } from "./clubs";
 import { venues } from "./venues";
 
 export const CLUB_TYPES = [

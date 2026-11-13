@@ -18,8 +18,8 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
 import { isOneOf } from "../shared/constraints";
+import { organizations } from "./clubs";
 import { venues } from "./venues";
 
 export const PITCH_SURFACES = [

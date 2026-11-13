@@ -18,6 +18,7 @@ import events from "@/routes/events/events.index";
 import fees from "@/routes/fees/fees.index";
 import files from "@/routes/files/files.index";
 import internal from "@/routes/internal/internal.index";
+import membership from "@/routes/membership/membership.index";
 import messaging from "@/routes/messaging/messaging.index";
 import onboarding from "@/routes/onboarding/onboarding.index";
 import opponents from "@/routes/opponents/opponents.index";
@@ -95,6 +96,7 @@ const routes = [
   events,
   fees,
   files,
+  membership,
   messaging,
   onboarding,
   opponents,
@@ -117,6 +119,7 @@ app.route(API_PREFIX, consents);
 app.route(API_PREFIX, events);
 app.route(API_PREFIX, fees);
 app.route(API_PREFIX, files);
+app.route(API_PREFIX, membership);
 app.route(API_PREFIX, messaging);
 app.route(API_PREFIX, onboarding);
 app.route(API_PREFIX, opponents);

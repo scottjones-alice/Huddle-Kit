@@ -18,8 +18,8 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 
-import { organizations } from "../authentication";
 import { addresses } from "../people/addresses";
+import { organizations } from "./clubs";
 import { venues } from "./venues";
 
 export const clubSettings = pgTable(
