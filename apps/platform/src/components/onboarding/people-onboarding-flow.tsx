@@ -1,11 +1,13 @@
 "use client";
 
 import { FootballLoader } from "@alice/user-interface/components/football-loader";
+import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { isMemberRole } from "@/components/onboarding/options";
 import type { MemberRole } from "@/components/onboarding/options";
 import { PeopleOnboarding } from "@/components/onboarding/people-onboarding";
+import { authClient } from "@/lib/auth-client";
 import { createsChildren } from "@/lib/onboarding/member-steps";
 import type { SavedDraft } from "@/lib/onboarding/save";
 import {
@@ -17,6 +19,7 @@ import {
 
 type DraftState =
   | { status: "loading" }
+  | { status: "outside" }
   | { draft: SavedDraft | null; status: "ready" };
 
 // Steps that come after the one that creates the children.
@@ -42,6 +45,15 @@ export function PeopleOnboardingFlow({
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
+      // These steps are for club members. Anyone else goes back to the start,
+      // which sends them to accept an invite or set up a club.
+      const { data: clubs } = await authClient.organization.list();
+      if ((clubs ?? []).length === 0) {
+        if (!cancelled) {
+          setState({ status: "outside" });
+        }
+        return;
+      }
       const draft = await loadDraft("people");
       if (!cancelled) {
         childrenSaved.current = STEPS_AFTER_CHILDREN.has(draft?.stepId ?? "");
@@ -53,6 +65,10 @@ export function PeopleOnboardingFlow({
       cancelled = true;
     };
   }, []);
+
+  if (state.status === "outside") {
+    return redirect("/");
+  }
 
   if (state.status === "loading") {
     return <FootballLoader label="Getting your details ready" variant="page" />;

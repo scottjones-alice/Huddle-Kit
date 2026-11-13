@@ -18,6 +18,7 @@
     "@alice/environment": "workspace:*",
     "@alice/user-interface": "workspace:*",
     "@alicesystems-co/huddlekit": "workspace:*",
+    "@novu/react": "catalog:",
     "@t3-oss/env-core": "catalog:",
     "cn": "catalog:",
     "date-fns": "catalog:",

@@ -14,10 +14,13 @@ export type MemberStepName =
   | "children"
   | "dbs"
   | "details"
+  | "emergency"
   | "permissions"
   | "role"
+  | "safeguarding"
   | "safety"
-  | "social";
+  | "social"
+  | "you";
 
 export interface MemberSave {
   payload: Record<string, unknown>;
@@ -64,7 +67,7 @@ const splitName = (full: string): { firstName: string; lastName: string } => {
 };
 
 /** The row numbers of a repeatable list (emergency contacts and the like). */
-const rowIds = (data: FormData, idPrefix: string): string[] => {
+export const rowIds = (data: FormData, idPrefix: string): string[] => {
   const ids: string[] = [];
   for (const key of data.keys()) {
     if (key.startsWith(`${idPrefix}-`)) {
@@ -388,3 +391,65 @@ export const memberSavesForStep = (
 /** Whether this step is the one that creates the children. */
 export const createsChildren = (stepId: string): boolean =>
   stepId === "permissions";
+
+const FOUNDER_STEPS: ReadonlySet<string> = new Set([
+  "you",
+  "emergency",
+  "safeguarding",
+]);
+
+/** Whether a club wizard step is the founder's own details, saved as a member. */
+export const isFounderStep = (stepId: string): boolean =>
+  FOUNDER_STEPS.has(stepId);
+
+/** The club wizard names the founder's fields `owner-...`; the people steps use `me-...`. */
+const asMemberAnswers = (data: FormData): FormData => {
+  const renamed = new FormData();
+  for (const [key, value] of data.entries()) {
+    renamed.append(key.replace(/^owner-/u, "me-"), value);
+  }
+  return renamed;
+};
+
+/** What to send for the founder's steps in the club wizard. */
+export const founderSavesForStep = (
+  stepId: string,
+  data: FormData
+): MemberSavePlan => {
+  const answers = asMemberAnswers(data);
+  switch (stepId) {
+    case "you": {
+      const saves: MemberSave[] = [
+        { payload: detailsPayload(answers), step: "you" },
+      ];
+      if (text(answers, "me-home-line1").length > 0) {
+        saves.push({
+          payload: addressFor(answers, "me-home"),
+          step: "address",
+        });
+      }
+      return { saves };
+    }
+    case "emergency": {
+      const message = problemWith("safety", answers);
+      if (message !== null) {
+        return { problem: { message } };
+      }
+      return {
+        saves: [
+          // Extra needs live on the details record, so it is saved again here.
+          { payload: detailsPayload(answers), step: "you" },
+          { payload: safetyPayload(answers), step: "emergency" },
+        ],
+      };
+    }
+    case "safeguarding": {
+      return {
+        saves: [{ payload: dbsPayload(answers), step: "safeguarding" }],
+      };
+    }
+    default: {
+      return { saves: [] };
+    }
+  }
+};

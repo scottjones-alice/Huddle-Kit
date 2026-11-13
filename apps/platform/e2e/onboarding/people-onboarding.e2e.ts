@@ -3,6 +3,17 @@ import { createVerifiedUser, gotoReady, signInViaApi } from "../helpers/auth";
 import { joiningRole, seedInvitation } from "../helpers/database";
 
 test.describe("people onboarding", () => {
+  test("someone who is in no club cannot open the people steps", async ({
+    page,
+    verifiedUser,
+  }) => {
+    await signInViaApi(page, verifiedUser);
+
+    await page.goto("/onboarding-people");
+
+    await expect(page).toHaveURL(/\/onboarding-club/u);
+  });
+
   test("accepting an invite leads to the people steps, and each step saves @smoke", async ({
     club,
     page,

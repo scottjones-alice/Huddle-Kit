@@ -4,8 +4,16 @@ import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { huddlekit } from "@/lib/huddle-kit";
 import { clubPayload, clubSavesForStep } from "@/lib/onboarding/club-steps";
-import { memberSavesForStep } from "@/lib/onboarding/member-steps";
-import type { MemberPlanOptions } from "@/lib/onboarding/member-steps";
+import {
+  founderSavesForStep,
+  isFounderStep,
+  memberSavesForStep,
+} from "@/lib/onboarding/member-steps";
+import type {
+  MemberPlanOptions,
+  MemberSavePlan,
+} from "@/lib/onboarding/member-steps";
+import { chosenFile, uploadSensitiveFile } from "@/lib/onboarding/upload";
 
 const CONFLICT_STATUS = 409;
 const UNPROCESSABLE_STATUS = 422;
@@ -136,40 +144,7 @@ const ensureClub = async (data: FormData): Promise<StepResult> => {
   return { ok: true };
 };
 
-/** Saves what the person entered on a club wizard step. */
-export const saveClubStep = async (
-  stepId: string,
-  data: FormData
-): Promise<StepResult> => {
-  const saves = clubSavesForStep(stepId, data);
-  if (saves.length === 0) {
-    return { ok: true };
-  }
-  try {
-    if (stepId === "club") {
-      const club = await ensureClub(data);
-      if (!club.ok) {
-        return club;
-      }
-    }
-    for (const save of saves) {
-      // Saved in order: the club step must land before the location step.
-      // oxlint-disable-next-line eslint/no-await-in-loop, react-doctor/async-await-in-loop
-      await huddlekit.onboarding.saveClubStep(save.step, save.payload);
-    }
-    return { ok: true };
-  } catch (error) {
-    return describeSaveError(error);
-  }
-};
-
-/** Saves what the person entered on a people wizard step. */
-export const saveMemberStep = async (
-  stepId: string,
-  data: FormData,
-  options: MemberPlanOptions
-): Promise<StepResult> => {
-  const plan = memberSavesForStep(stepId, data, options);
+const runMemberPlan = async (plan: MemberSavePlan): Promise<StepResult> => {
   if ("problem" in plan) {
     return { message: plan.problem.message, ok: false };
   }
@@ -183,6 +158,72 @@ export const saveMemberStep = async (
   } catch (error) {
     return describeMemberError(error);
   }
+};
+
+const GOVERNANCE_FILES = {
+  constitutionFileId: "constitution-upload",
+  insuranceCertificateFileId: "insurance-certificate",
+  safeguardingPolicyFileId: "policy-upload",
+} as const;
+
+/** Uploads the documents chosen on the governance step, keyed by the API's field. */
+const governanceFileIds = async (
+  data: FormData
+): Promise<Record<string, string>> => {
+  const ids: Record<string, string> = {};
+  for (const [field, name] of Object.entries(GOVERNANCE_FILES)) {
+    const file = chosenFile(data, name);
+    if (file !== null) {
+      // One at a time, so a failure names the document that failed.
+      // oxlint-disable-next-line eslint/no-await-in-loop, react-doctor/async-await-in-loop
+      ids[field] = await uploadSensitiveFile(file);
+    }
+  }
+  return ids;
+};
+
+/** Saves what the person entered on a club wizard step. */
+export const saveClubStep = async (
+  stepId: string,
+  data: FormData
+): Promise<StepResult> => {
+  if (isFounderStep(stepId)) {
+    return await runMemberPlan(founderSavesForStep(stepId, data));
+  }
+  const saves = clubSavesForStep(stepId, data);
+  if (saves.length === 0) {
+    return { ok: true };
+  }
+  try {
+    if (stepId === "club") {
+      const club = await ensureClub(data);
+      if (!club.ok) {
+        return club;
+      }
+    }
+    const files = stepId === "governance" ? await governanceFileIds(data) : {};
+    for (const save of saves) {
+      // Saved in order: the club step must land before the location step.
+      // oxlint-disable-next-line eslint/no-await-in-loop, react-doctor/async-await-in-loop
+      await huddlekit.onboarding.saveClubStep(save.step, {
+        ...save.payload,
+        ...files,
+      });
+    }
+    return { ok: true };
+  } catch (error) {
+    return describeSaveError(error);
+  }
+};
+
+/** Saves what the person entered on a people wizard step. */
+export const saveMemberStep = async (
+  stepId: string,
+  data: FormData,
+  options: MemberPlanOptions
+): Promise<StepResult> => {
+  const result = await runMemberPlan(memberSavesForStep(stepId, data, options));
+  return result;
 };
 
 const draftDataSchema = z.record(

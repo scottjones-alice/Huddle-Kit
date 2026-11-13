@@ -4,16 +4,48 @@ import { Button } from "@alice/user-interface/components/button";
 import { CheckCircle2Icon, LandmarkIcon } from "lucide-react";
 import * as React from "react";
 
+import { FormError } from "@/components/auth/form-error";
 import { SelectField, TextField } from "@/components/onboarding/form-fields";
 import { PAYOUT_SCHEDULE_OPTIONS } from "@/components/onboarding/options";
+import { loadConnectStatus, startConnect } from "@/lib/onboarding/payouts";
+import type { ConnectStatus } from "@/lib/onboarding/payouts";
+import { saveDraft } from "@/lib/onboarding/save";
 
-// UI only. A real build sends the user to Stripe Connect; Stripe collects
-// the bank details, so none are collected here.
+// Sends the person to Stripe Connect. Stripe collects the bank details, so none
+// are collected here. The person comes back through /settings/payments.
 export function StripeConnectCard() {
-  const [connected, setConnected] = React.useState(false);
+  const [status, setStatus] = React.useState<ConnectStatus | null>(null);
+  const [starting, setStarting] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const connected = status === "active";
 
-  const handleToggle = () => {
-    setConnected((current) => !current);
+  React.useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      const found = await loadConnectStatus();
+      if (!cancelled) {
+        setStatus(found);
+      }
+    };
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleConnect = async (form: HTMLFormElement | null) => {
+    setError(null);
+    setStarting(true);
+    try {
+      // Keep their answers so far, so they land back on this step.
+      if (form !== null) {
+        await saveDraft("club", "payouts", new FormData(form));
+      }
+      window.location.assign(await startConnect());
+    } catch {
+      setError("We couldn't reach Stripe. Please try again.");
+      setStarting(false);
+    }
   };
 
   return (
@@ -36,19 +68,29 @@ export function StripeConnectCard() {
             Stripe account connected
           </output>
         ) : null}
-        <Button
-          type="button"
-          variant={connected ? "outline" : "default"}
-          className="h-10 self-start"
-          onClick={handleToggle}
-        >
-          {connected ? "Disconnect Stripe" : "Connect with Stripe"}
-        </Button>
-        <input
-          type="hidden"
-          name="stripe-connected"
-          value={connected ? "yes" : "no"}
-        />
+        {status === "pending" || status === "restricted" ? (
+          <p className="text-muted-foreground text-sm">
+            Stripe still needs a few details before payments can start.
+          </p>
+        ) : null}
+        <FormError message={error} />
+        {connected ? null : (
+          <Button
+            type="button"
+            className="h-10 self-start"
+            disabled={starting || status === "unsupported"}
+            onClick={(event) => {
+              void handleConnect(event.currentTarget.form);
+            }}
+          >
+            {status === "pending" || status === "restricted"
+              ? "Continue with Stripe"
+              : "Connect with Stripe"}
+          </Button>
+        )}
+        <p className="text-muted-foreground text-xs">
+          You can skip this and connect later from your club settings.
+        </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField

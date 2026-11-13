@@ -69,7 +69,7 @@ function AuthActions({ mobile = false, onNavigate }: AuthActionsProps) {
   return (
     <>
       <Button variant="outline" size={size} asChild>
-        <Link href={`${NEXT_PUBLIC_PLATFORM_URL}/signin`} onClick={onNavigate}>
+        <Link href={`${NEXT_PUBLIC_PLATFORM_URL}/login`} onClick={onNavigate}>
           Sign In
         </Link>
       </Button>

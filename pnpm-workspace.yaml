@@ -161,6 +161,7 @@ catalog:
   nodemailer: ^10.5.0
   "@types/nodemailer": ^8.0.2
   "@playwright/test": ^1.65.0
+  "@novu/react": ^3.19.2
 catalogs:
   nativewind:
     "@tailwindcss/postcss": 4.1.12
