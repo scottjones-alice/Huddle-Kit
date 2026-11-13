@@ -11,6 +11,7 @@ import {
   securityHeaders,
 } from "@/middlewares/protect";
 import { rateLimit } from "@/middlewares/rate-limit";
+import billing from "@/routes/billing/billing.index";
 import club from "@/routes/club/club.index";
 import consents from "@/routes/consents/consents.index";
 import events from "@/routes/events/events.index";
@@ -29,6 +30,7 @@ import root from "@/routes/root/root.index";
 import safeguarding from "@/routes/safeguarding/safeguarding.index";
 import teams from "@/routes/teams/teams.index";
 import venues from "@/routes/venues/venues.index";
+import billingWebhook from "@/routes/webhooks/billing-webhook";
 import connectWebhook from "@/routes/webhooks/connect-webhook";
 import welfare from "@/routes/welfare/welfare.index";
 import { auth } from "@/services/auth";
@@ -41,10 +43,7 @@ const MS_PER_SECOND = 1000;
  * look down, and Stripe webhooks, which arrive in bursts, are signed, and are
  * retried by Stripe if refused.
  */
-const EXEMPT_PREFIXES = [
-  "/api/auth/stripe/webhook",
-  "/api/v1/webhooks/",
-] as const;
+const EXEMPT_PREFIXES = ["/api/v1/webhooks/"] as const;
 const isRateLimitExempt = (path: string): boolean =>
   path.replace(/\/$/u, "") === API_PREFIX ||
   EXEMPT_PREFIXES.some((prefix) => path.startsWith(prefix));
@@ -90,6 +89,7 @@ app.on(
 
 const routes = [
   root,
+  billing,
   club,
   consents,
   events,
@@ -111,6 +111,7 @@ const routes = [
 
 // Mounted one by one: the routers have different bindings, so they can't share a loop.
 app.route(API_PREFIX, root);
+app.route(API_PREFIX, billing);
 app.route(API_PREFIX, club);
 app.route(API_PREFIX, consents);
 app.route(API_PREFIX, events);
@@ -128,6 +129,7 @@ app.route(API_PREFIX, safeguarding);
 app.route(API_PREFIX, teams);
 app.route(API_PREFIX, venues);
 app.route(API_PREFIX, welfare);
+app.route(API_PREFIX, billingWebhook);
 app.route(API_PREFIX, connectWebhook);
 app.route(API_PREFIX, internal);
 

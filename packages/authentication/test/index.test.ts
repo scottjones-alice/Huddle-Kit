@@ -16,11 +16,6 @@ const makeMailer = (): AuthMailer => ({
 const makeAuth = (mailer = makeMailer()) =>
   createAuth({
     baseURL: "http://localhost:9000",
-    billing: {
-      clubPriceId: "price_test",
-      secretKey: "sk_test_123",
-      webhookSecret: "whsec_test",
-    },
     // The pool connects lazily and building the instance never queries.
     db: createDatabase({ url: "postgres://u:p@localhost:5432/none" }),
     mailer,

@@ -2,11 +2,10 @@
  * Better Auth client for the web apps. Import from "@alice/authentication/client".
  * Native apps use "@alice/authentication/client/native" so Expo dependencies
  * never enter the browser bundle. Types are inferred from the plugins, so
- * `authClient.signIn.email`, `organization.*` and `subscription.*` are checked.
+ * `authClient.signIn.email` and `organization.*` are checked.
  */
 
 import { passkeyClient } from "@better-auth/passkey/client";
-import { stripeClient } from "@better-auth/stripe/client";
 import { organizationClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
@@ -23,11 +22,7 @@ export const createWebAuthClient = ({ baseURL }: WebAuthClientOptions) =>
   createAuthClient({
     baseURL,
     fetchOptions: { credentials: "include" },
-    plugins: [
-      organizationClient(),
-      passkeyClient(),
-      stripeClient({ subscription: true }),
-    ],
+    plugins: [organizationClient(), passkeyClient()],
   });
 
 export type WebAuthClient = ReturnType<typeof createWebAuthClient>;

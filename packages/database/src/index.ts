@@ -29,7 +29,6 @@ export {
   members,
   organizations,
   sessions,
-  subscriptions,
   users,
   verifications,
 } from "./schema/authentication";
@@ -175,6 +174,15 @@ export {
   clubStripeAccounts,
 } from "./schema/finance/club-stripe-accounts";
 
+export {
+  clubSubscriptions,
+  stripeEvents,
+} from "./schema/finance/club-subscriptions";
+export type {
+  SubscriptionInterval,
+  SubscriptionStatus,
+} from "./schema/finance/club-subscriptions";
+
 export type { StripeCapabilityStatus } from "./schema/finance/club-stripe-accounts";
 
 export { CHARGE_STATUSES, feeCharges } from "./schema/finance/fee-charges";
@@ -292,6 +300,13 @@ export type {
 } from "./schema/people/member-profile";
 
 export { people } from "./schema/people/people";
+
+export {
+  PERSON_FILE_PURPOSES,
+  personFiles,
+} from "./schema/people/person-files";
+
+export type { PersonFilePurpose } from "./schema/people/person-files";
 
 export {
   RELATIONSHIP_KINDS,

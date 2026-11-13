@@ -10,8 +10,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@alice/user-interface/components/dropdown-menu";
-import { LogOutIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { LogOutIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 import type { ShellUser } from "@/lib/use-shell";
@@ -78,6 +79,7 @@ export function UserSummary({
 // header avatar so the two can never drift apart.
 export function UserMenuContent(props: UserMenuProps) {
   const router = useRouter();
+  const { slug } = useParams<{ slug?: string }>();
 
   const handleSignOut = async () => {
     // Leave either way: a failed request still means this session is done.
@@ -93,6 +95,14 @@ export function UserMenuContent(props: UserMenuProps) {
         </div>
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
+      {props.user.personId === undefined || slug === undefined ? null : (
+        <DropdownMenuItem asChild>
+          <Link href={`/${slug}/people/${props.user.personId}`}>
+            <UserIcon />
+            My profile
+          </Link>
+        </DropdownMenuItem>
+      )}
       <DropdownMenuItem
         onSelect={() => {
           void handleSignOut();

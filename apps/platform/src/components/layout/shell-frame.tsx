@@ -1,9 +1,11 @@
 "use client";
 
+import { Button } from "@alice/user-interface/components/button";
 import {
   SidebarInset,
   SidebarProvider,
 } from "@alice/user-interface/components/sidebar";
+import { LogIn } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import type { CSSProperties, ReactNode } from "react";
@@ -12,6 +14,7 @@ import { AppShellSkeleton } from "@/components/layout/app-shell-skeleton";
 import { SiteHeader } from "@/components/layout/header";
 import { NoAccess } from "@/components/layout/no-access";
 import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
+import { StatusScreen } from "@/components/layout/status-screen";
 import { useShell } from "@/lib/use-shell";
 
 const SHELL_VARIABLES: CSSProperties & Record<`--${string}`, string> = {
@@ -39,23 +42,22 @@ export function ShellFrame({ children, defaultOpen }: ShellFrameProps) {
   // The proxy only checks that the cookie exists, so an expired session lands here.
   if (shell.status === "signed-out") {
     return (
-      <div className="flex flex-col items-start gap-2 p-6">
-        <h1 className="text-2xl font-semibold">Your session has ended</h1>
-        <Link
-          className="text-primary underline"
-          href={`/login?next=${encodeURIComponent(pathname)}`}
-        >
-          Sign in again
-        </Link>
-      </div>
+      <StatusScreen
+        icon={<LogIn />}
+        title="You've been signed out"
+        description="For your security, sessions end after a while. Sign in again and you'll land right back on this page."
+        actions={
+          <Button asChild className="w-full sm:w-auto">
+            <Link href={`/login?next=${encodeURIComponent(pathname)}`}>
+              Sign in again
+            </Link>
+          </Button>
+        }
+      />
     );
   }
   if (shell.status === "no-access") {
-    return (
-      <div className="p-6">
-        <NoAccess title="this club" />
-      </div>
-    );
+    return <NoAccess title="this club" />;
   }
 
   return (

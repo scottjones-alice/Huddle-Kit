@@ -7,5 +7,6 @@ export default defineConfig({
     ...(ultracite.ignorePatterns ?? []),
     "public/maplibre/**",
     "packages/sdk/**",
+    "packages/authentication/src/plugins/club/**",
   ],
 });

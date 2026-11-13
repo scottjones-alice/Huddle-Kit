@@ -1,5 +1,6 @@
 import type { RouteConfig } from "@hono/zod-openapi";
 
+import * as billing from "./billing/billing.route";
 import * as club from "./club/club.route";
 import * as consents from "./consents/consents.route";
 import * as events from "./events/events.route";
@@ -25,6 +26,7 @@ import * as welfare from "./welfare/welfare.route";
  * route file only has to be added here to be checked.
  */
 const modules: Record<string, unknown>[] = [
+  billing,
   club,
   consents,
   events,

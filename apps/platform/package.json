@@ -16,9 +16,13 @@
   "dependencies": {
     "@alice/authentication": "workspace:*",
     "@alice/environment": "workspace:*",
+    "@alice/payments": "workspace:*",
     "@alice/user-interface": "workspace:*",
     "@alicesystems-co/huddlekit": "workspace:*",
     "@novu/react": "catalog:",
+    "@radix-ui/react-icons": "catalog:",
+    "@stripe/react-stripe-js": "catalog:",
+    "@stripe/stripe-js": "catalog:",
     "@t3-oss/env-core": "catalog:",
     "cn": "catalog:",
     "date-fns": "catalog:",

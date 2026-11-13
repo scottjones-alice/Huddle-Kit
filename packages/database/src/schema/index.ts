@@ -43,6 +43,7 @@ export * from "./communications/announcements";
 export * from "./communications/notifications";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./finance/club-stripe-accounts";
+export * from "./finance/club-subscriptions";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./finance/fee-charges";
 // oxlint-disable-next-line oxc/no-barrel-file
@@ -70,6 +71,8 @@ export * from "./people/member-profile";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./people/people";
 // oxlint-disable-next-line oxc/no-barrel-file
+export * from "./people/person-files";
+
 export * from "./people/person-identifiers";
 // oxlint-disable-next-line oxc/no-barrel-file
 export * from "./people/player-profiles";

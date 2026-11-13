@@ -48,6 +48,11 @@ export default function configureOpenAPI(app: AppOpenAPI, prefix = "") {
         description: "The club's details, legal information and settings.",
         name: "Club",
       },
+      {
+        description:
+          "The club's Huddlekit subscription: checkout, the billing portal and cancellation.",
+        name: "Billing",
+      },
       { description: "Uploads, downloads and file views.", name: "Files" },
       {
         description: "Clubs the team plays against.",

@@ -16,7 +16,12 @@ router.use("/people/*", session);
 
 export default router
   .openapi(routes.listPeople, handlers.listPeople)
+  // Before "/people/{id}", so "me" is not read as an id.
+  .openapi(routes.getMyPerson, handlers.getMyPerson)
   .openapi(routes.createPerson, handlers.createPerson)
   .openapi(routes.getPerson, handlers.getPerson)
   .openapi(routes.updatePerson, handlers.updatePerson)
-  .openapi(routes.linkPeople, handlers.linkPeople);
+  .openapi(routes.linkPeople, handlers.linkPeople)
+  .openapi(routes.listPersonFiles, handlers.listPersonFiles)
+  .openapi(routes.attachPersonFile, handlers.attachPersonFile)
+  .openapi(routes.removePersonFile, handlers.removePersonFile);

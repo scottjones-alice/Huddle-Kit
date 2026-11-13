@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { APIPromise } from '../api-promise';
 import type { RequestOptions } from '../internal/request-options';
+import { buildHeaders } from '../internal/headers';
 import { path as __scalarPath } from '../internal/utils/path';
 
 export class People extends APIResource {
@@ -61,6 +62,21 @@ export class People extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PeopleCreatePersonResponse> {
     return this._client.post('/api/v1/people', { body, ...options });
+  }
+
+  /**
+   * Who the signed-in login is in this club: their name, photo and person id. Null when the login has no person here, for example a platform admin.
+   *
+   * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
+   * @returns {APIPromise<PeopleRetrieveMyPersonResponse>} The signed-in person.
+   *
+   * @example
+   * ```ts
+   * const people = await client.people.retrieveMyPerson();
+   * ```
+   */
+  retrieveMyPerson(options?: RequestOptions): APIPromise<PeopleRetrieveMyPersonResponse> {
+    return this._client.get('/api/v1/people/me', options);
   }
 
   /**
@@ -137,6 +153,69 @@ export class People extends APIResource {
    */
   link(id: string, body: PeopleLinkParams, options?: RequestOptions): APIPromise<PeopleLinkResponse> {
     return this._client.post(__scalarPath`/api/v1/people/${id}/relationships`, { body, ...options });
+  }
+
+  /**
+   * Anyone who can see the person sees their photo and cover. Documents can hold personal data about a child, so only club admins, the person and their parents see those.
+   *
+   * @param {string} id - The person's id.
+   * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
+   * @returns {APIPromise<PeopleListPersonFilesResponse>} The photo, cover and documents the caller may see.
+   *
+   * @example
+   * ```ts
+   * const people = await client.people.listPersonFiles('3fa85f64-5717-4562-b3fc-2c963f66afa6');
+   * ```
+   */
+  listPersonFiles(id: string, options?: RequestOptions): APIPromise<PeopleListPersonFilesResponse> {
+    return this._client.get(__scalarPath`/api/v1/people/${id}/files`, options);
+  }
+
+  /**
+   * Upload the file first with POST /files and confirm it, then attach it here. You can change your own and your children's; club admins can change anyone's.
+   *
+   * @param {string} id - The person's id.
+   * @param {PeopleAttachPersonFileParams} body - The request body to send.
+   * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
+   * @returns {APIPromise<PeopleAttachPersonFileResponse>} The file, now on the person's record.
+   *
+   * @example
+   * ```ts
+   * const people = await client.people.attachPersonFile('3fa85f64-5717-4562-b3fc-2c963f66afa6', {
+   *   fileId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+   *   purpose: 'avatar',
+   * });
+   * ```
+   */
+  attachPersonFile(
+    id: string,
+    body: PeopleAttachPersonFileParams,
+    options?: RequestOptions,
+  ): APIPromise<PeopleAttachPersonFileResponse> {
+    return this._client.post(__scalarPath`/api/v1/people/${id}/files`, { body, ...options });
+  }
+
+  /**
+   * Deletes the file from storage as well as taking it off the person's record.
+   *
+   * @param {string} linkId - The id of the link, not of the file.
+   * @param {Object} params - Path parameters.
+   * @param {string} params.id - The person's id.
+   * @param {RequestOptions} [options] - Options to apply to the request, such as headers and an abort signal.
+   * @returns The file is gone.
+   *
+   * @example
+   * ```ts
+   * await client.people.removePersonFile('3fa85f64-5717-4562-b3fc-2c963f66afa6', {
+   *   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+   * });
+   * ```
+   */
+  removePersonFile(linkId: string, params: { id: string }, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(__scalarPath`/api/v1/people/${params.id}/files/${linkId}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -218,6 +297,10 @@ export namespace PeopleListResponse {
      * @format uuid
      */
     userId: string | null;
+    /**
+     * A temporary link to their profile photo, or null if they have none.
+     */
+    avatarUrl: string | null;
     /**
      * What they said they were joining as: staff, player or parent.
      */
@@ -357,6 +440,26 @@ export interface PeopleCreatePersonResponse {
    * @format uuid
    */
   userId: string | null;
+}
+
+export interface PeopleRetrieveMyPersonResponse {
+  person: PeopleRetrieveMyPersonResponse.Person | null;
+}
+
+export namespace PeopleRetrieveMyPersonResponse {
+  export interface Person {
+    /**
+     * A temporary link to their photo, or null.
+     */
+    avatarUrl: string | null;
+    firstName: string;
+    /**
+     * @format uuid
+     */
+    id: string;
+    lastName: string;
+    preferredName: string | null;
+  }
 }
 
 export interface PeopleRetrievePersonResponse {
@@ -717,16 +820,121 @@ export interface PeopleLinkResponse {
    */
   updatedAt: string;
 }
+export interface PeopleAttachPersonFileParams {
+  /**
+   * A file you uploaded and confirmed with POST /files.
+   * @format uuid
+   */
+  fileId: string;
+  /**
+   * avatar and cover need a photo; document needs a sensitive or other file. A new avatar or cover replaces the old one.
+   */
+  purpose: 'avatar' | 'cover' | 'document';
+}
+
+export interface PeopleAttachPersonFileResponse {
+  file: PeopleAttachPersonFileResponse.File;
+  link: PeopleAttachPersonFileResponse.Link;
+  /**
+   * A temporary link that shows a photo or cover. Null for documents, which open through GET /files/{id}/url.
+   */
+  url: string | null;
+}
+
+export namespace PeopleAttachPersonFileResponse {
+  export interface File {
+    bucket: string;
+    /**
+     * @pattern ^[0-9a-f]{64}$
+     */
+    checksumSha256: string | null;
+    contentType: string;
+    /**
+     * @format date-time
+     */
+    createdAt: string;
+    etag: string | null;
+    /**
+     * @minLength 1
+     */
+    fileName: string;
+    /**
+     * @format uuid
+     */
+    id: string;
+    key: string;
+    kind: 'photo' | 'report' | 'sensitive' | 'other';
+    /**
+     * @format uuid
+     */
+    organizationId: string;
+    /**
+     * @minimum 0
+     * @maximum 9007199254740991
+     */
+    sizeBytes: number;
+    status: 'pending' | 'uploaded' | 'failed';
+    /**
+     * @format date-time
+     */
+    updatedAt: string;
+    /**
+     * @format date-time
+     */
+    uploadedAt: string | null;
+    /**
+     * @format uuid
+     */
+    uploadedBy: string | null;
+  }
+
+  export interface Link {
+    /**
+     * @format date-time
+     */
+    createdAt: string;
+    /**
+     * @format uuid
+     */
+    createdBy: string | null;
+    /**
+     * @format uuid
+     */
+    fileId: string;
+    /**
+     * @format uuid
+     */
+    id: string;
+    /**
+     * @format uuid
+     */
+    organizationId: string;
+    /**
+     * @format uuid
+     */
+    personId: string;
+    purpose: 'avatar' | 'cover' | 'document';
+  }
+}
+
+export interface PeopleListPersonFilesResponse {
+  files: Array<PeopleAttachPersonFileResponse>;
+}
+
 export declare namespace People {
   export {
     type PeopleListResponse as PeopleListResponse,
     type PeopleCreatePersonResponse as PeopleCreatePersonResponse,
+    type PeopleRetrieveMyPersonResponse as PeopleRetrieveMyPersonResponse,
     type PeopleRetrievePersonResponse as PeopleRetrievePersonResponse,
     type PeopleUpdatePersonResponse as PeopleUpdatePersonResponse,
     type PeopleLinkResponse as PeopleLinkResponse,
+    type PeopleListPersonFilesResponse as PeopleListPersonFilesResponse,
+    type PeopleAttachPersonFileResponse as PeopleAttachPersonFileResponse,
     type PeopleListParams as PeopleListParams,
     type PeopleCreatePersonParams as PeopleCreatePersonParams,
     type PeopleUpdatePersonParams as PeopleUpdatePersonParams,
     type PeopleLinkParams as PeopleLinkParams,
+    type PeopleAttachPersonFileParams as PeopleAttachPersonFileParams,
   };
 }

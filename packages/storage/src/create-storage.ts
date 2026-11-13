@@ -254,10 +254,13 @@ export const createStorage = ({
    * Presigned GET URL, only for files that finished uploading. Records who asked and
    * when in `file_views` before handing the url out. A presigned url cannot be tracked
    * once issued, so this logs access being granted, not every read.
+   * Pass `logView: false` for public-to-the-club images such as avatars shown in a
+   * list, where a log row per image per page load would only be noise.
    */
   const getDownloadUrl = async (
     fileId: string,
-    viewedBy: string
+    viewedBy: string,
+    { logView = true }: { logView?: boolean } = {}
   ): Promise<string> => {
     const file = await getFile(fileId);
 
@@ -268,7 +271,9 @@ export const createStorage = ({
       );
     }
 
-    await db.insert(fileViews).values({ fileId, viewedBy });
+    if (logView) {
+      await db.insert(fileViews).values({ fileId, viewedBy });
+    }
 
     return await getSignedUrl(
       s3,

@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { authClient } from "@/lib/auth-client";
+import { huddlekit } from "@/lib/huddle-kit";
 import { buildNav, filterNav, navPermissions, permissionKey } from "@/lib/nav";
 import type { NavGroup, NavPermission } from "@/lib/nav";
+import { displayName } from "@/lib/people";
 
 export interface ShellClub {
   id: string;
@@ -18,6 +20,8 @@ export interface ShellUser {
   id: string;
   image?: string | null;
   name: string;
+  /** Who they are in this club, when they have a person record here. */
+  personId?: string;
 }
 
 export type ShellState =
@@ -77,6 +81,45 @@ const useAllowedPermissions = (
     : null;
 };
 
+interface MyPerson {
+  forOrganization: string;
+  person: Awaited<
+    ReturnType<typeof huddlekit.people.retrieveMyPerson>
+  >["person"];
+}
+
+/**
+ * Who the signed-in login is in the club. The login only says how they got
+ * in; their name and photo are kept on their person record, the same one the
+ * People page shows. Null while loading, or if the lookup fails.
+ */
+const useMyPerson = (organizationId: string | undefined): MyPerson | null => {
+  const [mine, setMine] = useState<MyPerson | null>(null);
+
+  useEffect(() => {
+    let canceled = false;
+    const run = async () => {
+      if (organizationId === undefined) {
+        return;
+      }
+      try {
+        const { person } = await huddlekit.people.retrieveMyPerson();
+        if (!canceled) {
+          setMine({ forOrganization: organizationId, person });
+        }
+      } catch {
+        // Keep showing the login's own name and photo.
+      }
+    };
+    void run();
+    return () => {
+      canceled = true;
+    };
+  }, [organizationId]);
+
+  return mine !== null && mine.forOrganization === organizationId ? mine : null;
+};
+
 /**
  * Everything the shell needs, from Better Auth: the signed-in user, the clubs
  * they belong to, the club in the address, their role in it, and the sidebar
@@ -107,6 +150,7 @@ export const useShell = (slug: string): ShellState => {
     activeId === clubId ? clubId : undefined,
     permissions
   );
+  const mine = useMyPerson(activeId === clubId ? clubId : undefined);
 
   if (sessionPending || clubsPending) {
     return { status: "loading" };
@@ -130,6 +174,13 @@ export const useShell = (slug: string): ShellState => {
     ),
     roleLabel: capitalise(member.role),
     status: "ready",
-    user: session.user,
+    user: mine?.person
+      ? {
+          ...session.user,
+          image: mine.person.avatarUrl ?? session.user.image,
+          name: displayName(mine.person),
+          personId: mine.person.id,
+        }
+      : session.user,
   };
 };

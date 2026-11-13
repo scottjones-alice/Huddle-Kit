@@ -1,0 +1,536 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "2cb31f4d-756b-4a29-b897-0d17dc8f107b",
+  "prevIds": ["aa3dd172-761f-4033-bd69-b4a551d3e2a5"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "person_files"],
+      "writes": [
+        "s|tbl|public.person_files",
+        "n|tbl|public.person_files",
+        "e|tbl|public.person_files",
+        "n|rel|public.person_files",
+        "n|type|public.person_files",
+        "n|rel|public.person_files_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_files",
+        "person_files_fileId_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_files_fileId_uidx",
+        "n|idx|public.person_files_fileId_uidx",
+        "e|idx|public.person_files_fileId_uidx",
+        "n|rel|public.person_files_fileId_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|col|public.person_files.file_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_files",
+        "person_files_person_single_uidx"
+      ],
+      "writes": [
+        "s|idx|public.person_files_person_single_uidx",
+        "n|idx|public.person_files_person_single_uidx",
+        "e|idx|public.person_files_person_single_uidx",
+        "n|rel|public.person_files_person_single_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|col|public.person_files.person_id",
+        "n|col|public.person_files.purpose"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_files",
+        "person_files_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_files_organizationId_idx",
+        "n|idx|public.person_files_organizationId_idx",
+        "e|idx|public.person_files_organizationId_idx",
+        "n|rel|public.person_files_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|col|public.person_files.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_files",
+        "person_files_personId_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_files_personId_idx",
+        "n|idx|public.person_files_personId_idx",
+        "e|idx|public.person_files_personId_idx",
+        "n|rel|public.person_files_personId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|col|public.person_files.person_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "person_files",
+        "person_files_createdBy_idx"
+      ],
+      "writes": [
+        "s|idx|public.person_files_createdBy_idx",
+        "n|idx|public.person_files_createdBy_idx",
+        "e|idx|public.person_files_createdBy_idx",
+        "n|rel|public.person_files_createdBy_idx"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|col|public.person_files.created_by"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_files"],
+      "writes": [
+        "s|fk|public.person_files.person_files_created_by_users_id_fkey",
+        "n|fk|public.person_files.person_files_created_by_users_id_fkey",
+        "e|fk|public.person_files.person_files_created_by_users_id_fkey",
+        "n|con|public.person_files.person_files_created_by_users_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|tbl|public.users",
+        "n|sch|public",
+        "n|col|public.person_files.created_by",
+        "n|col|public.users.id",
+        "e|uniqueness|public.users.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_files"],
+      "writes": [
+        "s|fk|public.person_files.person_files_file_id_files_id_fkey",
+        "n|fk|public.person_files.person_files_file_id_files_id_fkey",
+        "e|fk|public.person_files.person_files_file_id_files_id_fkey",
+        "n|con|public.person_files.person_files_file_id_files_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|tbl|public.files",
+        "n|sch|public",
+        "n|col|public.person_files.file_id",
+        "n|col|public.files.id",
+        "e|uniqueness|public.files.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_files"],
+      "writes": [
+        "s|fk|public.person_files.person_files_organization_id_organizations_id_fkey",
+        "n|fk|public.person_files.person_files_organization_id_organizations_id_fkey",
+        "e|fk|public.person_files.person_files_organization_id_organizations_id_fkey",
+        "n|con|public.person_files.person_files_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.person_files.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "person_files"],
+      "writes": [
+        "s|fk|public.person_files.person_files_person_same_org_fkey",
+        "n|fk|public.person_files.person_files_person_same_org_fkey",
+        "e|fk|public.person_files.person_files_person_same_org_fkey",
+        "n|con|public.person_files.person_files_person_same_org_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.person_files",
+        "n|sch|public",
+        "n|tbl|public.people",
+        "n|sch|public",
+        "n|col|public.person_files.organization_id",
+        "n|col|public.person_files.person_id",
+        "n|col|public.people.organization_id",
+        "n|col|public.people.id",
+        "e|uniqueness|public.people.id.organization_id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "person_files",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "created_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "file_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "purpose",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_fileId_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "file_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_person_single_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "purpose",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": "\"purpose\" in ('avatar', 'cover')",
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_personId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "person_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_createdBy_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "created_by",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_created_by_users_id_fkey",
+        "nameExplicit": false,
+        "columns": ["created_by"],
+        "schemaTo": "public",
+        "tableTo": "users",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_file_id_files_id_fkey",
+        "nameExplicit": false,
+        "columns": ["file_id"],
+        "schemaTo": "public",
+        "tableTo": "files",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_person_same_org_fkey",
+        "nameExplicit": true,
+        "columns": ["organization_id", "person_id"],
+        "schemaTo": "public",
+        "tableTo": "people",
+        "columnsTo": ["organization_id", "id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "person_files",
+        "name": "person_files_purpose_chk",
+        "value": "\"purpose\" in ('avatar', 'cover', 'document')",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

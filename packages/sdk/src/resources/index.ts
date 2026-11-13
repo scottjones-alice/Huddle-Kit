@@ -115,11 +115,15 @@ export type {
   PeopleListResponse,
   PeopleCreatePersonParams,
   PeopleCreatePersonResponse,
+  PeopleRetrieveMyPersonResponse,
   PeopleRetrievePersonResponse,
   PeopleUpdatePersonParams,
   PeopleUpdatePersonResponse,
   PeopleLinkParams,
   PeopleLinkResponse,
+  PeopleListPersonFilesResponse,
+  PeopleAttachPersonFileParams,
+  PeopleAttachPersonFileResponse,
 } from './people';
 export { Registrations } from './registrations';
 export type {

@@ -129,6 +129,12 @@ export const buildNav = (slug: string): readonly NavGroup[] => {
           require: { clubs: ["update"] },
           title: "Club settings",
         },
+        {
+          href: "/settings/billing",
+          icon: CreditCardIcon,
+          require: { organization: ["update"] },
+          title: "Club billing",
+        },
       ],
       title: "Admin",
     },

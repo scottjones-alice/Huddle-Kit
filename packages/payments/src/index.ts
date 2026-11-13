@@ -1,9 +1,17 @@
 /** Public entry point for @alice/payments. */
 
-export { createStripeBilling } from "./stripe";
+export { createClubBilling, subscriptionIdFromEvent } from "./club-billing";
 export { createStripeConnect, toMemberPayment } from "./connect";
 
-export type { CreateStripeBillingOptions } from "./stripe";
+export type {
+  ClubBilling,
+  ClubCheckoutInput,
+  ClubPortalInput,
+  ClubSubscriptionState,
+  CreateClubBillingOptions,
+  CreateClubCustomerInput,
+  StripeSubscriptionStatus,
+} from "./club-billing";
 export type {
   CardPaymentsStatus,
   CreateClubAccountInput,

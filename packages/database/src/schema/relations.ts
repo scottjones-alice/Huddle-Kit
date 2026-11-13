@@ -10,6 +10,7 @@ import { announcementRelations } from "./communications/announcements";
 import { notificationRelations } from "./communications/notifications";
 import { storageRelations } from "./files/files";
 import { clubStripeAccountRelations } from "./finance/club-stripe-accounts";
+import { clubSubscriptionRelations } from "./finance/club-subscriptions";
 import { feeChargeRelations } from "./finance/fee-charges";
 import { feeRelations } from "./finance/fees";
 import { paymentRelations } from "./finance/payments";
@@ -34,6 +35,7 @@ import { allergyRelations } from "./people/allergies";
 import { medicalRecordRelations } from "./people/medical-records";
 import { memberProfileRelations } from "./people/member-profile";
 import { peopleRelations } from "./people/people";
+import { personFileRelations } from "./people/person-files";
 import { personIdentifierRelations } from "./people/person-identifiers";
 import { playerProfileRelations } from "./people/player-profiles";
 import { qualificationRelations } from "./people/qualifications";
@@ -64,6 +66,7 @@ export const relations = {
   ...addressRelations,
   ...announcementRelations,
   ...clubStripeAccountRelations,
+  ...clubSubscriptionRelations,
   ...consentDocumentRelations,
   ...feeChargeRelations,
   ...feeRelations,
@@ -92,6 +95,7 @@ export const relations = {
   ...medicalRecordRelations,
   ...opponentRelations,
   ...peopleRelations,
+  ...personFileRelations,
   ...personRelationshipRelations,
   ...roleAssignmentRelations,
   ...safeguardingCheckRelations,

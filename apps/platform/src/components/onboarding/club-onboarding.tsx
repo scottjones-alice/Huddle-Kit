@@ -235,9 +235,9 @@ export function ClubOnboarding({
               <OnboardingComplete
                 className="mx-auto"
                 title="Your club is set up"
-                description="We will check your details and let you know as soon as the club is live. Anyone you invited will get an email."
-                actionLabel="Go to dashboard"
-                href="/"
+                description="Your club details are saved and your invitations are on their way. Next, choose and confirm your club’s Huddlekit subscription."
+                actionLabel="Choose club billing"
+                href="/settings/billing"
               />
             ) : (
               <>

@@ -1,7 +1,6 @@
 import { createAuth } from "@alice/authentication";
 import type { AuthMailer } from "@alice/authentication";
 import { keys as authKeys } from "@alice/authentication/keys";
-import { keys as paymentKeys } from "@alice/payments/keys";
 
 import { keys } from "@/keys";
 import { db } from "@/services/database";
@@ -19,11 +18,6 @@ const {
   PLATFORM_URL,
 } = authKeys();
 const { CORS_ORIGINS } = keys();
-const {
-  AUTH_STRIPE_CLUB_PRICE_ID,
-  AUTH_STRIPE_SECRET_KEY,
-  AUTH_STRIPE_WEBHOOK_SECRET,
-} = paymentKeys();
 
 /** sendEmail never throws and Better Auth never awaits these, so no timing leak. */
 const mailer: AuthMailer = {
@@ -74,11 +68,6 @@ const mailer: AuthMailer = {
 
 export const auth = createAuth({
   baseURL: BETTER_AUTH_URL,
-  billing: {
-    clubPriceId: AUTH_STRIPE_CLUB_PRICE_ID,
-    secretKey: AUTH_STRIPE_SECRET_KEY,
-    webhookSecret: AUTH_STRIPE_WEBHOOK_SECRET,
-  },
   cookieDomain: AUTH_COOKIE_DOMAIN,
   db,
   mailer,

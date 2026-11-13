@@ -1,6 +1,13 @@
-import { RELATIONSHIP_KINDS } from "@alice/database";
+import {
+  JOINING_ROLES,
+  RELATIONSHIP_KINDS,
+  ROLE_ASSIGNMENT_ROLES,
+  TEAM_MEMBER_ROLES,
+} from "@alice/database";
 import {
   addressSelectSchema,
+  fileSelectSchema,
+  personFileSelectSchema,
   personInsertSchema,
   personRelationshipSelectSchema,
   personSelectSchema,
@@ -50,6 +57,31 @@ const personDetail = z.object({
   relationships: z.array(personRelationshipSelectSchema),
 });
 
+const personListItem = personSelectSchema.extend({
+  avatarUrl: z
+    .string()
+    .nullable()
+    .describe(
+      "A temporary link to their profile photo, or null if they have none."
+    ),
+  joinedAs: z
+    .enum(JOINING_ROLES)
+    .nullable()
+    .describe("What they said they were joining as: staff, player or parent."),
+  roles: z
+    .array(z.enum(ROLE_ASSIGNMENT_ROLES))
+    .describe("Club jobs their login holds now, such as coach or treasurer."),
+  teams: z
+    .array(
+      z.object({
+        role: z.enum(TEAM_MEMBER_ROLES),
+        teamId: z.uuid(),
+        teamName: z.string(),
+      })
+    )
+    .describe("Teams they are on now, and their role on each."),
+});
+
 const relationshipBody = z.object({
   canCollect: z
     .boolean()
@@ -72,6 +104,31 @@ const listQuery = pageQuery.extend(includeArchivedQuery.shape).extend({
     .describe("Part of a first name, last name or email."),
 });
 
+const personFileItem = z.object({
+  file: fileSelectSchema,
+  link: personFileSelectSchema,
+  url: z
+    .string()
+    .nullable()
+    .describe(
+      "A temporary link that shows a photo or cover. Null for documents, which open through GET /files/{id}/url."
+    ),
+});
+
+const attachFileBody = z.object({
+  fileId: z
+    .uuid()
+    .describe("A file you uploaded and confirmed with POST /files."),
+  purpose: personFileSelectSchema.shape.purpose.describe(
+    "avatar and cover need a photo; document needs a sensitive or other file. A new avatar or cover replaces the old one."
+  ),
+});
+
+const personFileParams = z.object({
+  id: z.uuid().describe("The person's id."),
+  linkId: z.uuid().describe("The id of the link, not of the file."),
+});
+
 export const listPeople = createRoute({
   description:
     "Club admins see everyone. A coach sees the people on the teams they coach. Anyone else sees only themselves and their own children.",
@@ -81,12 +138,44 @@ export const listPeople = createRoute({
   request: { query: listQuery },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      z.object({ people: z.array(personSelectSchema) }),
+      z.object({ people: z.array(personListItem) }),
       "The people the caller may see, by last name."
     ),
     ...sessionErrors,
   },
   summary: "List people",
+  tags: TAGS,
+});
+
+export const getMyPerson = createRoute({
+  description:
+    "Who the signed-in login is in this club: their name, photo and person id. Null when the login has no person here, for example a platform admin.",
+  method: "get",
+  operationId: "getMyPerson",
+  path: "/people/me",
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({
+        person: personSelectSchema
+          .pick({
+            firstName: true,
+            id: true,
+            lastName: true,
+            preferredName: true,
+          })
+          .extend({
+            avatarUrl: z
+              .string()
+              .nullable()
+              .describe("A temporary link to their photo, or null."),
+          })
+          .nullable(),
+      }),
+      "The signed-in person."
+    ),
+    ...sessionErrors,
+  },
+  summary: "Get the signed-in person",
   tags: TAGS,
 });
 
@@ -171,7 +260,69 @@ export const linkPeople = createRoute({
   tags: TAGS,
 });
 
+export const listPersonFiles = createRoute({
+  description:
+    "Anyone who can see the person sees their photo and cover. Documents can hold personal data about a child, so only club admins, the person and their parents see those.",
+  method: "get",
+  operationId: "listPersonFiles",
+  path: "/people/{id}/files",
+  request: { params: idParams("person") },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.object({ files: z.array(personFileItem) }),
+      "The photo, cover and documents the caller may see."
+    ),
+    [HttpStatusCodes.NOT_FOUND]: notFoundBody("person"),
+    ...sessionErrors,
+  },
+  summary: "List a person's files",
+  tags: TAGS,
+});
+
+export const attachPersonFile = createRoute({
+  description:
+    "Upload the file first with POST /files and confirm it, then attach it here. You can change your own and your children's; club admins can change anyone's.",
+  method: "post",
+  operationId: "attachPersonFile",
+  path: "/people/{id}/files",
+  request: {
+    body: jsonContentRequired(attachFileBody, "The file and what it is for."),
+    params: idParams("person"),
+  },
+  responses: {
+    [HttpStatusCodes.CREATED]: jsonContent(
+      personFileItem,
+      "The file, now on the person's record."
+    ),
+    [HttpStatusCodes.NOT_FOUND]: notFoundBody("person or file"),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: invalidBody,
+    ...sessionErrors,
+  },
+  summary: "Attach a file to a person",
+  tags: TAGS,
+});
+
+export const removePersonFile = createRoute({
+  description:
+    "Deletes the file from storage as well as taking it off the person's record.",
+  method: "delete",
+  operationId: "removePersonFile",
+  path: "/people/{id}/files/{linkId}",
+  request: { params: personFileParams },
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: { description: "The file is gone." },
+    [HttpStatusCodes.NOT_FOUND]: notFoundBody("file"),
+    ...sessionErrors,
+  },
+  summary: "Remove a file from a person",
+  tags: TAGS,
+});
+
 export type ListPeopleRoute = typeof listPeople;
+export type GetMyPersonRoute = typeof getMyPerson;
+export type ListPersonFilesRoute = typeof listPersonFiles;
+export type AttachPersonFileRoute = typeof attachPersonFile;
+export type RemovePersonFileRoute = typeof removePersonFile;
 export type CreatePersonRoute = typeof createPerson;
 export type GetPersonRoute = typeof getPerson;
 export type UpdatePersonRoute = typeof updatePerson;

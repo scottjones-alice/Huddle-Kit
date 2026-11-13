@@ -54,6 +54,12 @@ import {
   STRIPE_CAPABILITY_STATUSES,
   clubStripeAccounts,
 } from "./schema/finance/club-stripe-accounts";
+import {
+  SUBSCRIPTION_INTERVALS,
+  SUBSCRIPTION_STATUSES,
+  clubSubscriptions,
+  stripeEvents,
+} from "./schema/finance/club-subscriptions";
 import { CHARGE_STATUSES, feeCharges } from "./schema/finance/fee-charges";
 import { fees } from "./schema/finance/fees";
 import { PAYMENT_METHODS, payments } from "./schema/finance/payments";
@@ -123,6 +129,10 @@ import {
   personSocialLinks,
 } from "./schema/people/member-profile";
 import { people } from "./schema/people/people";
+import {
+  PERSON_FILE_PURPOSES,
+  personFiles,
+} from "./schema/people/person-files";
 import {
   IDENTIFIER_TYPES,
   personIdentifiers,
@@ -1036,6 +1046,58 @@ export const clubStripeAccountUpdateSchema = createUpdateSchema(
   clubStripeAccountRefinements
 );
 
+// club_subscriptions and stripe_events --------------------------------------
+
+const STRIPE_SUBSCRIPTION_ID_PATTERN = /^sub_[A-Za-z0-9]+$/u;
+const STRIPE_CUSTOMER_ID_PATTERN = /^cus_[A-Za-z0-9]+$/u;
+const STRIPE_EVENT_ID_PATTERN = /^evt_[A-Za-z0-9]+$/u;
+
+const clubSubscriptionRefinements = {
+  billingInterval: () => z.enum(SUBSCRIPTION_INTERVALS),
+  status: () => z.enum(SUBSCRIPTION_STATUSES),
+  stripeCustomerId: (schema: z.ZodString) =>
+    schema.regex(
+      STRIPE_CUSTOMER_ID_PATTERN,
+      "Use a Stripe customer id (cus_...)"
+    ),
+  stripeSubscriptionId: (schema: z.ZodString) =>
+    schema.regex(
+      STRIPE_SUBSCRIPTION_ID_PATTERN,
+      "Use a Stripe subscription id (sub_...)"
+    ),
+};
+
+export const clubSubscriptionSelectSchema = createSelectSchema(
+  clubSubscriptions,
+  clubSubscriptionRefinements
+);
+export const clubSubscriptionInsertSchema = createInsertSchema(
+  clubSubscriptions,
+  clubSubscriptionRefinements
+);
+export const clubSubscriptionUpdateSchema = createUpdateSchema(
+  clubSubscriptions,
+  clubSubscriptionRefinements
+);
+
+const stripeEventRefinements = {
+  id: (schema: z.ZodString) =>
+    schema.regex(STRIPE_EVENT_ID_PATTERN, "Use a Stripe event id (evt_...)"),
+};
+
+export const stripeEventSelectSchema = createSelectSchema(
+  stripeEvents,
+  stripeEventRefinements
+);
+export const stripeEventInsertSchema = createInsertSchema(
+  stripeEvents,
+  stripeEventRefinements
+);
+export const stripeEventUpdateSchema = createUpdateSchema(
+  stripeEvents,
+  stripeEventRefinements
+);
+
 // announcements and notifications -------------------------------------------
 
 const announcementRefinements = {
@@ -1370,6 +1432,22 @@ export const memberBillingUpdateSchema = createUpdateSchema(
   memberBillingRefinements
 );
 
+// person_files --------------------------------------------------------------
+
+const personFileRefinements = { purpose: () => z.enum(PERSON_FILE_PURPOSES) };
+export const personFileSelectSchema = createSelectSchema(
+  personFiles,
+  personFileRefinements
+);
+export const personFileInsertSchema = createInsertSchema(
+  personFiles,
+  personFileRefinements
+);
+export const personFileUpdateSchema = createUpdateSchema(
+  personFiles,
+  personFileRefinements
+);
+
 const memberJoiningRoleRefinements = { joinedAs: () => z.enum(JOINING_ROLES) };
 export const memberJoiningRoleSelectSchema = createSelectSchema(
   memberJoiningRoles,
@@ -1559,6 +1637,12 @@ export type ClubStripeAccountRecord = z.infer<
 export type NewClubStripeAccountRecord = z.infer<
   typeof clubStripeAccountInsertSchema
 >;
+export type ClubSubscriptionRecord = z.infer<
+  typeof clubSubscriptionSelectSchema
+>;
+export type NewClubSubscriptionRecord = z.infer<
+  typeof clubSubscriptionInsertSchema
+>;
 export type PaymentRecord = z.infer<typeof paymentSelectSchema>;
 export type NewPaymentRecord = z.infer<typeof paymentInsertSchema>;
 export type AnnouncementRecord = z.infer<typeof announcementSelectSchema>;
@@ -1643,6 +1727,11 @@ export const tableSchemas = {
     insert: clubStripeAccountInsertSchema,
     select: clubStripeAccountSelectSchema,
     update: clubStripeAccountUpdateSchema,
+  },
+  club_subscriptions: {
+    insert: clubSubscriptionInsertSchema,
+    select: clubSubscriptionSelectSchema,
+    update: clubSubscriptionUpdateSchema,
   },
   club_training_slots: {
     insert: clubTrainingSlotInsertSchema,
@@ -1769,6 +1858,11 @@ export const tableSchemas = {
     select: personDemographicSelectSchema,
     update: personDemographicUpdateSchema,
   },
+  person_files: {
+    insert: personFileInsertSchema,
+    select: personFileSelectSchema,
+    update: personFileUpdateSchema,
+  },
   person_identifiers: {
     insert: personIdentifierInsertSchema,
     select: personIdentifierSelectSchema,
@@ -1838,6 +1932,11 @@ export const tableSchemas = {
     insert: seasonInsertSchema,
     select: seasonSelectSchema,
     update: seasonUpdateSchema,
+  },
+  stripe_events: {
+    insert: stripeEventInsertSchema,
+    select: stripeEventSelectSchema,
+    update: stripeEventUpdateSchema,
   },
   team_memberships: {
     insert: teamMembershipInsertSchema,

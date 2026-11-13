@@ -185,33 +185,6 @@ export const passkeys = pgTable(
   ]
 );
 
-export const subscriptions = pgTable(
-  "subscriptions",
-  {
-    id: uuid("id")
-      .default(sql`pg_catalog.gen_random_uuid()`)
-      .primaryKey(),
-    plan: text("plan").notNull(),
-    // The club (organization) that pays. No foreign key: Better Auth may also use a user id.
-    referenceId: uuid("reference_id").notNull(),
-    stripeCustomerId: text("stripe_customer_id"),
-    stripeSubscriptionId: text("stripe_subscription_id"),
-    status: text("status").default("incomplete"),
-    periodStart: timestamp("period_start"),
-    periodEnd: timestamp("period_end"),
-    trialStart: timestamp("trial_start"),
-    trialEnd: timestamp("trial_end"),
-    cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false),
-    cancelAt: timestamp("cancel_at"),
-    canceledAt: timestamp("canceled_at"),
-    endedAt: timestamp("ended_at"),
-    seats: integer("seats"),
-    billingInterval: text("billing_interval"),
-    stripeScheduleId: text("stripe_schedule_id"),
-  },
-  (table) => [index("subscriptions_referenceId_idx").on(table.referenceId)]
-);
-
 export const authRelations = defineRelationsPart(
   {
     users,
@@ -222,7 +195,6 @@ export const authRelations = defineRelationsPart(
     members,
     invitations,
     passkeys,
-    subscriptions,
   },
   (r) => ({
     users: {
@@ -253,12 +225,6 @@ export const authRelations = defineRelationsPart(
         to: r.users.id,
       }),
     },
-    subscriptions: {
-      organization: r.one.organizations({
-        from: r.subscriptions.referenceId,
-        to: r.organizations.id,
-      }),
-    },
     passkeys: {
       user: r.one.users({
         from: r.passkeys.userId,
@@ -272,10 +238,6 @@ export const authRelations = defineRelationsPart(
       }),
     },
     organizations: {
-      subscriptions: r.many.subscriptions({
-        from: r.organizations.id,
-        to: r.subscriptions.referenceId,
-      }),
       members: r.many.members({
         from: r.organizations.id,
         to: r.members.organizationId,

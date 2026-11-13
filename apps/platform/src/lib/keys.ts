@@ -12,6 +12,8 @@ export const keys = () =>
       NEXT_PUBLIC_NOVU_APPLICATION_IDENTIFIER: z.string().min(1).optional(),
       // Shortest time the home loader stays up, in milliseconds. End-to-end tests set 0.
       NEXT_PUBLIC_SPLASH_MIN_MS: z.coerce.number().int().min(0).default(6500),
+      // Stripe publishable key (pk_...), safe to ship to the browser. Club billing needs it.
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
     },
     // Next only inlines variables written out in full, one line per variable.
     runtimeEnv: {
@@ -19,5 +21,7 @@ export const keys = () =>
       NEXT_PUBLIC_NOVU_APPLICATION_IDENTIFIER:
         process.env.NEXT_PUBLIC_NOVU_APPLICATION_IDENTIFIER,
       NEXT_PUBLIC_SPLASH_MIN_MS: process.env.NEXT_PUBLIC_SPLASH_MIN_MS,
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     },
   });

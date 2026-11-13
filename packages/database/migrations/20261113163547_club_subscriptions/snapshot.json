@@ -1,0 +1,598 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "f8d0e688-70fe-4e85-b095-3cb0009bd72e",
+  "prevIds": ["2cb31f4d-756b-4a29-b897-0d17dc8f107b"],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "club_subscriptions"],
+      "writes": [
+        "s|tbl|public.club_subscriptions",
+        "n|tbl|public.club_subscriptions",
+        "e|tbl|public.club_subscriptions",
+        "n|rel|public.club_subscriptions",
+        "n|type|public.club_subscriptions",
+        "n|rel|public.club_subscriptions_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "stripe_events"],
+      "writes": [
+        "s|tbl|public.stripe_events",
+        "n|tbl|public.stripe_events",
+        "e|tbl|public.stripe_events",
+        "n|rel|public.stripe_events",
+        "n|type|public.stripe_events",
+        "n|rel|public.stripe_events_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "drop_table",
+      "statementTarget": ["table", "public", "subscriptions"],
+      "writes": [
+        "s|tbl|public.subscriptions",
+        "n|tbl|public.subscriptions",
+        "e|tbl|public.subscriptions",
+        "n|rel|public.subscriptions",
+        "n|type|public.subscriptions"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_subscriptions",
+        "club_subscriptions_stripeSubscriptionId_uidx"
+      ],
+      "writes": [
+        "s|idx|public.club_subscriptions_stripeSubscriptionId_uidx",
+        "n|idx|public.club_subscriptions_stripeSubscriptionId_uidx",
+        "e|idx|public.club_subscriptions_stripeSubscriptionId_uidx",
+        "n|rel|public.club_subscriptions_stripeSubscriptionId_uidx"
+      ],
+      "reads": [
+        "n|tbl|public.club_subscriptions",
+        "n|sch|public",
+        "n|col|public.club_subscriptions.stripe_subscription_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "club_subscriptions",
+        "club_subscriptions_organizationId_idx"
+      ],
+      "writes": [
+        "s|idx|public.club_subscriptions_organizationId_idx",
+        "n|idx|public.club_subscriptions_organizationId_idx",
+        "e|idx|public.club_subscriptions_organizationId_idx",
+        "n|rel|public.club_subscriptions_organizationId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.club_subscriptions",
+        "n|sch|public",
+        "n|col|public.club_subscriptions.organization_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": ["table", "public", "club_subscriptions"],
+      "writes": [
+        "s|fk|public.club_subscriptions.club_subscriptions_organization_id_organizations_id_fkey",
+        "n|fk|public.club_subscriptions.club_subscriptions_organization_id_organizations_id_fkey",
+        "e|fk|public.club_subscriptions.club_subscriptions_organization_id_organizations_id_fkey",
+        "n|con|public.club_subscriptions.club_subscriptions_organization_id_organizations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.club_subscriptions",
+        "n|sch|public",
+        "n|tbl|public.organizations",
+        "n|sch|public",
+        "n|col|public.club_subscriptions.organization_id",
+        "n|col|public.organizations.id",
+        "e|uniqueness|public.organizations.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "club_subscriptions",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "stripe_events",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "billing_interval",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "cancel_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "cancel_at_period_end",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "canceled_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "current_period_end",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "ended_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "pg_catalog.gen_random_uuid()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "organization_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "stripe_customer_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "stripe_subscription_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "stripe_events",
+        "name": "id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "stripe_events",
+        "name": "processed_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "stripe_events",
+        "name": "type",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "club_subscriptions_stripeSubscriptionId_uidx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "stripe_subscription_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": true,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "club_subscriptions_organizationId_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "organization_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "club_subscriptions_organization_id_organizations_id_fkey",
+        "nameExplicit": false,
+        "columns": ["organization_id"],
+        "schemaTo": "public",
+        "tableTo": "organizations",
+        "columnsTo": ["id"],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "club_subscriptions_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "stripe_events",
+        "name": "stripe_events_pkey",
+        "columns": ["id"],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "clubSubscriptions_status_chk",
+        "value": "\"status\" in ('active', 'canceled', 'incomplete', 'incomplete_expired', 'past_due', 'paused', 'trialing', 'unpaid')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "clubSubscriptions_billingInterval_chk",
+        "value": "\"billing_interval\" in ('monthly', 'yearly')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "clubSubscriptions_stripeSubscriptionId_chk",
+        "value": "\"stripe_subscription_id\" like 'sub\\_%'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "club_subscriptions",
+        "name": "clubSubscriptions_stripeCustomerId_chk",
+        "value": "\"stripe_customer_id\" like 'cus\\_%'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "stripe_events",
+        "name": "stripeEvents_id_chk",
+        "value": "\"id\" like 'evt\\_%'",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "drop",
+      "key": "tables\u0000[\"public\",\"subscriptions\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"plan\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"reference_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"stripe_customer_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"stripe_subscription_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"status\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"period_start\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"period_end\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"trial_start\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"trial_end\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"cancel_at_period_end\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"cancel_at\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"canceled_at\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"ended_at\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"seats\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"billing_interval\"]"
+    },
+    {
+      "op": "drop",
+      "key": "columns\u0000[\"public\",\"subscriptions\",\"stripe_schedule_id\"]"
+    },
+    {
+      "op": "drop",
+      "key": "indexes\u0000[\"public\",\"subscriptions_referenceId_idx\"]"
+    },
+    {
+      "op": "drop",
+      "key": "pks\u0000[\"public\",\"subscriptions\",\"subscriptions_pkey\"]"
+    }
+  ]
+}

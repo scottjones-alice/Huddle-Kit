@@ -2,8 +2,6 @@ import { ac, organizationRoles } from "@alice/authorization";
 import * as schema from "@alice/database";
 import { completeOnboardingStep } from "@alice/database";
 import type { Database } from "@alice/database";
-import { createStripeBilling } from "@alice/payments";
-import type { CreateStripeBillingOptions } from "@alice/payments";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { expo } from "@better-auth/expo";
 import { passkey } from "@better-auth/passkey";
@@ -13,7 +11,6 @@ import { organization } from "better-auth/plugins";
 import { z } from "zod";
 
 import { resolveAppURL } from "./app-url";
-import { isBillingManager } from "./billing-access";
 import type { AuthMailer } from "./mailer";
 import { PASSWORD_LIMITS } from "./password-rules";
 
@@ -44,8 +41,6 @@ export interface CreateAuthOptions {
   passkey: { rpID: string; rpName: string };
   /** Public URL of the platform web app, e.g. http://localhost:8000. Invite links point here. */
   platformURL: string;
-  /** Clubs paying us through Stripe. The membership check is supplied here. */
-  billing: Omit<CreateStripeBillingOptions, "canManageBilling">;
   /** Set false only for end-to-end tests. Defaults to true. */
   rateLimitEnabled?: boolean;
   /** Sends the transactional emails. Injected so this package never owns a provider. */
@@ -62,7 +57,6 @@ export interface CreateAuthOptions {
 export const createAuth = ({
   baseURL,
   db,
-  billing,
   cookieDomain,
   mailer,
   nativeScheme,
@@ -205,14 +199,6 @@ export const createAuth = ({
       expo(),
       // Origins default to baseURL plus trustedOrigins, so the web app is covered.
       passkey({ rpID: passkeyOptions.rpID, rpName: passkeyOptions.rpName }),
-      ...createStripeBilling({
-        ...billing,
-        canManageBilling: async ({ organizationId, userId }) =>
-          await isBillingManager(db, { organizationId, userId }),
-        onClubSubscribed: async (organizationId) => {
-          await completeOnboardingStep(db, { organizationId }, "billing");
-        },
-      }),
     ],
     rateLimit: {
       customRules: {

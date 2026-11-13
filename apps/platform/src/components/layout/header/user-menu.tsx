@@ -3,6 +3,7 @@
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "@alice/user-interface/components/avatar";
 import {
   DropdownMenu,
@@ -24,6 +25,10 @@ export default function UserMenu(props: UserMenuProps) {
         aria-label="Open user menu"
       >
         <Avatar>
+          {props.user.image === undefined ||
+          props.user.image === null ? null : (
+            <AvatarImage src={props.user.image} alt={props.user.name} />
+          )}
           <AvatarFallback>{initialsOf(props.user.name)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

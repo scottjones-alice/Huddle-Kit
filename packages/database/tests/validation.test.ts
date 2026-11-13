@@ -12,6 +12,7 @@ import * as announcements from "../src/schema/communications/announcements";
 import * as notifications from "../src/schema/communications/notifications";
 import * as storage from "../src/schema/files/files";
 import * as clubStripeAccounts from "../src/schema/finance/club-stripe-accounts";
+import * as clubSubscriptions from "../src/schema/finance/club-subscriptions";
 import * as feeCharges from "../src/schema/finance/fee-charges";
 import * as fees from "../src/schema/finance/fees";
 import * as payments from "../src/schema/finance/payments";
@@ -37,6 +38,7 @@ import * as allergies from "../src/schema/people/allergies";
 import * as medicalRecords from "../src/schema/people/medical-records";
 import * as memberProfile from "../src/schema/people/member-profile";
 import * as people from "../src/schema/people/people";
+import * as personFiles from "../src/schema/people/person-files";
 import * as personIdentifiers from "../src/schema/people/person-identifiers";
 import * as playerProfiles from "../src/schema/people/player-profiles";
 import * as qualifications from "../src/schema/people/qualifications";
@@ -116,6 +118,7 @@ const ownTables = [
   ...tablesIn(announcements),
   ...tablesIn(consentDocuments),
   ...tablesIn(clubStripeAccounts),
+  ...tablesIn(clubSubscriptions),
   ...tablesIn(feeCharges),
   ...tablesIn(fees),
   ...tablesIn(notifications),
@@ -132,6 +135,7 @@ const ownTables = [
   ...tablesIn(clubSettings),
   ...tablesIn(opponents),
   ...tablesIn(people),
+  ...tablesIn(personFiles),
   ...tablesIn(storage),
   ...tablesIn(venues),
 ];

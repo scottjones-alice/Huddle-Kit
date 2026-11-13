@@ -1,9 +1,12 @@
 import {
   addresses,
+  memberJoiningRoles,
   people,
   personRelationships,
   playerProfiles,
+  roleAssignments,
   teamMemberships,
+  teams,
 } from "@alice/database";
 import type { Database } from "@alice/database";
 import { and, asc, eq, gt, ilike, inArray, isNull, or } from "drizzle-orm";
@@ -144,6 +147,113 @@ export interface ListPeopleOptions {
   search?: string | undefined;
 }
 
+const groupBy = <Item>(
+  items: Item[],
+  keyOf: (item: Item) => string
+): Map<string, Item[]> => {
+  const groups = new Map<string, Item[]>();
+  for (const item of items) {
+    const key = keyOf(item);
+    const group = groups.get(key);
+    if (group === undefined) {
+      groups.set(key, [item]);
+    } else {
+      group.push(item);
+    }
+  }
+  return groups;
+};
+
+/**
+ * Adds what each person does in the club to a page of people: how they said
+ * they joined, the club jobs their login holds, and their current teams.
+ * Only current records count: ended team places and ended jobs are history.
+ */
+const withRoles = async <Row extends { id: string; userId: string | null }>(
+  db: Database,
+  organizationId: string,
+  rows: Row[]
+) => {
+  if (rows.length === 0) {
+    return [];
+  }
+  const personIds = rows.map((row) => row.id);
+  const userIds = rows.flatMap((row) =>
+    row.userId === null ? [] : [row.userId]
+  );
+  const [joined, places, jobs] = await Promise.all([
+    db
+      .select({
+        joinedAs: memberJoiningRoles.joinedAs,
+        personId: memberJoiningRoles.personId,
+      })
+      .from(memberJoiningRoles)
+      .where(
+        and(
+          eq(memberJoiningRoles.organizationId, organizationId),
+          inArray(memberJoiningRoles.personId, personIds)
+        )
+      ),
+    db
+      .select({
+        personId: teamMemberships.personId,
+        role: teamMemberships.role,
+        teamId: teams.id,
+        teamName: teams.name,
+      })
+      .from(teamMemberships)
+      .innerJoin(teams, eq(teams.id, teamMemberships.teamId))
+      .where(
+        and(
+          eq(teamMemberships.organizationId, organizationId),
+          inArray(teamMemberships.personId, personIds),
+          or(
+            isNull(teamMemberships.endsOn),
+            gt(teamMemberships.endsOn, today())
+          )
+        )
+      ),
+    userIds.length === 0
+      ? Promise.resolve([])
+      : db
+          .select({
+            role: roleAssignments.role,
+            userId: roleAssignments.userId,
+          })
+          .from(roleAssignments)
+          .where(
+            and(
+              eq(roleAssignments.organizationId, organizationId),
+              inArray(roleAssignments.userId, userIds),
+              or(
+                isNull(roleAssignments.endsAt),
+                gt(roleAssignments.endsAt, new Date())
+              )
+            )
+          ),
+  ]);
+
+  const joinedAs = new Map(joined.map((row) => [row.personId, row.joinedAs]));
+  const teamsByPerson = groupBy(places, (row) => row.personId);
+  const rolesByUser = groupBy(jobs, (row) => row.userId);
+  return rows.map((row) => ({
+    ...row,
+    joinedAs: joinedAs.get(row.id) ?? null,
+    roles: [
+      ...new Set(
+        (row.userId === null ? [] : (rolesByUser.get(row.userId) ?? [])).map(
+          (job) => job.role
+        )
+      ),
+    ],
+    teams: (teamsByPerson.get(row.id) ?? []).map((place) => ({
+      role: place.role,
+      teamId: place.teamId,
+      teamName: place.teamName,
+    })),
+  }));
+};
+
 export const listPeople = async (
   db: Database,
   caller: Caller,
@@ -162,7 +272,7 @@ export const listPeople = async (
           ilike(people.lastName, `%${term.replaceAll(LIKE_SPECIAL, "\\$&")}%`),
           ilike(people.email, `%${term.replaceAll(LIKE_SPECIAL, "\\$&")}%`)
         );
-  return await db
+  const rows = await db
     .select()
     .from(people)
     .where(
@@ -176,6 +286,29 @@ export const listPeople = async (
     .orderBy(asc(people.lastName), asc(people.firstName))
     .limit(options.limit)
     .offset(options.offset);
+  return await withRoles(db, caller.organizationId, rows);
+};
+
+/**
+ * The person this login is in the club, if there is one. A login is only a way
+ * in; the person is who they are in the club, so this is how the app finds
+ * the name and photo to show for whoever is signed in.
+ */
+export const findPersonForUser = async (
+  db: Database,
+  caller: Caller
+): Promise<typeof people.$inferSelect | null> => {
+  const [person] = await db
+    .select()
+    .from(people)
+    .where(
+      and(
+        eq(people.organizationId, caller.organizationId),
+        eq(people.userId, caller.userId)
+      )
+    )
+    .limit(1);
+  return person ?? null;
 };
 
 /** A person with their address, family links, player profile and team history. */
