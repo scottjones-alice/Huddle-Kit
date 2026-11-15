@@ -57,9 +57,6 @@ export const connectIntro = (
     window.clearTimeout(startupTimeout);
     listeners.abort();
     disposeScene?.();
-    if (!disposeScene) {
-      context?.getExtension("WEBGL_lose_context")?.loseContext();
-    }
     content.inert = previouslyInert;
     dialog.close();
     focusWebsite(previousFocus);

@@ -1,12 +1,19 @@
 import { cn } from "@alice/ui/lib/utils";
+import type { Metadata } from "next";
 import { Geist_Mono, Geist } from "next/font/google";
 
 import "../styles/globals.css";
 import "../styles/football-intro.css";
+import "../styles/marketing.css";
 import { INTRO_BOOTSTRAP } from "@/components/football-intro/gate";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
+
+export const metadata: Metadata = {
+  icons: { apple: "/huddlekit/apple-icon.png", icon: "/huddlekit/favicon.png" },
+  metadataBase: new URL("https://huddlekit.com"),
+};
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
